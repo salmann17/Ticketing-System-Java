@@ -58,7 +58,7 @@ public abstract class MyModel {
         if (MyModel.conn == null){
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-                return DriverManager.getConnection("jdbc:mysql://localhost/park217", "root", "");
+                return DriverManager.getConnection("jdbc:mysql://localhost/ticketing_system_java", "root", "");
             }
             catch(Exception ex){
                 System.out.println(ex.getMessage());
