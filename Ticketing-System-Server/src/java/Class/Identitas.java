@@ -11,74 +11,90 @@ import java.util.ArrayList;
  *
  * @author natha
  */
-public class Posisi extends MyModel{
+public class Identitas extends MyModel{
 
-    private String id;
-    private String nomor;
-    private double harga;
-    private Parkir parkir;
+    private int id;
+    private String nama;
+    private String alamat;
+    private String noKTP;
+    private User user;
     
-    public Posisi(String id, String nomor, double harga, Parkir parkir) {
+    public Identitas(int id, String nama, String alamat, String noKTP, User user) {
         this.id = id;
-        this.nomor = nomor;
-        this.harga = harga;
-        this.parkir = parkir;
+        this.nama = nama;
+        this.alamat = alamat;
+        this.noKTP = noKTP;
+        this.user = user;
     }
-
+    
     /**
      * @return the id
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * @return the nomor
+     * @return the nama
      */
-    public String getNomor() {
-        return nomor;
+    public String getNama() {
+        return nama;
     }
 
     /**
-     * @param nomor the nomor to set
+     * @param nama the nama to set
      */
-    public void setNomor(String nomor) {
-        this.nomor = nomor;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
     /**
-     * @return the harga
+     * @return the alamat
      */
-    public double getHarga() {
-        return harga;
+    public String getAlamat() {
+        return alamat;
     }
 
     /**
-     * @param harga the harga to set
+     * @param alamat the alamat to set
      */
-    public void setHarga(double harga) {
-        this.harga = harga;
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 
     /**
-     * @return the parkir
+     * @return the noKTP
      */
-    public Parkir getParkir() {
-        return parkir;
+    public String getNoKTP() {
+        return noKTP;
     }
 
     /**
-     * @param parkir the parkir to set
+     * @param noKTP the noKTP to set
      */
-    public void setParkir(Parkir parkir) {
-        this.parkir = parkir;
+    public void setNoKTP(String noKTP) {
+        this.noKTP = noKTP;
+    }
+
+    /**
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(User user) {
+        this.user = user;
     }
     
     
