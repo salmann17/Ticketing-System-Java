@@ -43,7 +43,8 @@ public class Server_TCP extends Thread{
     
     @Override
     public void run() {
-        try {
+        while(true){
+            try {
             s = server.accept();
             HandleSocket hs = new HandleSocket( s);
             hs.start();
@@ -51,6 +52,8 @@ public class Server_TCP extends Thread{
         } catch (IOException ex) {
             Logger.getLogger(Server_TCP.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+       
     }
     public static void main(String[] args) {
         new Server_TCP();
