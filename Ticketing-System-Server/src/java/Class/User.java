@@ -5,6 +5,8 @@
 package Class;
 
 import authentication.MyModel;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -16,13 +18,19 @@ public class User extends MyModel{
     /**
      * @return the id
      */
-    
     private int id;
     private String username;
     private String password;
     private double saldo;
     private String noTelp;
     private String email;
+    
+    public User(String username, String password, String noTelp, String email) {
+        this.username = username;
+        this.password = password;
+        this.noTelp = noTelp;
+        this.email = email;
+    }
     
     public User(int id, String username, String password, double saldo, String noTelp, String email) {
         this.id = id;
@@ -124,7 +132,29 @@ public class User extends MyModel{
         this.email = email;
     }
     
-
+    public boolean CekLogin(){
+        try{
+            this.statement = (Statement) MyModel.conn.createStatement();
+            PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement("select * from users where username =? and password = md5(?)");
+            sql.setString(1, this.username);
+            sql.setString(2, this.password);
+            this.result = sql.executeQuery();
+            if(result.next()){
+                this.id = result.getInt("id");
+                this.saldo = result.getDouble("saldo");
+                this.noTelp = result.getString("no_telp");
+                this.email = result.getString("email");
+                return true;
+            }
+            
+            
+            
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }    
+        return false;
+    }
     @Override
     public void insertData() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

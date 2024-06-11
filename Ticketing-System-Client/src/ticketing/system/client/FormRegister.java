@@ -24,13 +24,21 @@ import javax.swing.JOptionPane;
  *
  * @author Luky
  */
-public class FormRegister extends javax.swing.JFrame {
+public class FormRegister extends javax.swing.JFrame implements Runnable{
+    Socket s;
+    DataOutputStream out;
+    BufferedReader in;
+    Thread t;
 
-    
-   
     public FormRegister() {
-        initComponents();
-       
+        try {
+            initComponents();
+            s = new Socket("localhost", 6969);
+            this.in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            this.out = new DataOutputStream(s.getOutputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(FormRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 
@@ -50,7 +58,7 @@ public class FormRegister extends javax.swing.JFrame {
         txtFieldEmail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtFieldFullname = new javax.swing.JTextField();
+        txtFieldNoHP = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtFieldUsername = new javax.swing.JTextField();
         txtFieldPassword = new javax.swing.JTextField();
@@ -68,8 +76,6 @@ public class FormRegister extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 51));
         jPanel2.setPreferredSize(new java.awt.Dimension(500, 600));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Luky\\Downloads\\output-onlinegiftools (2).gif")); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -134,8 +140,8 @@ public class FormRegister extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
         jLabel3.setText("Phone Number");
 
-        txtFieldFullname.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtFieldFullname.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txtFieldNoHP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFieldNoHP.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -174,7 +180,7 @@ public class FormRegister extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addComponent(jLabel7)
                         .addComponent(jLabel9)
-                        .addComponent(txtFieldFullname)
+                        .addComponent(txtFieldNoHP)
                         .addComponent(txtFieldEmail)
                         .addComponent(txtFieldUsername)
                         .addComponent(txtFieldPassword)
@@ -202,7 +208,7 @@ public class FormRegister extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFieldFullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFieldNoHP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -213,14 +219,14 @@ public class FormRegister extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(lblSignIn))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         jPanel2.getAccessibleContext().setAccessibleName("Right");
         lblSignIn.getAccessibleContext().setAccessibleName("lblSignIn");
         btnSignUp.getAccessibleContext().setAccessibleName("btnSignUp");
         txtFieldEmail.getAccessibleContext().setAccessibleName("txtFieldEmail");
-        txtFieldFullname.getAccessibleContext().setAccessibleName("txtFieldUsername");
+        txtFieldNoHP.getAccessibleContext().setAccessibleName("txtFieldUsername");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -249,9 +255,20 @@ public class FormRegister extends javax.swing.JFrame {
         this.dispose();   
     }//GEN-LAST:event_lblSignInMouseClicked
     
-    
+    public void SendChat(String msg){
+        try {
+            out.writeBytes(msg + "\n");
+        } catch (IOException ex) {
+            Logger.getLogger(FormRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
-        
+        String username, password, no_telp, email;
+        username = txtFieldUsername.getText();
+        password = txtFieldPassword.getText();
+        no_telp = txtFieldNoHP.getText();
+        email = txtFieldEmail.getText();
+        SendChat("REGIST" + username + "~" + password + "~" + no_telp + "~" + email);
     }//GEN-LAST:event_btnSignUpActionPerformed
     
     
@@ -280,8 +297,26 @@ public class FormRegister extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblSignIn;
     private javax.swing.JTextField txtFieldEmail;
-    private javax.swing.JTextField txtFieldFullname;
+    private javax.swing.JTextField txtFieldNoHP;
     private javax.swing.JTextField txtFieldPassword;
     private javax.swing.JTextField txtFieldUsername;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+        while(true){
+            try {
+                String tmp = in.readLine();
+                if(tmp.equals("200")){
+                    JOptionPane.showMessageDialog(this, "Register Berhasil");
+                    //menampilkan form dashboard
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Proses penambahan user gagal, silahkan coba lagi!");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
