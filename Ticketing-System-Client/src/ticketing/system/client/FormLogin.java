@@ -29,8 +29,15 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
             s = new Socket("localhost", 6969);
             this.in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             this.out = new DataOutputStream(s.getOutputStream());
+            start();
         } catch (IOException ex) {
             Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void start(){
+        if(t == null){
+            t = new Thread(this, "client");
+            t.start();
         }
     }
    
@@ -248,7 +255,7 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
         String username, password;
         username = txtFieldUsername.getText();
         password = txtFieldPassword.getText();
-        SendChat("LOG" + username + "~" + password);
+        SendChat("LOG" + "~" + username + "~" + password);
     }//GEN-LAST:event_btnSignInActionPerformed
     public static void main(String args[]) {
         
@@ -282,6 +289,7 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
         while(true){
             try {
                 String tmp = in.readLine();
+                System.out.println(tmp);
                 if(tmp.equals("200")){
                     JOptionPane.showMessageDialog(this, "Login Berhasil");
                     //menampilkan form dashboard

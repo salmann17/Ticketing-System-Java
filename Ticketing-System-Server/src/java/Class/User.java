@@ -158,7 +158,6 @@ public class User extends MyModel{
         }    
         return false;
     }
-    @Override
     public void insertData() {
         try{
             if (!MyModel.conn.isClosed()){

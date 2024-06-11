@@ -18,6 +18,7 @@ public class Parkir extends MyModel{
     private int id;
     private String lokasi;
     private int kuota;
+    private ArrayList<Posisi> listPosisi;
     
     public Parkir(int id, String lokasi, int kuota) {
         this.id = id;
@@ -55,7 +56,14 @@ public class Parkir extends MyModel{
         this.kuota = kuota;
     }
 
-    @Override
+    public ArrayList<Posisi> getListPosisi() {
+        return listPosisi;
+    }
+
+    public void setListPosisi(ArrayList<Posisi> listPosisi) {
+        this.listPosisi = listPosisi;
+    }
+
     public void insertData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -72,7 +80,6 @@ public class Parkir extends MyModel{
         }
     }
 
-    @Override
     public void updateData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -90,7 +97,6 @@ public class Parkir extends MyModel{
         }
     }
 
-    @Override
     public void deleteData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -106,7 +112,6 @@ public class Parkir extends MyModel{
         }
     }
 
-    @Override
     public ArrayList<Object> viewListData() {
         ArrayList<Object> collections = new ArrayList<Object>();
         try

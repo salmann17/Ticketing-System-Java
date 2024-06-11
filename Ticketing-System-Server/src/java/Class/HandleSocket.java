@@ -18,17 +18,17 @@ import java.util.logging.Logger;
  * @author Salman Alfarizi
  */
 public class HandleSocket extends Thread{
-    Server_TCP parent;
     Socket client;
     DataOutputStream out;
     BufferedReader in;
+    User user;
     public static ArrayList<HandleSocket> clients = new ArrayList<HandleSocket>();
-    public HandleSocket(Server_TCP parent, Socket client) {
+    public HandleSocket( Socket client) {
         try {
-            this.parent = parent;
             this.client = client;
             this.in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             this.out = new DataOutputStream(this.client.getOutputStream());
+            this.user = new User();
         } catch (IOException ex) {
             Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -40,13 +40,36 @@ public class HandleSocket extends Thread{
             Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+        public void Aksi(String msg){
+        String msgSplit[] = msg.split("~");
+        if(msgSplit[0].contains("LOG")){
+            user.setUsername(msgSplit[1]);
+            user.setPassword(msgSplit[2]);
+            if(user.CekLogin() == false){
+                SendChat("404");
+            }
+            else{
+                SendChat("200");
+            }
+        }
+        else if(msgSplit[0].contains("REGIST")){
+            String username = msgSplit[1];
+            String password = msgSplit[2];
+            String no_ktp = msgSplit[3];
+            String email = msgSplit[4];
+            
+            user = new User(0,username, password, 0,no_ktp, email);
+            user.insertData();
+            SendChat("200");
+        }
+    }
     @Override
     public void run() {
         while(true){
             try {
                 String tmp = in.readLine();
-                parent.Aksi(tmp);
+                System.out.println(tmp);
+                Aksi(tmp);
             } catch (IOException ex) {
                 Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -24,10 +24,6 @@ public class Server_TCP extends Thread{
     
     ServerSocket server;
     Socket s;
-    BufferedReader in;
-    DataOutputStream out; 
-    User user;
-    HandleSocket hs;
    
 
     public Server_TCP() {
@@ -38,32 +34,9 @@ public class Server_TCP extends Thread{
             Logger.getLogger(Server_TCP.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Aksi(String msg){
-        String msgSplit[] = msg.split("~");
-        if(msgSplit[0].contains("LOG")){
-            user.setUsername( msgSplit[1]);
-            user.setPassword(msgSplit[2]);
-            if(!user.CekLogin() == false){
-                hs.SendChat("404");
-            }
-            else{
-                hs.SendChat("200");
-            }
-        }
-        else if(msgSplit[0].contains("REGIST")){
-            String username = msgSplit[1];
-            String password = msgSplit[2];
-            String no_ktp = msgSplit[3];
-            String email = msgSplit[4];
-            
-            user = new User(0,username, password, 0,no_ktp, email);
-            user.insertData();
-            hs.SendChat("200");
-        }
-    }
 
     public void Broadcast(String tmp){
-        for (HandleSocket hs : hs.clients){
+        for (HandleSocket hs : HandleSocket.clients){
              hs.SendChat(tmp);
         }
     }
@@ -72,7 +45,7 @@ public class Server_TCP extends Thread{
     public void run() {
         try {
             s = server.accept();
-            HandleSocket hs = new HandleSocket(this, s);
+            HandleSocket hs = new HandleSocket( s);
             hs.start();
             hs.clients.add(hs);
         } catch (IOException ex) {
