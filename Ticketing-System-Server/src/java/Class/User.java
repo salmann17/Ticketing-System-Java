@@ -28,7 +28,7 @@ public class User extends MyModel{
         this.id = id;
         this.username = username;
         this.password = password;
-        this.saldo = saldo;
+        this.saldo = 0;
         this.noTelp = noTelp;
         this.email = email;
     }
