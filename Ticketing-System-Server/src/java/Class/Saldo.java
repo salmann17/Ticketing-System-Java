@@ -28,6 +28,15 @@ public class Saldo extends MyModel{
         this.notaAcara = notaAcara;
         this.notaParkir = notaParkir;
     }
+    
+     public Saldo() {
+        this.id = 0;
+        this.jumlah = 0.0;
+        this.user = new User();
+        this.keterangan = "";
+        this.notaAcara = new NotaAcara();
+        this.notaParkir = new NotaParkir(); 
+    }
 
     /**
      * @return the id

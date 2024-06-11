@@ -24,6 +24,13 @@ public class Ticket extends MyModel{
         this.acara = acara;
         this.identitas = identitas;
     }
+    
+    public Ticket() {
+        this.id = 0;
+        this.user = new User();
+        this.acara = new Acara();
+        this.identitas = new Identitas();
+    }
 
    
     /**

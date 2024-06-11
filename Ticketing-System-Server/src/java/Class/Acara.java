@@ -5,6 +5,7 @@
 package Class;
 
 import authentication.MyModel;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,15 +15,15 @@ import java.util.Date;
  */
 public class Acara extends MyModel {
 
-    private String id;
+    private int id;
     private String nama;
     private int kuota;
     private String lokasi;
-    private Date tanggalAcara;
+    private Timestamp tanggalAcara;
     private String deskripsi;
     private double harga;
     
-    public Acara(String id, String nama, int kuota, String lokasi, Date tanggalAcara, String deskripsi, double harga) {
+    public Acara(int id, String nama, int kuota, String lokasi, Timestamp tanggalAcara, String deskripsi, double harga) {
         this.id = id;
         this.nama = nama;
         this.kuota = kuota;
@@ -31,18 +32,28 @@ public class Acara extends MyModel {
         this.deskripsi = deskripsi;
         this.harga = harga;
     }
+    
+    public Acara() {
+        this.id = 0;
+        this.nama = "";
+        this.kuota = 0;
+        this.lokasi = "";
+        this.tanggalAcara = tanggalAcara;
+        this.deskripsi = "";
+        this.harga = 0.0;
+    }
 
     /**
      * @return the id
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -91,14 +102,14 @@ public class Acara extends MyModel {
     /**
      * @return the tanggalAcara
      */
-    public Date getTanggalAcara() {
+    public Timestamp getTanggalAcara() {
         return tanggalAcara;
     }
 
     /**
      * @param tanggalAcara the tanggalAcara to set
      */
-    public void setTanggalAcara(Date tanggalAcara) {
+    public void setTanggalAcara(Timestamp tanggalAcara) {
         this.tanggalAcara = tanggalAcara;
     }
 

@@ -27,6 +27,14 @@ public class Identitas extends MyModel{
         this.user = user;
     }
     
+    public Identitas() {
+        this.id = 0;
+        this.nama = "";
+        this.alamat = "";
+        this.noKTP = "";
+        this.user = new User();
+    }
+    
     /**
      * @return the id
      */

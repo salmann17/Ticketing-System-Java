@@ -13,29 +13,36 @@ import java.util.ArrayList;
  */
 public class Posisi extends MyModel{
 
-    private String id;
+    private int id;
     private String nomor;
     private double harga;
     private Parkir parkir;
     
-    public Posisi(String id, String nomor, double harga, Parkir parkir) {
+    public Posisi(int id, String nomor, double harga, Parkir parkir) {
         this.id = id;
         this.nomor = nomor;
         this.harga = harga;
         this.parkir = parkir;
     }
+    
+    public Posisi() {
+        this.id = 0;
+        this.nomor = "";
+        this.harga = 0.0;
+        this.parkir = new Parkir();
+    }
 
     /**
      * @return the id
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

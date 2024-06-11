@@ -25,7 +25,17 @@ public class User extends MyModel{
     private String noTelp;
     private String email;
     
+    
     public User(int id, String username, String password, double saldo, String noTelp, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.saldo = saldo;
+        this.noTelp = noTelp;
+        this.email = email;
+    }
+
+    public User(int id, String username, String password, String noTelp, String email) {
         this.id = id;
         this.username = username;
         this.password = password;

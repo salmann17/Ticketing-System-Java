@@ -27,6 +27,14 @@ public class NotaAcara extends MyModel{
         this.harga = harga;
     }
     
+    public NotaAcara() {
+        this.id = 0;
+        this.user = new User();
+        this.acara = new Acara();
+        this.jumlah = 0;
+        this.harga = 0.0;
+    }
+    
     /**
      * @return the id
      */
