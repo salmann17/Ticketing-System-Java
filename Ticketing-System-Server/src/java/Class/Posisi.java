@@ -11,47 +11,76 @@ import java.util.ArrayList;
  *
  * @author natha
  */
-public class Parkir extends MyModel{
+public class Posisi extends MyModel{
 
-    private int id;
-    private String lokasi;
-    private int kuota;
-    
-    public Parkir(int id, String lokasi, int kuota) {
+    private String id;
+    private String nomor;
+    private double harga;
+    private Parkir parkir;
+    public Posisi(String id, String nomor, double harga, Parkir parkir) {
         this.id = id;
-        this.lokasi = lokasi;
-        this.kuota = kuota;
+        this.nomor = nomor;
+        this.harga = harga;
+        this.parkir = parkir;
     }
-    
-    public Parkir() {
-        this.id = 0;
-        this.lokasi = "";
-        this.kuota = 0;
-    }
-    
-    public int getId() {
+
+    /**
+     * @return the id
+     */
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getLokasi() {
-        return lokasi;
+    /**
+     * @return the nomor
+     */
+    public String getNomor() {
+        return nomor;
     }
 
-    public void setLokasi(String lokasi) {
-        this.lokasi = lokasi;
+    /**
+     * @param nomor the nomor to set
+     */
+    public void setNomor(String nomor) {
+        this.nomor = nomor;
     }
 
-    public int getKuota() {
-        return kuota;
+    /**
+     * @return the harga
+     */
+    public double getHarga() {
+        return harga;
     }
 
-    public void setKuota(int kuota) {
-        this.kuota = kuota;
+    /**
+     * @param harga the harga to set
+     */
+    public void setHarga(double harga) {
+        this.harga = harga;
     }
+
+    /**
+     * @return the parkir
+     */
+    public Parkir getParkir() {
+        return parkir;
+    }
+
+    /**
+     * @param parkir the parkir to set
+     */
+    public void setParkir(Parkir parkir) {
+        this.parkir = parkir;
+    }
+    
+    
 
     @Override
     public void insertData() {
