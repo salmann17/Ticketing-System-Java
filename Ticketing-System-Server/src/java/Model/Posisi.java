@@ -113,27 +113,4 @@ public class Posisi extends MyModel{
             System.out.println(ex.getMessage());
         }
     }
-    
-    public ArrayList<Object> viewListData() {
-        ArrayList<Object> collections = new ArrayList<Object>();
-        try
-        {
-            this.statement = (Statement) MyModel.conn.createStatement();
-            this.result = this.statement.executeQuery("select * from posisi");
-            while (this.result.next())
-            {
-                Posisi tampung = new Posisi(this.result.getInt("id"), 
-                        this.result.getString("nomor"), 
-                        this.result.getDouble("harga"));
-                tampung.parkir.setId(this.result.getInt("parkir_id"));
-                collections.add(tampung);
-            }
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-        return collections;
-    }
-    
 }

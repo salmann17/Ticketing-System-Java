@@ -112,8 +112,8 @@ public class Parkir extends MyModel{
         }
     }
 
-    public ArrayList<Object> viewListData() {
-        ArrayList<Object> collections = new ArrayList<Object>();
+    public ArrayList<Parkir> viewListData() {
+        ArrayList<Parkir> collections = new ArrayList<Parkir>();
         try
         {
             this.statement = (Statement) MyModel.conn.createStatement();
@@ -125,6 +125,19 @@ public class Parkir extends MyModel{
                         this.result.getInt("kuota"));
                 collections.add(tampung);
             }
+            
+            for (Parkir p : collections)
+            {
+                this.result = this.statement.executeQuery("select * from posisi where parkir_id='"+p.getId()+"';");
+                while (this.result.next())
+                    {
+                        Posisi tampung = new Posisi(this.result.getInt("id"), 
+                                    this.result.getString("nomor"), 
+                                    this.result.getDouble("harga"),
+                                    p);
+                        p.listPosisi.add(tampung);
+                    }
+            }
         }
         catch (Exception ex)
         {
@@ -132,5 +145,4 @@ public class Parkir extends MyModel{
         }
         return collections;
     }
-    
 }
