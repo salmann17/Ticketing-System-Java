@@ -38,7 +38,7 @@ public class Acara extends MyModel {
         this.nama = "";
         this.kuota = 0;
         this.lokasi = "";
-        this.tanggalAcara = tanggalAcara;
+        this.tanggalAcara = new Timestamp(new Date().getTime());
         this.deskripsi = "";
         this.harga = 0.0;
     }

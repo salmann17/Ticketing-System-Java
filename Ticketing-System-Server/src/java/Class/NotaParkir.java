@@ -7,6 +7,7 @@ package Class;
 import authentication.MyModel;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -34,8 +35,8 @@ public class NotaParkir extends MyModel{
         this.id = 0;
         this.posisi = new Posisi();
         this.User = new User();
-        this.tglReservasi = tglReservasi;
-        this.tglFinish = tglFinish;
+        this.tglReservasi = new Timestamp(new Date().getTime());
+        this.tglFinish = new Timestamp(new Date().getTime());
         this.harga = 0.0;
     }
     
