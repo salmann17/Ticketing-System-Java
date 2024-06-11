@@ -6,6 +6,7 @@ package Class;
 
 import authentication.MyModel;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -158,16 +159,62 @@ public class User extends MyModel{
 
     @Override
     public void updateData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            if (!MyModel.conn.isClosed()){
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                "UPDATE `users` SET `username` = '?', `password` = 'md5(?)', `no_telp` = '?', `email` = '?' WHERE (`id` = '?');");
+                sql.setString(1, getUsername());
+                sql.setString(2, getPassword());
+                sql.setString(3, getNoTelp());
+                sql.setString(4, getEmail());
+                sql.setInt(5, getId());
+                sql.executeUpdate();
+                sql.close();
+            }
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
     public void deleteData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            if (!MyModel.conn.isClosed()){
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                "DELETE FROM `ticketing_system_java`.`users` WHERE (`id` = '?');");
+                sql.setInt(1, getId());
+                sql.executeUpdate();
+                sql.close();
+            }
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
     public ArrayList<Object> viewListData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Object> collections = new ArrayList<Object>();
+        try
+        {
+            this.statement = (Statement) MyModel.conn.createStatement();
+            this.result = this.statement.executeQuery("select * from account");
+            while (this.result.next())
+            {
+                User tampung = new User(this.result.getInt("id"), 
+                        this.result.getString("username"), 
+                        this.result.getString("password"), 
+                        this.result.getDouble("saldo"), 
+                        this.result.getString("no_telp"),
+                        this.result.getString("email"));
+                collections.add(tampung);
+            }
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        return collections;
     }
 }
