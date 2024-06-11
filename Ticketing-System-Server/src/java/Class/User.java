@@ -5,6 +5,7 @@
 package Class;
 
 import authentication.MyModel;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 /**
@@ -127,7 +128,22 @@ public class User extends MyModel{
 
     @Override
     public void insertData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            if (!MyModel.conn.isClosed()){
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                "Insert into users(username, password, saldo, no telp, email) values (?,md5(?),?,?, ?)");
+                sql.setString(1, getUsername());
+                sql.setString(2, getPassword());
+                sql.setDouble(3, getSaldo());
+                sql.setString(4, getNoTelp());
+                sql.setString(5, getEmail());
+                sql.executeUpdate();
+                sql.close();
+            }
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
