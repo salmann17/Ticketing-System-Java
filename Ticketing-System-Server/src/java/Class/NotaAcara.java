@@ -5,44 +5,36 @@
 package Class;
 
 import authentication.MyModel;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
  * @author natha
  */
-public class Acara extends MyModel {
+public class NotaAcara extends MyModel{
 
     private int id;
-    private String nama;
-    private int kuota;
-    private String lokasi;
-    private Timestamp tanggalAcara;
-    private String deskripsi;
+    private User user;
+    private Acara acara;
+    private int jumlah;
     private double harga;
     
-    public Acara(int id, String nama, int kuota, String lokasi, Timestamp tanggalAcara, String deskripsi, double harga) {
+    public NotaAcara(int id, User user, Acara acara, int jumlah, double harga) {
         this.id = id;
-        this.nama = nama;
-        this.kuota = kuota;
-        this.lokasi = lokasi;
-        this.tanggalAcara = tanggalAcara;
-        this.deskripsi = deskripsi;
+        this.user = user;
+        this.acara = acara;
+        this.jumlah = jumlah;
         this.harga = harga;
     }
     
-    public Acara() {
+    public NotaAcara() {
         this.id = 0;
-        this.nama = "";
-        this.kuota = 0;
-        this.lokasi = "";
-        this.tanggalAcara = new Timestamp(new Date().getTime());
-        this.deskripsi = "";
+        this.user = new User();
+        this.acara = new Acara();
+        this.jumlah = 0;
         this.harga = 0.0;
     }
-
+    
     /**
      * @return the id
      */
@@ -58,73 +50,45 @@ public class Acara extends MyModel {
     }
 
     /**
-     * @return the nama
+     * @return the user
      */
-    public String getNama() {
-        return nama;
+    public User getUser() {
+        return user;
     }
 
     /**
-     * @param nama the nama to set
+     * @param user the user to set
      */
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**
-     * @return the kuota
+     * @return the acara
      */
-    public int getKuota() {
-        return kuota;
+    public Acara getAcara() {
+        return acara;
     }
 
     /**
-     * @param kuota the kuota to set
+     * @param acara the acara to set
      */
-    public void setKuota(int kuota) {
-        this.kuota = kuota;
+    public void setAcara(Acara acara) {
+        this.acara = acara;
     }
 
     /**
-     * @return the lokasi
+     * @return the jumlah
      */
-    public String getLokasi() {
-        return lokasi;
+    public int getJumlah() {
+        return jumlah;
     }
 
     /**
-     * @param lokasi the lokasi to set
+     * @param jumlah the jumlah to set
      */
-    public void setLokasi(String lokasi) {
-        this.lokasi = lokasi;
-    }
-
-    /**
-     * @return the tanggalAcara
-     */
-    public Timestamp getTanggalAcara() {
-        return tanggalAcara;
-    }
-
-    /**
-     * @param tanggalAcara the tanggalAcara to set
-     */
-    public void setTanggalAcara(Timestamp tanggalAcara) {
-        this.tanggalAcara = tanggalAcara;
-    }
-
-    /**
-     * @return the deskripsi
-     */
-    public String getDeskripsi() {
-        return deskripsi;
-    }
-
-    /**
-     * @param deskripsi the deskripsi to set
-     */
-    public void setDeskripsi(String deskripsi) {
-        this.deskripsi = deskripsi;
+    public void setJumlah(int jumlah) {
+        this.jumlah = jumlah;
     }
 
     /**
@@ -141,7 +105,7 @@ public class Acara extends MyModel {
         this.harga = harga;
     }
     
-    
+   
     
 
     @Override

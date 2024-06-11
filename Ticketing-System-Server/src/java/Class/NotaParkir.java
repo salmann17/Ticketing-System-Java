@@ -13,36 +13,33 @@ import java.util.Date;
  *
  * @author natha
  */
-public class Acara extends MyModel {
+public class NotaParkir extends MyModel{
 
     private int id;
-    private String nama;
-    private int kuota;
-    private String lokasi;
-    private Timestamp tanggalAcara;
-    private String deskripsi;
+    private Posisi posisi;
+    private User User;
+    private Timestamp tglReservasi;
+    private Timestamp tglFinish;
     private double harga;
     
-    public Acara(int id, String nama, int kuota, String lokasi, Timestamp tanggalAcara, String deskripsi, double harga) {
+    public NotaParkir(int id, Posisi posisi, User User, Timestamp tglReservasi, Timestamp tglFinish, double harga) {
         this.id = id;
-        this.nama = nama;
-        this.kuota = kuota;
-        this.lokasi = lokasi;
-        this.tanggalAcara = tanggalAcara;
-        this.deskripsi = deskripsi;
+        this.posisi = posisi;
+        this.User = User;
+        this.tglReservasi = tglReservasi;
+        this.tglFinish = tglFinish;
         this.harga = harga;
     }
-    
-    public Acara() {
+
+    public NotaParkir() {
         this.id = 0;
-        this.nama = "";
-        this.kuota = 0;
-        this.lokasi = "";
-        this.tanggalAcara = new Timestamp(new Date().getTime());
-        this.deskripsi = "";
+        this.posisi = new Posisi();
+        this.User = new User();
+        this.tglReservasi = new Timestamp(new Date().getTime());
+        this.tglFinish = new Timestamp(new Date().getTime());
         this.harga = 0.0;
     }
-
+    
     /**
      * @return the id
      */
@@ -58,73 +55,59 @@ public class Acara extends MyModel {
     }
 
     /**
-     * @return the nama
+     * @return the posisi
      */
-    public String getNama() {
-        return nama;
+    public Posisi getPosisi() {
+        return posisi;
     }
 
     /**
-     * @param nama the nama to set
+     * @param posisi the posisi to set
      */
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setPosisi(Posisi posisi) {
+        this.posisi = posisi;
     }
 
     /**
-     * @return the kuota
+     * @return the User
      */
-    public int getKuota() {
-        return kuota;
+    public User getUser() {
+        return User;
     }
 
     /**
-     * @param kuota the kuota to set
+     * @param User the User to set
      */
-    public void setKuota(int kuota) {
-        this.kuota = kuota;
+    public void setUser(User User) {
+        this.User = User;
     }
 
     /**
-     * @return the lokasi
+     * @return the tglReservasi
      */
-    public String getLokasi() {
-        return lokasi;
+    public Timestamp getTglReservasi() {
+        return tglReservasi;
     }
 
     /**
-     * @param lokasi the lokasi to set
+     * @param tglReservasi the tglReservasi to set
      */
-    public void setLokasi(String lokasi) {
-        this.lokasi = lokasi;
+    public void setTglReservasi(Timestamp tglReservasi) {
+        this.tglReservasi = tglReservasi;
     }
 
     /**
-     * @return the tanggalAcara
+     * @return the tglFinish
      */
-    public Timestamp getTanggalAcara() {
-        return tanggalAcara;
+    public Timestamp getTglFinish() {
+        return tglFinish;
     }
 
     /**
-     * @param tanggalAcara the tanggalAcara to set
+     * @param tglFinish the tglFinish to set
      */
-    public void setTanggalAcara(Timestamp tanggalAcara) {
-        this.tanggalAcara = tanggalAcara;
-    }
-
-    /**
-     * @return the deskripsi
-     */
-    public String getDeskripsi() {
-        return deskripsi;
-    }
-
-    /**
-     * @param deskripsi the deskripsi to set
-     */
-    public void setDeskripsi(String deskripsi) {
-        this.deskripsi = deskripsi;
+    public void setTglFinish(Timestamp tglFinish) {
+        this.tglFinish = tglFinish;
     }
 
     /**
@@ -140,7 +123,6 @@ public class Acara extends MyModel {
     public void setHarga(double harga) {
         this.harga = harga;
     }
-    
     
     
 

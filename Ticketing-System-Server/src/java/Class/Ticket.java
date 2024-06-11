@@ -11,27 +11,28 @@ import java.util.ArrayList;
  *
  * @author natha
  */
-public class Posisi extends MyModel{
+public class Ticket extends MyModel{
 
     private int id;
-    private String nomor;
-    private double harga;
-    private Parkir parkir;
+    private User user;
+    private Acara acara;
+    private Identitas identitas;
     
-    public Posisi(int id, String nomor, double harga, Parkir parkir) {
+    public Ticket(int id, User user, Acara acara, Identitas identitas) {
         this.id = id;
-        this.nomor = nomor;
-        this.harga = harga;
-        this.parkir = parkir;
+        this.user = user;
+        this.acara = acara;
+        this.identitas = identitas;
     }
     
-    public Posisi() {
+    public Ticket() {
         this.id = 0;
-        this.nomor = "";
-        this.harga = 0.0;
-        this.parkir = new Parkir();
+        this.user = new User();
+        this.acara = new Acara();
+        this.identitas = new Identitas();
     }
 
+   
     /**
      * @return the id
      */
@@ -47,45 +48,45 @@ public class Posisi extends MyModel{
     }
 
     /**
-     * @return the nomor
+     * @return the user
      */
-    public String getNomor() {
-        return nomor;
+    public User getUser() {
+        return user;
     }
 
     /**
-     * @param nomor the nomor to set
+     * @param user the user to set
      */
-    public void setNomor(String nomor) {
-        this.nomor = nomor;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**
-     * @return the harga
+     * @return the acara
      */
-    public double getHarga() {
-        return harga;
+    public Acara getAcara() {
+        return acara;
     }
 
     /**
-     * @param harga the harga to set
+     * @param acara the acara to set
      */
-    public void setHarga(double harga) {
-        this.harga = harga;
+    public void setAcara(Acara acara) {
+        this.acara = acara;
     }
 
     /**
-     * @return the parkir
+     * @return the identitas
      */
-    public Parkir getParkir() {
-        return parkir;
+    public Identitas getIdentitas() {
+        return identitas;
     }
 
     /**
-     * @param parkir the parkir to set
+     * @param identitas the identitas to set
      */
-    public void setParkir(Parkir parkir) {
-        this.parkir = parkir;
+    public void setIdentitas(Identitas identitas) {
+        this.identitas = identitas;
     }
     
     

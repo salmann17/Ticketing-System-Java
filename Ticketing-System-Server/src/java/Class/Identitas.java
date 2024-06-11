@@ -5,44 +5,36 @@
 package Class;
 
 import authentication.MyModel;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
  * @author natha
  */
-public class Acara extends MyModel {
+public class Identitas extends MyModel{
 
     private int id;
     private String nama;
-    private int kuota;
-    private String lokasi;
-    private Timestamp tanggalAcara;
-    private String deskripsi;
-    private double harga;
+    private String alamat;
+    private String noKTP;
+    private User user;
     
-    public Acara(int id, String nama, int kuota, String lokasi, Timestamp tanggalAcara, String deskripsi, double harga) {
+    public Identitas(int id, String nama, String alamat, String noKTP, User user) {
         this.id = id;
         this.nama = nama;
-        this.kuota = kuota;
-        this.lokasi = lokasi;
-        this.tanggalAcara = tanggalAcara;
-        this.deskripsi = deskripsi;
-        this.harga = harga;
+        this.alamat = alamat;
+        this.noKTP = noKTP;
+        this.user = user;
     }
     
-    public Acara() {
+    public Identitas() {
         this.id = 0;
         this.nama = "";
-        this.kuota = 0;
-        this.lokasi = "";
-        this.tanggalAcara = new Timestamp(new Date().getTime());
-        this.deskripsi = "";
-        this.harga = 0.0;
+        this.alamat = "";
+        this.noKTP = "";
+        this.user = new User();
     }
-
+    
     /**
      * @return the id
      */
@@ -72,75 +64,46 @@ public class Acara extends MyModel {
     }
 
     /**
-     * @return the kuota
+     * @return the alamat
      */
-    public int getKuota() {
-        return kuota;
+    public String getAlamat() {
+        return alamat;
     }
 
     /**
-     * @param kuota the kuota to set
+     * @param alamat the alamat to set
      */
-    public void setKuota(int kuota) {
-        this.kuota = kuota;
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 
     /**
-     * @return the lokasi
+     * @return the noKTP
      */
-    public String getLokasi() {
-        return lokasi;
+    public String getNoKTP() {
+        return noKTP;
     }
 
     /**
-     * @param lokasi the lokasi to set
+     * @param noKTP the noKTP to set
      */
-    public void setLokasi(String lokasi) {
-        this.lokasi = lokasi;
+    public void setNoKTP(String noKTP) {
+        this.noKTP = noKTP;
     }
 
     /**
-     * @return the tanggalAcara
+     * @return the user
      */
-    public Timestamp getTanggalAcara() {
-        return tanggalAcara;
+    public User getUser() {
+        return user;
     }
 
     /**
-     * @param tanggalAcara the tanggalAcara to set
+     * @param user the user to set
      */
-    public void setTanggalAcara(Timestamp tanggalAcara) {
-        this.tanggalAcara = tanggalAcara;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-    /**
-     * @return the deskripsi
-     */
-    public String getDeskripsi() {
-        return deskripsi;
-    }
-
-    /**
-     * @param deskripsi the deskripsi to set
-     */
-    public void setDeskripsi(String deskripsi) {
-        this.deskripsi = deskripsi;
-    }
-
-    /**
-     * @return the harga
-     */
-    public double getHarga() {
-        return harga;
-    }
-
-    /**
-     * @param harga the harga to set
-     */
-    public void setHarga(double harga) {
-        this.harga = harga;
-    }
-    
     
     
 
