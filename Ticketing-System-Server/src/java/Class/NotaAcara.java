@@ -11,24 +11,22 @@ import java.util.ArrayList;
  *
  * @author natha
  */
-public class Saldo extends MyModel{
+public class NotaAcara extends MyModel{
 
     private int id;
-    private double jumlah;
     private User user;
-    private String keterangan;
-    private NotaAcara notaAcara;
-    private NotaParkir notaParkir;
+    private Acara acara;
+    private int jumlah;
+    private double harga;
     
-    public Saldo(int id, double jumlah, User user, String keterangan, NotaAcara notaAcara, NotaParkir notaParkir) {
+    public NotaAcara(int id, User user, Acara acara, int jumlah, double harga) {
         this.id = id;
-        this.jumlah = jumlah;
         this.user = user;
-        this.keterangan = keterangan;
-        this.notaAcara = notaAcara;
-        this.notaParkir = notaParkir;
+        this.acara = acara;
+        this.jumlah = jumlah;
+        this.harga = harga;
     }
-
+    
     /**
      * @return the id
      */
@@ -41,20 +39,6 @@ public class Saldo extends MyModel{
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /**
-     * @return the jumlah
-     */
-    public double getJumlah() {
-        return jumlah;
-    }
-
-    /**
-     * @param jumlah the jumlah to set
-     */
-    public void setJumlah(double jumlah) {
-        this.jumlah = jumlah;
     }
 
     /**
@@ -72,50 +56,50 @@ public class Saldo extends MyModel{
     }
 
     /**
-     * @return the keterangan
+     * @return the acara
      */
-    public String getKeterangan() {
-        return keterangan;
+    public Acara getAcara() {
+        return acara;
     }
 
     /**
-     * @param keterangan the keterangan to set
+     * @param acara the acara to set
      */
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
+    public void setAcara(Acara acara) {
+        this.acara = acara;
     }
 
     /**
-     * @return the notaAcara
+     * @return the jumlah
      */
-    public NotaAcara getNotaAcara() {
-        return notaAcara;
+    public int getJumlah() {
+        return jumlah;
     }
 
     /**
-     * @param notaAcara the notaAcara to set
+     * @param jumlah the jumlah to set
      */
-    public void setNotaAcara(NotaAcara notaAcara) {
-        this.notaAcara = notaAcara;
+    public void setJumlah(int jumlah) {
+        this.jumlah = jumlah;
     }
 
     /**
-     * @return the notaParkir
+     * @return the harga
      */
-    public NotaParkir getNotaParkir() {
-        return notaParkir;
+    public double getHarga() {
+        return harga;
     }
 
     /**
-     * @param notaParkir the notaParkir to set
+     * @param harga the harga to set
      */
-    public void setNotaParkir(NotaParkir notaParkir) {
-        this.notaParkir = notaParkir;
+    public void setHarga(double harga) {
+        this.harga = harga;
     }
-
     
+   
     
-    
+
     @Override
     public void insertData() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
