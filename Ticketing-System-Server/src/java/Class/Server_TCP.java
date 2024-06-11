@@ -56,7 +56,7 @@ public class Server_TCP extends Thread{
             String no_ktp = msgSplit[3];
             String email = msgSplit[4];
             
-            user = new User(username, password, no_ktp, email);
+            user = new User(0,username, password, 0,no_ktp, email);
             user.insertData();
             hs.SendChat("200");
         }
