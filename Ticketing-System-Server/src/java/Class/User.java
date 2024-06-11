@@ -18,7 +18,6 @@ public class User extends MyModel{
     /**
      * @return the id
      */
-    
     private int id;
     private String username;
     private String password;
@@ -136,8 +135,30 @@ public class User extends MyModel{
         this.email = email;
     }
     
-
-    
+    public boolean CekLogin(){
+        try{
+            this.statement = (Statement) MyModel.conn.createStatement();
+            PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement("select * from users where username =? and password = md5(?)");
+            sql.setString(1, this.username);
+            sql.setString(2, this.password);
+            this.result = sql.executeQuery();
+            if(result.next()){
+                this.id = result.getInt("id");
+                this.saldo = result.getDouble("saldo");
+                this.noTelp = result.getString("no_telp");
+                this.email = result.getString("email");
+                return true;
+            }
+            
+            
+            
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }    
+        return false;
+    }
+    @Override
     public void insertData() {
         try{
             if (!MyModel.conn.isClosed()){
