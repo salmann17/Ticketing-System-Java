@@ -5,6 +5,8 @@
 package Class;
 
 import authentication.MyModel;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +25,13 @@ public class Posisi extends MyModel{
         this.nomor = nomor;
         this.harga = harga;
         this.parkir = parkir;
+    }
+    
+    public Posisi(int id, String nomor, double harga) {
+        this.id = id;
+        this.nomor = nomor;
+        this.harga = harga;
+        this.parkir = new Parkir();
     }
     
     public Posisi() {
@@ -88,26 +97,43 @@ public class Posisi extends MyModel{
         this.parkir = parkir;
     }
     
-    
-
-    @Override
     public void insertData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            if (!MyModel.conn.isClosed()){
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                "Insert into users(nomor, harga, parkir_id) values (?,?,?)");
+                sql.setString(1, getNomor());
+                sql.setDouble(2, getHarga());
+                sql.setInt(3, parkir.getId());
+                sql.executeUpdate();
+                sql.close();
+            }
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
-
-    @Override
-    public void updateData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void deleteData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
+    
     public ArrayList<Object> viewListData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Object> collections = new ArrayList<Object>();
+        try
+        {
+            this.statement = (Statement) MyModel.conn.createStatement();
+            this.result = this.statement.executeQuery("select * from posisi");
+            while (this.result.next())
+            {
+                Posisi tampung = new Posisi(this.result.getInt("id"), 
+                        this.result.getString("nomor"), 
+                        this.result.getDouble("harga"));
+                tampung.parkir.setId(this.result.getInt("parkir_id"));
+                collections.add(tampung);
+            }
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        return collections;
     }
     
 }

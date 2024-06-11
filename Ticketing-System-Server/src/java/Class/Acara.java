@@ -5,6 +5,8 @@
 package Class;
 
 import authentication.MyModel;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -141,27 +143,28 @@ public class Acara extends MyModel {
         this.harga = harga;
     }
     
-    
-    
-
-    @Override
-    public void insertData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void updateData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void deleteData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public ArrayList<Object> viewListData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Object> collections = new ArrayList<Object>();
+        try
+        {
+            this.statement = (Statement) MyModel.conn.createStatement();
+            this.result = this.statement.executeQuery("select * from acara");
+            while (this.result.next())
+            {
+                Acara tampung = new Acara(this.result.getInt("id"), 
+                        this.result.getString("nama"), 
+                        this.result.getInt("kuota"), 
+                        this.result.getString("lokasi"), 
+                        this.result.getTimestamp("tanggal_acara"),
+                        this.result.getString("deskripsi"),
+                        this.result.getDouble("harga"));
+                collections.add(tampung);
+            }
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        return collections;   
     }
-    
 }

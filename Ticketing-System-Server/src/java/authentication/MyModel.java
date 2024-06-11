@@ -66,8 +66,4 @@ public abstract class MyModel {
         }
         return MyModel.conn;
     }
-    public abstract void insertData();
-    public abstract void updateData();
-    public abstract void deleteData();
-    public abstract ArrayList<Object> viewListData();
 }

@@ -137,7 +137,7 @@ public class User extends MyModel{
     }
     
 
-    @Override
+    
     public void insertData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -157,7 +157,7 @@ public class User extends MyModel{
         }
     }
 
-    @Override
+    
     public void updateData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -177,7 +177,7 @@ public class User extends MyModel{
         }
     }
 
-    @Override
+    
     public void deleteData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -193,13 +193,13 @@ public class User extends MyModel{
         }
     }
 
-    @Override
+    
     public ArrayList<Object> viewListData() {
         ArrayList<Object> collections = new ArrayList<Object>();
         try
         {
             this.statement = (Statement) MyModel.conn.createStatement();
-            this.result = this.statement.executeQuery("select * from account");
+            this.result = this.statement.executeQuery("select * from users");
             while (this.result.next())
             {
                 User tampung = new User(this.result.getInt("id"), 
