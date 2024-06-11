@@ -16,14 +16,29 @@ import javax.swing.JOptionPane;
 import java.io.InputStream;
 
 
-public class FormLogin extends javax.swing.JFrame {
-
-    
-
+public class FormLogin extends javax.swing.JFrame implements Runnable{
+    Socket s;
+    DataOutputStream out;
+    BufferedReader in;
+    Thread t;
     
     public FormLogin() {
-        initComponents();
-        this.setLocationRelativeTo(null);
+        try {
+            initComponents();
+            this.setLocationRelativeTo(null);
+            s = new Socket("localhost", 6969);
+            this.in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            this.out = new DataOutputStream(s.getOutputStream());
+            start();
+        } catch (IOException ex) {
+            Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void start(){
+        if(t == null){
+            t = new Thread(this, "client");
+            t.start();
+        }
     }
    
     @SuppressWarnings("unchecked")
@@ -229,9 +244,18 @@ public class FormLogin extends javax.swing.JFrame {
         form.setLocationRelativeTo(null);
         this.dispose();       
     }//GEN-LAST:event_lblSignUpMouseClicked
-
+    public void SendChat(String msg){
+        try {
+            out.writeBytes(msg + "\n");
+        } catch (IOException ex) {
+            Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
-        
+        String username, password;
+        username = txtFieldUsername.getText();
+        password = txtFieldPassword.getText();
+        SendChat("LOG" + "~" + username + "~" + password);
     }//GEN-LAST:event_btnSignInActionPerformed
     public static void main(String args[]) {
         
@@ -259,4 +283,23 @@ public class FormLogin extends javax.swing.JFrame {
     private javax.swing.JTextField txtFieldPassword;
     private javax.swing.JTextField txtFieldUsername;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+        while(true){
+            try {
+                String tmp = in.readLine();
+                System.out.println(tmp);
+                if(tmp.equals("200")){
+                    JOptionPane.showMessageDialog(this, "Login Berhasil");
+                    //menampilkan form dashboard
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Username atau Password salah!");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

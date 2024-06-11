@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Class;
+package Model;
 
-import authentication.MyModel;
+import Model.MyModel;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,6 @@ public class User extends MyModel{
     /**
      * @return the id
      */
-    
     private int id;
     private String username;
     private String password;
@@ -25,7 +25,17 @@ public class User extends MyModel{
     private String noTelp;
     private String email;
     
+    
     public User(int id, String username, String password, double saldo, String noTelp, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.saldo = saldo;
+        this.noTelp = noTelp;
+        this.email = email;
+    }
+
+    public User(int id, String username, String password, String noTelp, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -125,8 +135,29 @@ public class User extends MyModel{
         this.email = email;
     }
     
-
-    @Override
+    public boolean CekLogin(){
+        try{
+            this.statement = (Statement) MyModel.conn.createStatement();
+            PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement("select * from users where username =? and password = md5(?)");
+            sql.setString(1, this.username);
+            sql.setString(2, this.password);
+            this.result = sql.executeQuery();
+            if(result.next()){
+                this.id = result.getInt("id");
+                this.saldo = result.getDouble("saldo");
+                this.noTelp = result.getString("no_telp");
+                this.email = result.getString("email");
+                return true;
+            }
+            
+            
+            
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }    
+        return false;
+    }
     public void insertData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -146,18 +177,64 @@ public class User extends MyModel{
         }
     }
 
-    @Override
+    
     public void updateData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            if (!MyModel.conn.isClosed()){
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                "UPDATE `users` SET `username` = '?', `password` = 'md5(?)', `no_telp` = '?', `email` = '?' WHERE (`id` = '?');");
+                sql.setString(1, getUsername());
+                sql.setString(2, getPassword());
+                sql.setString(3, getNoTelp());
+                sql.setString(4, getEmail());
+                sql.setInt(5, getId());
+                sql.executeUpdate();
+                sql.close();
+            }
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
-    @Override
+    
     public void deleteData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            if (!MyModel.conn.isClosed()){
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                "DELETE FROM `ticketing_system_java`.`users` WHERE (`id` = '?');");
+                sql.setInt(1, getId());
+                sql.executeUpdate();
+                sql.close();
+            }
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
-    @Override
+    
     public ArrayList<Object> viewListData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Object> collections = new ArrayList<Object>();
+        try
+        {
+            this.statement = (Statement) MyModel.conn.createStatement();
+            this.result = this.statement.executeQuery("select * from users");
+            while (this.result.next())
+            {
+                User tampung = new User(this.result.getInt("id"), 
+                        this.result.getString("username"), 
+                        this.result.getString("password"), 
+                        this.result.getDouble("saldo"), 
+                        this.result.getString("no_telp"),
+                        this.result.getString("email"));
+                collections.add(tampung);
+            }
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        return collections;
     }
 }
