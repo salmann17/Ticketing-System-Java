@@ -14,10 +14,10 @@ import java.util.ArrayList;
  *
  * @author Rome
  */
-public abstract class MyModel {
-    protected static Connection conn;
-    protected Statement statement;
-    protected ResultSet result;
+public class MyModel {
+    private static Connection conn;
+    private Statement statement;
+    private ResultSet result;
     
     public MyModel(Statement statement, ResultSet result) {
         this.statement = statement;

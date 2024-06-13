@@ -6,14 +6,17 @@ package Model;
 
 import Model.MyModel;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author natha
  */
-public class User extends MyModel{
+public class User {
 
     /**
      * @return the id
@@ -137,16 +140,14 @@ public class User extends MyModel{
     
     public boolean CekLogin(){
         try{
-            this.statement = (Statement) MyModel.conn.createStatement();
-            PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement("select * from users where username =? and password = md5(?)");
-            sql.setString(1, this.username);
-            sql.setString(2, this.password);
-            this.result = sql.executeQuery();
-            if(result.next()){
-                this.id = result.getInt("id");
-                this.saldo = result.getDouble("saldo");
-                this.noTelp = result.getString("no_telp");
-                this.email = result.getString("email");
+            MyModel a = new MyModel();
+            a.setStatement((Statement) MyModel.getConn().createStatement());
+            a.setResult(a.getStatement().executeQuery("select * from users"));
+            if(a.getResult().next()){
+                a.getResult().getInt("id");
+                a.getResult().getDouble("saldo");
+                a.getResult().getString("no_telp");
+                a.getResult().getString("email");
                 return true;
             }
             
@@ -160,9 +161,10 @@ public class User extends MyModel{
     }
     public void insertData() {
         try{
-            if (!MyModel.conn.isClosed()){
-                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                "Insert into users(username, password, saldo, no telp, email) values (?,md5(?),?,?, ?)");
+            MyModel a = new MyModel();
+            if (!MyModel.getConn().isClosed()){
+                a.setStatement((PreparedStatement) MyModel.getConn().prepareStatement("Insert into users(username, password, saldo, no telp, email) values (?,md5(?),?,?, ?)"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setString(1, getUsername());
                 sql.setString(2, getPassword());
                 sql.setDouble(3, getSaldo());
@@ -180,9 +182,10 @@ public class User extends MyModel{
     
     public void updateData() {
         try{
-            if (!MyModel.conn.isClosed()){
-                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                "UPDATE `users` SET `username` = '?', `password` = 'md5(?)', `no_telp` = '?', `email` = '?' WHERE (`id` = '?');");
+            MyModel a = new MyModel();
+            if (!MyModel.getConn().isClosed()){
+                a.setStatement((PreparedStatement) MyModel.getConn().prepareStatement("UPDATE `users` SET `username` = '?', `password` = 'md5(?)', `no_telp` = '?', `email` = '?' WHERE (`id` = '?');"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setString(1, getUsername());
                 sql.setString(2, getPassword());
                 sql.setString(3, getNoTelp());
@@ -200,9 +203,10 @@ public class User extends MyModel{
     
     public void deleteData() {
         try{
-            if (!MyModel.conn.isClosed()){
-                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                "DELETE FROM `ticketing_system_java`.`users` WHERE (`id` = '?');");
+            MyModel a = new MyModel();
+            if (!MyModel.getConn().isClosed()){
+                 a.setStatement((PreparedStatement) MyModel.getConn().prepareStatement("DELETE FROM `ticketing_system_java`.`users` WHERE (`id` = '?');"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setInt(1, getId());
                 sql.executeUpdate();
                 sql.close();
@@ -214,27 +218,26 @@ public class User extends MyModel{
     }
 
     
-    public ArrayList<Object> viewListData() {
-        ArrayList<Object> collections = new ArrayList<Object>();
-        try
-        {
-            this.statement = (Statement) MyModel.conn.createStatement();
-            this.result = this.statement.executeQuery("select * from users");
-            while (this.result.next())
+    public static ArrayList<User> viewListData() {
+        ArrayList<User> collections = new ArrayList<User>();
+        MyModel a = new MyModel();
+        try {
+            a.setStatement((Statement) MyModel.getConn().createStatement());
+            a.setResult(a.getStatement().executeQuery("select * from users"));
+            while (a.getResult().next())
             {
-                User tampung = new User(this.result.getInt("id"), 
-                        this.result.getString("username"), 
-                        this.result.getString("password"), 
-                        this.result.getDouble("saldo"), 
-                        this.result.getString("no_telp"),
-                        this.result.getString("email"));
+                User tampung = new User(a.getResult().getInt("id"), 
+                        a.getResult().getString("username"), 
+                        a.getResult().getString("password"), 
+                        a.getResult().getDouble("saldo"), 
+                        a.getResult().getString("no_telp"),
+                        a.getResult().getString("email"));
                 collections.add(tampung);
             }
+            return collections;            
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (Exception ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-        return collections;
+        return null;
     }
 }

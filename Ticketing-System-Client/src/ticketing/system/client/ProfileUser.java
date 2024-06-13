@@ -16,14 +16,18 @@ public class ProfileUser extends javax.swing.JFrame {
     /**
      * Creates new form ProfileUser
      */
-    DashBoard db;
+    int idUser;
     public ProfileUser() {
         initComponents();
         Display();
     }
     public void Display(){
-        db = (DashBoard)this.getOwner();
-        
+        java.util.List<ticketing.system.client.User> user = getUser();
+        jTextFieldUsername.setText(user.get(0).username);
+        jTextFieldPassword.setText(user.get(0).password);
+        jTextFieldTelephone.setText(user.get(0).noTelp);
+        jTextFieldEmail.setText(user.get(0).email);
+        idUser = user.get(0).id;
     }
 
     /**
@@ -169,7 +173,13 @@ public class ProfileUser extends javax.swing.JFrame {
     private void jButtonChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangeActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(this, "Anda yakin ingin mengubah profile?");
-        
+        Boolean update = updateUser(idUser, jTextFieldUsername.getText(), jTextFieldPassword.getText(), jTextFieldTelephone.getText(), jTextFieldEmail.getText());
+        if(update == true){
+            JOptionPane.showMessageDialog(this, "Data has been updated");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Data failed to update");
+        }
     }//GEN-LAST:event_jButtonChangeActionPerformed
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
@@ -228,4 +238,16 @@ public class ProfileUser extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldUsername;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private static java.util.List<ticketing.system.client.User> getUser() {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.getUser();
+    }
+
+    private static Boolean updateUser(int id, java.lang.String username, java.lang.String password, java.lang.String noKtp, java.lang.String email) {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.updateUser(id, username, password, noKtp, email);
+    }
 }
