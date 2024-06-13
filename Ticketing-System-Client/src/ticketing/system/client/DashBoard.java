@@ -9,10 +9,11 @@ import java.awt.Color;
 
 public class DashBoard extends javax.swing.JFrame {
 
-    
+
     public DashBoard() {
         initComponents();
         this.setLocationRelativeTo(null);
+
     }
 
     
