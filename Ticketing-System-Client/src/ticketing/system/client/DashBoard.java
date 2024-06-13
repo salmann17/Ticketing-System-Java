@@ -584,6 +584,9 @@ public class DashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNotaMouseExited
 
     private void btnProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileMouseClicked
+        ProfileUser form = new ProfileUser();
+        form.show();
+        this.dispose();
         panelProfile.setBackground(new Color(0,102,153));
         panelProfileLine.setBackground(new Color(255,255,255));
         btnProfile.setForeground(new Color(255,255,255));
