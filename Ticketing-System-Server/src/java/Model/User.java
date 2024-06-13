@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Class;
+package Model;
 
-import authentication.MyModel;
+import Model.MyModel;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -158,7 +158,6 @@ public class User extends MyModel{
         }    
         return false;
     }
-    @Override
     public void insertData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -178,7 +177,7 @@ public class User extends MyModel{
         }
     }
 
-    @Override
+    
     public void updateData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -198,7 +197,7 @@ public class User extends MyModel{
         }
     }
 
-    @Override
+    
     public void deleteData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -214,13 +213,13 @@ public class User extends MyModel{
         }
     }
 
-    @Override
+    
     public ArrayList<Object> viewListData() {
         ArrayList<Object> collections = new ArrayList<Object>();
         try
         {
             this.statement = (Statement) MyModel.conn.createStatement();
-            this.result = this.statement.executeQuery("select * from account");
+            this.result = this.statement.executeQuery("select * from users");
             while (this.result.next())
             {
                 User tampung = new User(this.result.getInt("id"), 

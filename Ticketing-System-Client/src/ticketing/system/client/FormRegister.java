@@ -268,7 +268,7 @@ public class FormRegister extends javax.swing.JFrame implements Runnable{
         password = txtFieldPassword.getText();
         no_telp = txtFieldNoHP.getText();
         email = txtFieldEmail.getText();
-        SendChat("REGIST" + username + "~" + password + "~" + no_telp + "~" + email);
+        SendChat("REGIST" + "~"+ username + "~" + password + "~" + no_telp + "~" + email);
     }//GEN-LAST:event_btnSignUpActionPerformed
     
     

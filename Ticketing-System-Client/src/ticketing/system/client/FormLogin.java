@@ -29,8 +29,15 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
             s = new Socket("localhost", 6969);
             this.in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             this.out = new DataOutputStream(s.getOutputStream());
+            start();
         } catch (IOException ex) {
             Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void start(){
+        if(t == null){
+            t = new Thread(this, "client");
+            t.start();
         }
     }
    
@@ -69,29 +76,29 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Book n Go");
+        jLabel8.setText("TiGo");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Luky\\Downloads\\output-onlinegiftools (2).gif")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Image.gif"))); // NOI18N
 
         javax.swing.GroupLayout RightLayout = new javax.swing.GroupLayout(Right);
         Right.setLayout(RightLayout);
         RightLayout.setHorizontalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RightLayout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RightLayout.createSequentialGroup()
                 .addContainerGap(43, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
+            .addGroup(RightLayout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jLabel8)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(68, 68, 68)
                 .addComponent(jLabel8)
-                .addGap(36, 36, 36)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(42, 42, 42))
         );
@@ -248,7 +255,7 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
         String username, password;
         username = txtFieldUsername.getText();
         password = txtFieldPassword.getText();
-        SendChat("LOG" + username + "~" + password);
+        SendChat("LOG" + "~" + username + "~" + password);
     }//GEN-LAST:event_btnSignInActionPerformed
     public static void main(String args[]) {
         
@@ -282,9 +289,12 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
         while(true){
             try {
                 String tmp = in.readLine();
+                System.out.println(tmp);
                 if(tmp.equals("200")){
                     JOptionPane.showMessageDialog(this, "Login Berhasil");
-                    //menampilkan form dashboard
+                    new DashBoard().show();
+                    this.dispose();
+                   
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "Username atau Password salah!");

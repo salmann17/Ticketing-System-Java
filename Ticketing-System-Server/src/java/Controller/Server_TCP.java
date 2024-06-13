@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Class;
+package Controller;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -24,10 +24,6 @@ public class Server_TCP extends Thread{
     
     ServerSocket server;
     Socket s;
-    BufferedReader in;
-    DataOutputStream out; 
-    User user;
-    HandleSocket hs;
    
 
     public Server_TCP() {
@@ -38,46 +34,26 @@ public class Server_TCP extends Thread{
             Logger.getLogger(Server_TCP.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Aksi(String msg){
-        String msgSplit[] = msg.split("~");
-        if(msgSplit[0].contains("LOG")){
-            user.setUsername( msgSplit[1]);
-            user.setPassword(msgSplit[2]);
-            if(!user.CekLogin() == false){
-                hs.SendChat("404");
-            }
-            else{
-                hs.SendChat("200");
-            }
-        }
-        else if(msgSplit[0].contains("REGIST")){
-            String username = msgSplit[1];
-            String password = msgSplit[2];
-            String no_ktp = msgSplit[3];
-            String email = msgSplit[4];
-            
-            user = new User(0,username, password, 0,no_ktp, email);
-            user.insertData();
-            hs.SendChat("200");
-        }
-    }
 
     public void Broadcast(String tmp){
-        for (HandleSocket hs : hs.clients){
+        for (HandleSocket hs : HandleSocket.clients){
              hs.SendChat(tmp);
         }
     }
     
     @Override
     public void run() {
-        try {
+        while(true){
+            try {
             s = server.accept();
-            HandleSocket hs = new HandleSocket(this, s);
+            HandleSocket hs = new HandleSocket( s);
             hs.start();
             hs.clients.add(hs);
         } catch (IOException ex) {
             Logger.getLogger(Server_TCP.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+       
     }
     public static void main(String[] args) {
         new Server_TCP();

@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Class;
+package Model;
 
-import authentication.MyModel;
+import Model.MyModel;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ public class Parkir extends MyModel{
     private int id;
     private String lokasi;
     private int kuota;
+    private ArrayList<Posisi> listPosisi;
     
     public Parkir(int id, String lokasi, int kuota) {
         this.id = id;
@@ -55,7 +56,14 @@ public class Parkir extends MyModel{
         this.kuota = kuota;
     }
 
-    @Override
+    public ArrayList<Posisi> getListPosisi() {
+        return listPosisi;
+    }
+
+    public void setListPosisi(ArrayList<Posisi> listPosisi) {
+        this.listPosisi = listPosisi;
+    }
+
     public void insertData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -72,7 +80,6 @@ public class Parkir extends MyModel{
         }
     }
 
-    @Override
     public void updateData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -90,7 +97,6 @@ public class Parkir extends MyModel{
         }
     }
 
-    @Override
     public void deleteData() {
         try{
             if (!MyModel.conn.isClosed()){
@@ -106,9 +112,8 @@ public class Parkir extends MyModel{
         }
     }
 
-    @Override
-    public ArrayList<Object> viewListData() {
-        ArrayList<Object> collections = new ArrayList<Object>();
+    public ArrayList<Parkir> viewListData() {
+        ArrayList<Parkir> collections = new ArrayList<Parkir>();
         try
         {
             this.statement = (Statement) MyModel.conn.createStatement();
@@ -120,6 +125,19 @@ public class Parkir extends MyModel{
                         this.result.getInt("kuota"));
                 collections.add(tampung);
             }
+            
+            for (Parkir p : collections)
+            {
+                this.result = this.statement.executeQuery("select * from posisi where parkir_id='"+p.getId()+"';");
+                while (this.result.next())
+                    {
+                        Posisi tampung = new Posisi(this.result.getInt("id"), 
+                                    this.result.getString("nomor"), 
+                                    this.result.getDouble("harga"),
+                                    p);
+                        p.listPosisi.add(tampung);
+                    }
+            }
         }
         catch (Exception ex)
         {
@@ -127,5 +145,4 @@ public class Parkir extends MyModel{
         }
         return collections;
     }
-    
 }

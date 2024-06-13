@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package authentication;
+package Model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -66,8 +66,4 @@ public abstract class MyModel {
         }
         return MyModel.conn;
     }
-    public abstract void insertData();
-    public abstract void updateData();
-    public abstract void deleteData();
-    public abstract ArrayList<Object> viewListData();
 }

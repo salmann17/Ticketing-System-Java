@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Class;
+package Model;
 
-import authentication.MyModel;
+import Model.User;
+import Model.MyModel;
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -124,26 +126,24 @@ public class NotaParkir extends MyModel{
         this.harga = harga;
     }
     
-    
-
-    @Override
     public void insertData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            if (!MyModel.conn.isClosed()){
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                "Insert into parkirs(posisi_id, users_id, tgl_reservasi, tgl_finish, harga) values (?,?,?,?,?)");
+                sql.setInt(1, getPosisi().getId());
+                sql.setInt(2, getUser().getId());
+                sql.setTimestamp(3, getTglReservasi());
+                sql.setTimestamp(4, getTglFinish());
+                sql.setDouble(5, getHarga());
+                sql.executeUpdate();
+                sql.close();
+            }
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
-    @Override
-    public void updateData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void deleteData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public ArrayList<Object> viewListData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
 }
