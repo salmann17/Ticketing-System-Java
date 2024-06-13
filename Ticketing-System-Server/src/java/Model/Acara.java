@@ -6,6 +6,8 @@ package Model;
 
 import Model.Koneksi;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -113,29 +115,97 @@ public class Acara extends Koneksi {
     public void setHarga(double harga) {
         this.harga = harga;
     }
-    
-//    public ArrayList<Object> viewListData() {
-//        ArrayList<Object> collections = new ArrayList<Object>();
-//        try
-//        {
-//            this.statement = (Statement) Koneksi.conn.createStatement();
-//            this.result = this.statement.executeQuery("select * from acara");
-//            while (this.result.next())
-//            {
-//                Acara tampung = new Acara(this.result.getInt("id"), 
-//                        this.result.getString("nama"), 
-//                        this.result.getInt("kuota"), 
-//                        this.result.getString("lokasi"), 
-//                        this.result.getTimestamp("tanggal_acara"),
-//                        this.result.getString("deskripsi"),
-//                        this.result.getDouble("harga"));
-//                collections.add(tampung);
-//            }
-//        }
-//        catch (Exception ex)
-//        {
-//            System.out.println(ex.getMessage());
-//        }
-//        return collections;   
-//    }
+    public void insertData() {
+        try {
+            Koneksi a = new Koneksi();
+            if (!Koneksi.getConn().isClosed()) {                
+                PreparedStatement sql = Koneksi.getConn().prepareStatement("INSERT INTO Acara(nama, kuota, lokasi, tanggal_acara, deskripsi, harga) VALUES (?,?,?,?,?,?)");
+                sql.setString(1, nama);
+                sql.setInt(2, kuota);
+                sql.setString(3, lokasi);
+                sql.setTimestamp(4, tanggalAcara);
+                sql.setString(5, deskripsi);
+                sql.setDouble(6, harga);
+                sql.executeUpdate();
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    public boolean updateData() {
+        try {
+            Koneksi a = new Koneksi();
+            if (!Koneksi.getConn().isClosed()) {                
+                PreparedStatement sql = Koneksi.getConn().prepareStatement("UPDATE Acara SET nama = ?, kuota = ?, lokasi = ?, tanggal_acara = ?, deskripsi = ?, harga = ? WHERE id = ?");
+                sql.setString(1, nama);
+                sql.setInt(2, kuota);
+                sql.setString(3, lokasi);
+                sql.setTimestamp(4, tanggalAcara);
+                sql.setString(5, deskripsi);
+                sql.setDouble(6, harga);
+                sql.setInt(7, id);
+                int rowAffected = sql.executeUpdate();
+                sql.close();
+                return rowAffected != 0;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+     public void deleteData() {
+        try {
+            Koneksi a = new Koneksi();
+            if (!Koneksi.getConn().isClosed()) {
+                PreparedStatement sql = Koneksi.getConn().prepareStatement("DELETE FROM Acara WHERE id = ?");
+                sql.setInt(1, id);
+                sql.executeUpdate();
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+     public static ArrayList<Acara> viewListData() {
+        ArrayList<Acara> collections = new ArrayList<Acara>();
+        Koneksi a = new Koneksi();
+        try {
+            a.setStatement(Koneksi.getConn().createStatement());
+            a.setResult(a.getStatement().executeQuery("SELECT * FROM Acara"));
+            while (a.getResult().next()) {
+                Acara tampung = new Acara(a.getResult().getInt("id"),
+                        a.getResult().getString("nama"),
+                        a.getResult().getInt("kuota"),
+                        a.getResult().getString("lokasi"),
+                        a.getResult().getTimestamp("tanggal_acara"),
+                        a.getResult().getString("deskripsi"),
+                        a.getResult().getDouble("harga"));
+                collections.add(tampung);
+            }
+            return collections;            
+        } catch (SQLException ex) {
+            System.out.println("Failed because : " + ex.getSQLState());
+        }
+        return null;
+    }
+     public static Acara findById(int id) {
+        Koneksi a = new Koneksi();
+        try {
+            PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT * FROM Acara WHERE id = ?");
+            sql.setInt(1, id);
+            ResultSet rs = sql.executeQuery();
+            if (rs.next()) {
+                Acara acara = new Acara(rs.getInt("id"), rs.getString("nama"), rs.getInt("kuota"), rs.getString("lokasi"), rs.getTimestamp("tanggal_acara"), rs.getString("deskripsi"), rs.getDouble("harga"));
+                rs.close();
+                sql.close();
+                return acara;
+            }
+            rs.close();
+            sql.close();
+        } catch (SQLException ex) {
+            System.out.println("Failed because : " + ex.getMessage());
+        }
+        return null;
+    }
 }

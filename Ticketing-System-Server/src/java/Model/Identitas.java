@@ -6,6 +6,9 @@ package Model;
 
 import Model.User;
 import Model.Koneksi;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -104,6 +107,26 @@ public class Identitas extends Koneksi{
      */
     public void setUser(User user) {
         this.user = user;
+    }
+    public static Identitas findById(int id) {
+        Koneksi a = new Koneksi();
+        try {
+            PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT * FROM identitas WHERE id = ?");
+            sql.setInt(1, id);
+            ResultSet rs = sql.executeQuery();
+            if (rs.next()) {
+                User user = User.findById(rs.getInt("users_id"));
+                Identitas identitas = new Identitas(rs.getInt("id"), rs.getString("nama"), rs.getString("alamat"), rs.getString("no_ktp"), user);
+                rs.close();
+                sql.close();
+                return identitas;
+            }
+            rs.close();
+            sql.close();
+        } catch (Exception ex) {
+            System.out.println("Failed because : " + ex.getMessage());
+        }
+        return null;
     }
    
 }

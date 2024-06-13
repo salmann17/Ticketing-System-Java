@@ -5,6 +5,7 @@
 package Model;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -234,6 +235,25 @@ public class User {
                 collections.add(tampung);
             }
             return collections;            
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    public static User findById(int id) {
+        Koneksi a = new Koneksi();
+        try {
+            PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT * FROM users WHERE id = ?");
+            sql.setInt(1, id);
+            ResultSet rs = sql.executeQuery();
+            if (rs.next()) {
+                User user = new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("no_telp"), rs.getString("email"));
+                rs.close();
+                sql.close();
+                return user;
+            }
+            rs.close();
+            sql.close();
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
