@@ -4,7 +4,6 @@
  */
 package com.server;
 
-import Model.MyModel;
 import Model.User;
 import java.util.ArrayList;
 import javax.jws.WebService;
@@ -46,8 +45,7 @@ public class TicketingService {
     public Boolean updateUser(@WebParam(name = "id") int id, @WebParam(name = "username") String username, @WebParam(name = "password") String password, @WebParam(name = "noKtp") String noTelp, @WebParam(name = "email") String email) {
         //TODO write your implementation code here:
         User u =  new User(id, username, password, noTelp, email);
-        u.updateData();
-        return true;
+        return u.updateData();        
     }
 
 }

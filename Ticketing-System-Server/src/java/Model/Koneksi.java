@@ -14,16 +14,16 @@ import java.util.ArrayList;
  *
  * @author Rome
  */
-public class MyModel {
+public class Koneksi {
     private static Connection conn;
     private Statement statement;
     private ResultSet result;
     
-    public MyModel(Statement statement, ResultSet result) {
+    public Koneksi(Statement statement, ResultSet result) {
         this.statement = statement;
         this.result = result;
     }
-    public MyModel(){
+    public Koneksi(){
         this.conn = this._getConnection();
         this.statement = null;
         this.result = null;
@@ -34,7 +34,7 @@ public class MyModel {
     }
 
     public static void setConn(Connection conn) {
-        MyModel.conn = conn;
+        Koneksi.conn = conn;
     }
 
     public Statement getStatement() {
@@ -55,7 +55,7 @@ public class MyModel {
     
     private Connection _getConnection()
     {
-        if (MyModel.conn == null){
+        if (Koneksi.conn == null){
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
                 return DriverManager.getConnection("jdbc:mysql://localhost/ticketing_system_java", "root", "");
@@ -64,6 +64,6 @@ public class MyModel {
                 System.out.println(ex.getMessage());
             }
         }
-        return MyModel.conn;
+        return Koneksi.conn;
     }
 }

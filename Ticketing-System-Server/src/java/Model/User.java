@@ -4,7 +4,6 @@
  */
 package Model;
 
-import Model.MyModel;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -140,8 +139,8 @@ public class User {
     
     public boolean CekLogin(){
         try{
-            MyModel a = new MyModel();
-            a.setStatement((Statement) MyModel.getConn().createStatement());
+            Koneksi a = new Koneksi();
+            a.setStatement((Statement) Koneksi.getConn().createStatement());
             a.setResult(a.getStatement().executeQuery("select * from users"));
             if(a.getResult().next()){
                 a.getResult().getInt("id");
@@ -161,10 +160,9 @@ public class User {
     }
     public void insertData() {
         try{
-            MyModel a = new MyModel();
-            if (!MyModel.getConn().isClosed()){
-                a.setStatement((PreparedStatement) MyModel.getConn().prepareStatement("Insert into users(username, password, saldo, no telp, email) values (?,md5(?),?,?, ?)"));
-                PreparedStatement sql = (PreparedStatement)a.getStatement();
+            Koneksi a = new Koneksi();
+            if (!Koneksi.getConn().isClosed()){                
+                PreparedStatement sql = (PreparedStatement)Koneksi.getConn().prepareStatement("Insert into users(username, password, saldo, no telp, email) values (?,md5(?),?,?, ?)");
                 sql.setString(1, getUsername());
                 sql.setString(2, getPassword());
                 sql.setDouble(3, getSaldo());
@@ -180,32 +178,33 @@ public class User {
     }
 
     
-    public void updateData() {
+    public boolean updateData() {
         try{
-            MyModel a = new MyModel();
-            if (!MyModel.getConn().isClosed()){
-                a.setStatement((PreparedStatement) MyModel.getConn().prepareStatement("UPDATE `users` SET `username` = '?', `password` = 'md5(?)', `no_telp` = '?', `email` = '?' WHERE (`id` = '?');"));
-                PreparedStatement sql = (PreparedStatement)a.getStatement();
+            Koneksi a = new Koneksi();
+            if (!Koneksi.getConn().isClosed()){                
+                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement("UPDATE users SET username = ?, password = md5(?), no_telp = ?, email = ? WHERE id = ?;");
                 sql.setString(1, getUsername());
                 sql.setString(2, getPassword());
                 sql.setString(3, getNoTelp());
                 sql.setString(4, getEmail());
                 sql.setInt(5, getId());
-                sql.executeUpdate();
+                int rowAffacted = sql.executeUpdate();
                 sql.close();
+                return rowAffacted == 0 ? false:true;
             }
         }
         catch (Exception ex){
             System.out.println(ex.getMessage());
         }
+        return false;
     }
 
     
     public void deleteData() {
         try{
-            MyModel a = new MyModel();
-            if (!MyModel.getConn().isClosed()){
-                 a.setStatement((PreparedStatement) MyModel.getConn().prepareStatement("DELETE FROM `ticketing_system_java`.`users` WHERE (`id` = '?');"));
+            Koneksi a = new Koneksi();
+            if (!Koneksi.getConn().isClosed()){
+                 a.setStatement((PreparedStatement) Koneksi.getConn().prepareStatement("DELETE FROM `ticketing_system_java`.`users` WHERE (`id` = '?');"));
                 PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setInt(1, getId());
                 sql.executeUpdate();
@@ -220,9 +219,9 @@ public class User {
     
     public static ArrayList<User> viewListData() {
         ArrayList<User> collections = new ArrayList<User>();
-        MyModel a = new MyModel();
+        Koneksi a = new Koneksi();
         try {
-            a.setStatement((Statement) MyModel.getConn().createStatement());
+            a.setStatement((Statement) Koneksi.getConn().createStatement());
             a.setResult(a.getStatement().executeQuery("select * from users"));
             while (a.getResult().next())
             {

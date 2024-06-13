@@ -4,7 +4,7 @@
  */
 package Model;
 
-import Model.MyModel;
+import Model.Koneksi;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author natha
  */
-public class Parkir extends MyModel{
+public class Parkir extends Koneksi{
 
     private int id;
     private String lokasi;
@@ -66,8 +66,8 @@ public class Parkir extends MyModel{
 
     public void insertData() {
         try{
-            if (!MyModel.conn.isClosed()){
-                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+            if (!Koneksi.getConn().isClosed()){
+                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement(
                 "Insert into parkir(lokasi, kuota) values (?,?)");
                 sql.setString(1, getLokasi());
                 sql.setInt(2, getKuota());
@@ -82,8 +82,8 @@ public class Parkir extends MyModel{
 
     public void updateData() {
         try{
-            if (!MyModel.conn.isClosed()){
-                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+            if (!Koneksi.getConn().isClosed()){
+                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement(
                 "UPDATE `parkir` SET `lokasi` = '?', `kuota` = '?' WHERE (`id` = '?');");
                 sql.setString(1, getLokasi());
                 sql.setInt(2, getKuota());
@@ -99,8 +99,8 @@ public class Parkir extends MyModel{
 
     public void deleteData() {
         try{
-            if (!MyModel.conn.isClosed()){
-                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+            if (!Koneksi.getConn().isClosed()){
+                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement(
                 "DELETE FROM `parkir` WHERE (`id` = '?');");
                 sql.setInt(1, getId());
                 sql.executeUpdate();
@@ -112,37 +112,37 @@ public class Parkir extends MyModel{
         }
     }
 
-    public ArrayList<Parkir> viewListData() {
-        ArrayList<Parkir> collections = new ArrayList<Parkir>();
-        try
-        {
-            this.statement = (Statement) MyModel.conn.createStatement();
-            this.result = this.statement.executeQuery("select * from parkir");
-            while (this.result.next())
-            {
-                Parkir tampung = new Parkir(this.result.getInt("id"), 
-                        this.result.getString("lokasi"), 
-                        this.result.getInt("kuota"));
-                collections.add(tampung);
-            }
-            
-            for (Parkir p : collections)
-            {
-                this.result = this.statement.executeQuery("select * from posisi where parkir_id='"+p.getId()+"';");
-                while (this.result.next())
-                    {
-                        Posisi tampung = new Posisi(this.result.getInt("id"), 
-                                    this.result.getString("nomor"), 
-                                    this.result.getDouble("harga"),
-                                    p);
-                        p.listPosisi.add(tampung);
-                    }
-            }
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-        return collections;
-    }
+//    public ArrayList<Parkir> viewListData() {
+//        ArrayList<Parkir> collections = new ArrayList<Parkir>();
+//        try
+//        {
+//            this.statement = (Statement) Koneksi.conn.createStatement();
+//            this.result = this.statement.executeQuery("select * from parkir");
+//            while (this.result.next())
+//            {
+//                Parkir tampung = new Parkir(this.result.getInt("id"), 
+//                        this.result.getString("lokasi"), 
+//                        this.result.getInt("kuota"));
+//                collections.add(tampung);
+//            }
+//            
+//            for (Parkir p : collections)
+//            {
+//                this.result = this.statement.executeQuery("select * from posisi where parkir_id='"+p.getId()+"';");
+//                while (this.result.next())
+//                    {
+//                        Posisi tampung = new Posisi(this.result.getInt("id"), 
+//                                    this.result.getString("nomor"), 
+//                                    this.result.getDouble("harga"),
+//                                    p);
+//                        p.listPosisi.add(tampung);
+//                    }
+//            }
+//        }
+//        catch (Exception ex)
+//        {
+//            System.out.println(ex.getMessage());
+//        }
+//        return collections;
+//    }
 }

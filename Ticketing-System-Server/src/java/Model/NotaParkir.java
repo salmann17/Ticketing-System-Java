@@ -5,7 +5,7 @@
 package Model;
 
 import Model.User;
-import Model.MyModel;
+import Model.Koneksi;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.Date;
  *
  * @author natha
  */
-public class NotaParkir extends MyModel{
+public class NotaParkir extends Koneksi{
 
     private int id;
     private Posisi posisi;
@@ -128,8 +128,8 @@ public class NotaParkir extends MyModel{
     
     public void insertData() {
         try{
-            if (!MyModel.conn.isClosed()){
-                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+            if (!Koneksi.getConn().isClosed()){
+                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement(
                 "Insert into parkirs(posisi_id, users_id, tgl_reservasi, tgl_finish, harga) values (?,?,?,?,?)");
                 sql.setInt(1, getPosisi().getId());
                 sql.setInt(2, getUser().getId());

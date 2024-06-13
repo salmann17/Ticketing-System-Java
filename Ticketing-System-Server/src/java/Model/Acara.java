@@ -4,7 +4,7 @@
  */
 package Model;
 
-import Model.MyModel;
+import Model.Koneksi;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -15,7 +15,7 @@ import java.util.Date;
  *
  * @author natha
  */
-public class Acara extends MyModel {
+public class Acara extends Koneksi {
 
     private int id;
     private String nama;
@@ -114,28 +114,28 @@ public class Acara extends MyModel {
         this.harga = harga;
     }
     
-    public ArrayList<Object> viewListData() {
-        ArrayList<Object> collections = new ArrayList<Object>();
-        try
-        {
-            this.statement = (Statement) MyModel.conn.createStatement();
-            this.result = this.statement.executeQuery("select * from acara");
-            while (this.result.next())
-            {
-                Acara tampung = new Acara(this.result.getInt("id"), 
-                        this.result.getString("nama"), 
-                        this.result.getInt("kuota"), 
-                        this.result.getString("lokasi"), 
-                        this.result.getTimestamp("tanggal_acara"),
-                        this.result.getString("deskripsi"),
-                        this.result.getDouble("harga"));
-                collections.add(tampung);
-            }
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-        return collections;   
-    }
+//    public ArrayList<Object> viewListData() {
+//        ArrayList<Object> collections = new ArrayList<Object>();
+//        try
+//        {
+//            this.statement = (Statement) Koneksi.conn.createStatement();
+//            this.result = this.statement.executeQuery("select * from acara");
+//            while (this.result.next())
+//            {
+//                Acara tampung = new Acara(this.result.getInt("id"), 
+//                        this.result.getString("nama"), 
+//                        this.result.getInt("kuota"), 
+//                        this.result.getString("lokasi"), 
+//                        this.result.getTimestamp("tanggal_acara"),
+//                        this.result.getString("deskripsi"),
+//                        this.result.getDouble("harga"));
+//                collections.add(tampung);
+//            }
+//        }
+//        catch (Exception ex)
+//        {
+//            System.out.println(ex.getMessage());
+//        }
+//        return collections;   
+//    }
 }

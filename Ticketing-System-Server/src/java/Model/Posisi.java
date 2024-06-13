@@ -4,7 +4,7 @@
  */
 package Model;
 
-import Model.MyModel;
+import Model.Koneksi;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author natha
  */
-public class Posisi extends MyModel{
+public class Posisi extends Koneksi{
 
     private int id;
     private String nomor;
@@ -99,8 +99,8 @@ public class Posisi extends MyModel{
     
     public void insertData() {
         try{
-            if (!MyModel.conn.isClosed()){
-                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+            if (!Koneksi.getConn().isClosed()){
+                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement(
                 "Insert into users(nomor, harga, parkir_id) values (?,?,?)");
                 sql.setString(1, getNomor());
                 sql.setDouble(2, getHarga());

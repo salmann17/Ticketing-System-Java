@@ -5,14 +5,14 @@
 package Model;
 
 import Model.User;
-import Model.MyModel;
+import Model.Koneksi;
 import java.util.ArrayList;
 
 /**
  *
  * @author natha
  */
-public class Ticket extends MyModel{
+public class Ticket extends Koneksi{
 
     private int id;
     private User user;

@@ -5,14 +5,14 @@
 package Model;
 
 import Model.User;
-import Model.MyModel;
+import Model.Koneksi;
 import java.util.ArrayList;
 
 /**
  *
  * @author natha
  */
-public class NotaAcara extends MyModel{
+public class NotaAcara extends Koneksi{
 
     private int id;
     private User user;
