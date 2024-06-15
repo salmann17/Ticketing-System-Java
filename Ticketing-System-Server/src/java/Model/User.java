@@ -259,4 +259,19 @@ public class User {
         }
         return null;
     }
+    public static boolean updateSaldo(int userId, double topUpAmount) {
+        Koneksi a = new Koneksi();
+        try {
+            String query = "UPDATE users SET saldo = saldo + ? WHERE id = ?";
+            PreparedStatement sql = Koneksi.getConn().prepareStatement(query);
+            sql.setDouble(1, topUpAmount);
+            sql.setInt(2, userId);
+            int rowAffected = sql.executeUpdate();
+            sql.close();
+            return rowAffected != 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

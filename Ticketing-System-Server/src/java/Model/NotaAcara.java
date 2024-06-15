@@ -159,12 +159,18 @@ public class NotaAcara extends Koneksi{
     public static NotaAcara findById(int id) {
         Koneksi a = new Koneksi();
         try {
-            PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT * FROM nota_acara WHERE id = ?");
+            String query = "SELECT nota_acara.id, nota_acara.jumlah, nota_acara.harga, users.id AS userId, users.username, users.password, users.saldo, users.no_telp, users.email, " +
+                           "acara.id AS acaraId, acara.nama, acara.kuota, acara.lokasi, acara.tanggal_acara, acara.deskripsi, acara.harga AS acaraHarga " +
+                           "FROM nota_acara " +
+                           "INNER JOIN users ON nota_acara.users_id = users.id " +
+                           "INNER JOIN acara ON nota_acara.Acara_id = acara.id " +
+                           "WHERE nota_acara.id = ?";
+            PreparedStatement sql = Koneksi.getConn().prepareStatement(query);
             sql.setInt(1, id);
             ResultSet rs = sql.executeQuery();
             if (rs.next()) {
-                User user = User.findById(rs.getInt("users_id"));
-                Acara acara = Acara.findById(rs.getInt("Acara_id"));
+                User user = new User(rs.getInt("userId"), rs.getString("username"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("no_telp"), rs.getString("email"));
+                Acara acara = new Acara(rs.getInt("acaraId"), rs.getString("nama"), rs.getInt("kuota"), rs.getString("lokasi"), rs.getTimestamp("tanggal_acara"), rs.getString("deskripsi"), rs.getDouble("acaraHarga"));
                 NotaAcara notaAcara = new NotaAcara(rs.getInt("id"), user, acara, rs.getInt("jumlah"), rs.getDouble("harga"));
                 rs.close();
                 sql.close();
@@ -177,20 +183,26 @@ public class NotaAcara extends Koneksi{
         }
         return null;
     }
-     public static ArrayList<NotaAcara> viewListData() {
-        ArrayList<NotaAcara> collections = new ArrayList<NotaAcara>();
+    public static ArrayList<NotaAcara> viewListData() {
+        ArrayList<NotaAcara> collections = new ArrayList<>();
         Koneksi a = new Koneksi();
         try {
-            a.setStatement(Koneksi.getConn().createStatement());
-            ResultSet rs = a.getStatement().executeQuery("SELECT * FROM nota_acara");
+            String query = "SELECT nota_acara.id, nota_acara.jumlah, nota_acara.harga, users.id AS userId, users.username, users.password, users.saldo, users.no_telp, users.email, " +
+                           "acara.id AS acaraId, acara.nama, acara.kuota, acara.lokasi, acara.tanggal_acara, acara.deskripsi, acara.harga AS acaraHarga " +
+                           "FROM nota_acara " +
+                           "INNER JOIN users ON nota_acara.users_id = users.id " +
+                           "INNER JOIN acara ON nota_acara.Acara_id = acara.id";
+            PreparedStatement sql = Koneksi.getConn().prepareStatement(query);
+            ResultSet rs = sql.executeQuery();
             while (rs.next()) {
-                User user = User.findById(rs.getInt("users_id"));
-                Acara acara = Acara.findById(rs.getInt("Acara_id"));
+                User user = new User(rs.getInt("userId"), rs.getString("username"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("no_telp"), rs.getString("email"));
+                Acara acara = new Acara(rs.getInt("acaraId"), rs.getString("nama"), rs.getInt("kuota"), rs.getString("lokasi"), rs.getTimestamp("tanggal_acara"), rs.getString("deskripsi"), rs.getDouble("acaraHarga"));
                 NotaAcara tampung = new NotaAcara(rs.getInt("id"), user, acara, rs.getInt("jumlah"), rs.getDouble("harga"));
                 collections.add(tampung);
             }
             rs.close();
-            return collections;            
+            sql.close();
+            return collections;
         } catch (SQLException ex) {
             System.out.println("Failed because : " + ex.getMessage());
         }

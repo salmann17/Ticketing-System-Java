@@ -7,6 +7,7 @@ package Model;
 import Model.User;
 import Model.Koneksi;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +16,7 @@ import java.util.Date;
  *
  * @author natha
  */
-public class NotaParkir extends Koneksi{
+public class NotaParkir{
 
     private int id;
     private Posisi posisi;
@@ -143,6 +144,34 @@ public class NotaParkir extends Koneksi{
         catch (Exception ex){
             System.out.println(ex.getMessage());
         }
+    }
+    public static NotaParkir findById(int id) {
+        Koneksi a = new Koneksi();
+        try {
+            String query = "SELECT nota_parkir.id, nota_parkir.tgl_reservasi, nota_parkir.tgl_finish, nota_parkir.harga, " +
+                           "posisi.id AS posisiId, posisi.nomor, posisi.harga AS posisiHarga, " +
+                           "users.id AS userId, users.username, users.password, users.saldo, users.no_telp, users.email " +
+                           "FROM nota_parkir " +
+                           "INNER JOIN posisi ON nota_parkir.posisi_id = posisi.id " +
+                           "INNER JOIN users ON nota_parkir.users_id = users.id " +
+                           "WHERE nota_parkir.id = ?";
+            PreparedStatement sql = Koneksi.getConn().prepareStatement(query);
+            sql.setInt(1, id);
+            ResultSet rs = sql.executeQuery();
+            if (rs.next()) {
+                Posisi posisi = new Posisi(rs.getInt("posisiId"), rs.getString("nomor"), rs.getDouble("posisiHarga"));
+                User user = new User(rs.getInt("userId"), rs.getString("username"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("no_telp"), rs.getString("email"));
+                NotaParkir notaParkir = new NotaParkir(rs.getInt("id"), posisi, user, rs.getTimestamp("tgl_reservasi"), rs.getTimestamp("tgl_finish"), rs.getDouble("harga"));
+                rs.close();
+                sql.close();
+                return notaParkir;
+            }
+            rs.close();
+            sql.close();
+        } catch (Exception ex) {
+            System.out.println("failed because : " + ex.getMessage());
+        }
+        return null;
     }
 
     

@@ -6,6 +6,7 @@ package Model;
 
 import Model.Koneksi;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author natha
  */
-public class Posisi extends Koneksi{
+public class Posisi{
 
     private int id;
     private String nomor;
@@ -95,6 +96,25 @@ public class Posisi extends Koneksi{
      */
     public void setParkir(Parkir parkir) {
         this.parkir = parkir;
+    }
+    public static Posisi findById(int id) {
+        Koneksi a = new Koneksi();
+        try {
+            PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT * FROM posisi WHERE id = ?");
+            sql.setInt(1, id);
+            ResultSet rs = sql.executeQuery();
+            if (rs.next()) {
+                Posisi posisi = new Posisi(rs.getInt("id"), rs.getString("nomor"), rs.getDouble("harga"));
+                rs.close();
+                sql.close();
+                return posisi;
+            }
+            rs.close();
+            sql.close();
+        } catch (Exception ex) {
+            System.out.println("failed because : " + ex.getMessage());
+        }
+        return null;
     }
     
     public void insertData() {
