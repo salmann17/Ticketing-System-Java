@@ -4,7 +4,9 @@
  */
 package com.server;
 
+import Model.Saldo;
 import Model.User;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -46,6 +48,18 @@ public class TicketingService {
         //TODO write your implementation code here:
         User u =  new User(id, username, password, noTelp, email);
         return u.updateData();        
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getSaldoHistory")
+    public Saldo[] getSaldoHistory(@WebParam(name = "idUser") int idUser) {
+        //TODO write your implementation code here:
+        ArrayList<Saldo> s = Saldo.viewListData();
+        Saldo[] a = new Saldo[s.size()];
+        s.toArray(a);
+        return a;
     }
 
 }

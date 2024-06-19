@@ -4,6 +4,9 @@
  */
 package ticketing.system.client;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Salman Alfarizi
@@ -65,13 +68,13 @@ public class InfoSaldo extends javax.swing.JFrame {
 
         tableKendaraan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Jumlah", "Keterangan"
+                "ID", "Tanggal", "Jumlah", "Keterangan"
             }
         ));
         tableKendaraan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -173,7 +176,25 @@ public class InfoSaldo extends javax.swing.JFrame {
        new Topup().show();
        this.dispose();
     }//GEN-LAST:event_jButtonTopupActionPerformed
-
+    public void RefreshTabel(){
+        DefaultTableModel dtm = (DefaultTableModel) tableKendaraan.getModel();
+        dtm.setRowCount(0);
+        Object[] rowData = new Object[5];
+        
+        ArrayList<Object> listVehicle = new ArrayList<Object>();
+//        listVehicle = v.viewListData();
+//        for(Object myV : listVehicle){
+//            if(myV instanceof Vehicle){
+//                Vehicle temp = (Vehicle)myV;
+//                rowData[0] = temp.getId();
+//                rowData[1] = temp.getNumberPlate();
+//                rowData[2] = temp.getBrand();
+//                rowData[3] = temp.getVehicleClass();
+//                rowData[4] = temp.getColor();
+//                dtm.addRow(rowData);
+//            }          
+//        }
+    }
     /**
      * @param args the command line arguments
      */
