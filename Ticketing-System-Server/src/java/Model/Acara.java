@@ -192,12 +192,30 @@ public class Acara extends Koneksi {
         }
         return null;
     }
+     
      public static Acara findById(int id) {
         Koneksi a = new Koneksi();
         try {
-            a.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM Acara WHERE id = ?"));
+            a.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM Acara WHERE id=?;"));
             PreparedStatement sql = (PreparedStatement)a.getStatement();
             sql.setInt(1, id);
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                Acara acara = new Acara(a.getResult().getInt("id"), a.getResult().getString("nama"), a.getResult().getInt("kuota"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("harga"));
+                return acara;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Failed because : " + ex.getMessage());
+        }
+        return null;
+    }
+     
+     public static Acara findByDate(Timestamp tgl) {
+        Koneksi a = new Koneksi();
+        try {
+            a.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM Acara WHERE ?>=curdate();"));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
+            sql.setTimestamp(1, tgl);
             a.setResult(sql.executeQuery());
             if (a.getResult().next()) {
                 Acara acara = new Acara(a.getResult().getInt("id"), a.getResult().getString("nama"), a.getResult().getInt("kuota"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("harga"));
