@@ -95,7 +95,8 @@ public class Ticket {
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("INSERT INTO ticket(nota_acara_users_id, nota_acara_Acara_id, identitas_id) VALUES (?, ?, ?)");
+                a.setStatement( Koneksi.getConn().prepareStatement("INSERT INTO ticket(nota_acara_users_id, nota_acara_Acara_id, identitas_id) VALUES (?, ?, ?)"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setInt(1, user.getId());
                 sql.setInt(2, acara.getId());
                 sql.setInt(3, identitas.getId());
@@ -110,7 +111,8 @@ public class Ticket {
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("UPDATE ticket SET nota_acara_users_id = ?, nota_acara_Acara_id = ?, identitas_id = ? WHERE id = ?");
+                a.setStatement(Koneksi.getConn().prepareStatement("UPDATE ticket SET nota_acara_users_id = ?, nota_acara_Acara_id = ?, identitas_id = ? WHERE id = ?"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setInt(1, user.getId());
                 sql.setInt(2, acara.getId());
                 sql.setInt(3, identitas.getId());
@@ -128,7 +130,8 @@ public class Ticket {
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("DELETE FROM ticket WHERE id = ?");
+                a.setStatement(Koneksi.getConn().prepareStatement("DELETE FROM ticket WHERE id = ?"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setInt(1, id);
                 sql.executeUpdate();
                 sql.close();
@@ -148,20 +151,17 @@ public class Ticket {
                            "INNER JOIN acara ON ticket.nota_acara_Acara_id = acara.id " +
                            "INNER JOIN identitas ON ticket.identitas_id = identitas.id " +
                            "WHERE ticket.id = ?";
-            PreparedStatement sql = Koneksi.getConn().prepareStatement(query);
+            a.setStatement(Koneksi.getConn().prepareStatement(query));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
             sql.setInt(1, id);
-            ResultSet rs = sql.executeQuery();
-            if (rs.next()) {
-                User user = new User(rs.getInt("userId"), rs.getString("username"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("no_telp"), rs.getString("email"));
-                Acara acara = new Acara(rs.getInt("acaraId"), rs.getString("nama"), rs.getInt("kuota"), rs.getString("lokasi"), rs.getTimestamp("tanggal_acara"), rs.getString("deskripsi"), rs.getDouble("acaraHarga"));
-                Identitas identitas = new Identitas(rs.getInt("identitasId"), rs.getString("nama"), rs.getString("alamat"), rs.getString("no_ktp"), user);
-                Ticket ticket = new Ticket(rs.getInt("id"), user, acara, identitas);
-                rs.close();
-                sql.close();
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                User user = new User(a.getResult().getInt("userId"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
+                Acara acara = new Acara(a.getResult().getInt("acaraId"), a.getResult().getString("nama"), a.getResult().getInt("kuota"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("acaraHarga"));
+                Identitas identitas = new Identitas(a.getResult().getInt("identitasId"), a.getResult().getString("nama"), a.getResult().getString("alamat"), a.getResult().getString("no_ktp"), user);
+                Ticket ticket = new Ticket(a.getResult().getInt("id"), user, acara, identitas);
                 return ticket;
             }
-            rs.close();
-            sql.close();
         } catch (Exception ex) {
             System.out.println("Failed because : " + ex.getMessage());
         }
@@ -178,17 +178,16 @@ public class Ticket {
                            "INNER JOIN users ON ticket.nota_acara_users_id = users.id " +
                            "INNER JOIN acara ON ticket.nota_acara_Acara_id = acara.id " +
                            "INNER JOIN identitas ON ticket.identitas_id = identitas.id";
-            PreparedStatement sql = Koneksi.getConn().prepareStatement(query);
-            ResultSet rs = sql.executeQuery();
-            while (rs.next()) {
-                User user = new User(rs.getInt("userId"), rs.getString("username"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("no_telp"), rs.getString("email"));
-                Acara acara = new Acara(rs.getInt("acaraId"), rs.getString("nama"), rs.getInt("kuota"), rs.getString("lokasi"), rs.getTimestamp("tanggal_acara"), rs.getString("deskripsi"), rs.getDouble("acaraHarga"));
-                Identitas identitas = new Identitas(rs.getInt("identitasId"), rs.getString("nama"), rs.getString("alamat"), rs.getString("no_ktp"), user);
-                Ticket ticket = new Ticket(rs.getInt("id"), user, acara, identitas);
+            a.setStatement(Koneksi.getConn().prepareStatement(query));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
+            a.setResult(sql.executeQuery());
+            while (a.getResult().next()) {
+                User user = new User(a.getResult().getInt("userId"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
+                Acara acara = new Acara(a.getResult().getInt("acaraId"), a.getResult().getString("nama"), a.getResult().getInt("kuota"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("acaraHarga"));
+                Identitas identitas = new Identitas(a.getResult().getInt("identitasId"), a.getResult().getString("nama"), a.getResult().getString("alamat"), a.getResult().getString("no_ktp"), user);
+                Ticket ticket = new Ticket(a.getResult().getInt("id"), user, acara, identitas);
                 collections.add(ticket);
             }
-            rs.close();
-            sql.close();
             return collections;
         } catch (Exception ex) {
             System.out.println("Failed because : " + ex.getMessage());

@@ -111,18 +111,15 @@ public class Identitas extends Koneksi{
     public static Identitas findById(int id) {
         Koneksi a = new Koneksi();
         try {
-            PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT * FROM identitas WHERE id = ?");
+            a.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM identitas WHERE id = ?"));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
             sql.setInt(1, id);
-            ResultSet rs = sql.executeQuery();
-            if (rs.next()) {
-                User user = User.findById(rs.getInt("users_id"));
-                Identitas identitas = new Identitas(rs.getInt("id"), rs.getString("nama"), rs.getString("alamat"), rs.getString("no_ktp"), user);
-                rs.close();
-                sql.close();
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                User user = User.findById(a.getResult().getInt("users_id"));
+                Identitas identitas = new Identitas(a.getResult().getInt("id"), a.getResult().getString("nama"), a.getResult().getString("alamat"), a.getResult().getString("no_ktp"), user);
                 return identitas;
             }
-            rs.close();
-            sql.close();
         } catch (Exception ex) {
             System.out.println("Failed because : " + ex.getMessage());
         }

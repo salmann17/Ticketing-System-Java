@@ -182,15 +182,15 @@ public class User {
     public boolean updateData() {
         try{
             Koneksi a = new Koneksi();
-            if (!Koneksi.getConn().isClosed()){                
-                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement("UPDATE users SET username = ?, password = md5(?), no_telp = ?, email = ? WHERE id = ?;");
+            if (!Koneksi.getConn().isClosed()){ 
+                a.setStatement(Koneksi.getConn().prepareStatement("UPDATE users SET username = ?, password = md5(?), no_telp = ?, email = ? WHERE id = ?;"));
+                PreparedStatement sql = (PreparedStatement) a.getStatement();
                 sql.setString(1, getUsername());
                 sql.setString(2, getPassword());
                 sql.setString(3, getNoTelp());
                 sql.setString(4, getEmail());
                 sql.setInt(5, getId());
                 int rowAffacted = sql.executeUpdate();
-                sql.close();
                 return rowAffacted == 0 ? false:true;
             }
         }
@@ -243,17 +243,14 @@ public class User {
     public static User findById(int id) {
         Koneksi a = new Koneksi();
         try {
-            PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT * FROM users WHERE id = ?");
+            a.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM users WHERE id = ?"));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
             sql.setInt(1, id);
-            ResultSet rs = sql.executeQuery();
-            if (rs.next()) {
-                User user = new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("no_telp"), rs.getString("email"));
-                rs.close();
-                sql.close();
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                User user = new User(a.getResult().getInt("id"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
                 return user;
             }
-            rs.close();
-            sql.close();
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -263,7 +260,8 @@ public class User {
         Koneksi a = new Koneksi();
         try {
             String query = "UPDATE users SET saldo = saldo + ? WHERE id = ?";
-            PreparedStatement sql = Koneksi.getConn().prepareStatement(query);
+            a.setStatement(Koneksi.getConn().prepareStatement(query));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
             sql.setDouble(1, topUpAmount);
             sql.setInt(2, userId);
             int rowAffected = sql.executeUpdate();

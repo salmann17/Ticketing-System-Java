@@ -130,8 +130,10 @@ public class NotaParkir{
     public void insertData() {
         try{
             if (!Koneksi.getConn().isClosed()){
-                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement(
-                "Insert into parkirs(posisi_id, users_id, tgl_reservasi, tgl_finish, harga) values (?,?,?,?,?)");
+                Koneksi a = new Koneksi();
+                a.setStatement(Koneksi.getConn().prepareStatement(
+                "Insert into parkirs(posisi_id, users_id, tgl_reservasi, tgl_finish, harga) values (?,?,?,?,?)"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
                 sql.setInt(1, getPosisi().getId());
                 sql.setInt(2, getUser().getId());
                 sql.setTimestamp(3, getTglReservasi());
@@ -155,19 +157,16 @@ public class NotaParkir{
                            "INNER JOIN posisi ON nota_parkir.posisi_id = posisi.id " +
                            "INNER JOIN users ON nota_parkir.users_id = users.id " +
                            "WHERE nota_parkir.id = ?";
-            PreparedStatement sql = Koneksi.getConn().prepareStatement(query);
+            a.setStatement(Koneksi.getConn().prepareStatement(query));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
             sql.setInt(1, id);
-            ResultSet rs = sql.executeQuery();
-            if (rs.next()) {
-                Posisi posisi = new Posisi(rs.getInt("posisiId"), rs.getString("nomor"), rs.getDouble("posisiHarga"));
-                User user = new User(rs.getInt("userId"), rs.getString("username"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("no_telp"), rs.getString("email"));
-                NotaParkir notaParkir = new NotaParkir(rs.getInt("id"), posisi, user, rs.getTimestamp("tgl_reservasi"), rs.getTimestamp("tgl_finish"), rs.getDouble("harga"));
-                rs.close();
-                sql.close();
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                Posisi posisi = new Posisi(a.getResult().getInt("posisiId"), a.getResult().getString("nomor"), a.getResult().getDouble("posisiHarga"));
+                User user = new User(a.getResult().getInt("userId"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
+                NotaParkir notaParkir = new NotaParkir(a.getResult().getInt("id"), posisi, user, a.getResult().getTimestamp("tgl_reservasi"), a.getResult().getTimestamp("tgl_finish"), a.getResult().getDouble("harga"));
                 return notaParkir;
             }
-            rs.close();
-            sql.close();
         } catch (Exception ex) {
             System.out.println("failed because : " + ex.getMessage());
         }

@@ -4,11 +4,9 @@
  */
 package Model;
 
-import Model.Koneksi;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+
 
 /**
  *
@@ -100,17 +98,14 @@ public class Posisi{
     public static Posisi findById(int id) {
         Koneksi a = new Koneksi();
         try {
-            PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT * FROM posisi WHERE id = ?");
+            a.setStatement( Koneksi.getConn().prepareStatement("SELECT * FROM posisi WHERE id = ?"));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
             sql.setInt(1, id);
-            ResultSet rs = sql.executeQuery();
-            if (rs.next()) {
-                Posisi posisi = new Posisi(rs.getInt("id"), rs.getString("nomor"), rs.getDouble("harga"));
-                rs.close();
-                sql.close();
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                Posisi posisi = new Posisi(a.getResult().getInt("id"), a.getResult().getString("nomor"), a.getResult().getDouble("harga"));
                 return posisi;
             }
-            rs.close();
-            sql.close();
         } catch (Exception ex) {
             System.out.println("failed because : " + ex.getMessage());
         }
@@ -119,9 +114,11 @@ public class Posisi{
     
     public void insertData() {
         try{
+            Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()){
-                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement(
-                "Insert into users(nomor, harga, parkir_id) values (?,?,?)");
+                a.setStatement(Koneksi.getConn().prepareStatement(
+                "Insert into users(nomor, harga, parkir_id) values (?,?,?)"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
                 sql.setString(1, getNomor());
                 sql.setDouble(2, getHarga());
                 sql.setInt(3, parkir.getId());

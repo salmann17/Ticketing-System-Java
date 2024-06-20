@@ -157,26 +157,25 @@ public class Saldo {
                            "INNER JOIN users ON saldo.users_id = users.id " +
                            "LEFT JOIN nota_acara ON saldo.nota_acara_id = nota_acara.id " +
                            "LEFT JOIN nota_parkir ON saldo.nota_parkir_id = nota_parkir.id";
-            PreparedStatement sql = Koneksi.getConn().prepareStatement(query);
-            ResultSet rs = sql.executeQuery();
-            while (rs.next()) {
-                User user = new User(rs.getInt("userId"), rs.getString("username"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("no_telp"), rs.getString("email"));
+            a.setStatement(Koneksi.getConn().prepareStatement(query));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
+            a.setResult(sql.executeQuery());
+            while (a.getResult().next()) {
+                User user = new User(a.getResult().getInt("userId"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
                 
                 NotaAcara notaAcara = null;
-                if (rs.getInt("notaAcaraId") != 0) {
-                    notaAcara = new NotaAcara(rs.getInt("notaAcaraId"), User.findById(rs.getInt("notaAcaraUserId")), Acara.findById(rs.getInt("notaAcaraAcaraId")), rs.getInt("notaAcaraJumlah"), rs.getDouble("notaAcaraHarga"));
+                if (a.getResult().getInt("notaAcaraId") != 0) {
+                    notaAcara = new NotaAcara(a.getResult().getInt("notaAcaraId"), User.findById(a.getResult().getInt("notaAcaraUserId")), Acara.findById(a.getResult().getInt("notaAcaraAcaraId")), a.getResult().getInt("notaAcaraJumlah"), a.getResult().getDouble("notaAcaraHarga"));
                 }
 
                 NotaParkir notaParkir = null;
-                if (rs.getInt("notaParkirId") != 0) {
-                    notaParkir = new NotaParkir(rs.getInt("notaParkirId"), Posisi.findById(rs.getInt("notaParkirPosisiId")), User.findById(rs.getInt("notaParkirUserId")), rs.getTimestamp("tgl_reservasi"), rs.getTimestamp("tgl_finish"), rs.getDouble("notaParkirHarga"));
+                if (a.getResult().getInt("notaParkirId") != 0) {
+                    notaParkir = new NotaParkir(a.getResult().getInt("notaParkirId"), Posisi.findById(a.getResult().getInt("notaParkirPosisiId")), User.findById(a.getResult().getInt("notaParkirUserId")), a.getResult().getTimestamp("tgl_reservasi"), a.getResult().getTimestamp("tgl_finish"), a.getResult().getDouble("notaParkirHarga"));
                 }
 
-                Saldo saldo = new Saldo(rs.getInt("id"), rs.getDouble("jumlah"), user, rs.getString("keterangan"), notaAcara, notaParkir);
+                Saldo saldo = new Saldo(a.getResult().getInt("id"), a.getResult().getDouble("jumlah"), user, a.getResult().getString("keterangan"), notaAcara, notaParkir);
                 collections.add(saldo);
             }
-            rs.close();
-            sql.close();
             return collections;
         } catch (Exception ex) {
             System.out.println("failed because : " + ex.getMessage());

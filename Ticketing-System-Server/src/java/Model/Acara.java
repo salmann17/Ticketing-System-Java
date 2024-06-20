@@ -119,7 +119,8 @@ public class Acara extends Koneksi {
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {                
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("INSERT INTO Acara(nama, kuota, lokasi, tanggal_acara, deskripsi, harga) VALUES (?,?,?,?,?,?)");
+                a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO Acara(nama, kuota, lokasi, tanggal_acara, deskripsi, harga) VALUES (?,?,?,?,?,?)"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setString(1, nama);
                 sql.setInt(2, kuota);
                 sql.setString(3, lokasi);
@@ -137,7 +138,8 @@ public class Acara extends Koneksi {
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {                
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("UPDATE Acara SET nama = ?, kuota = ?, lokasi = ?, tanggal_acara = ?, deskripsi = ?, harga = ? WHERE id = ?");
+                a.setStatement(Koneksi.getConn().prepareStatement("UPDATE Acara SET nama = ?, kuota = ?, lokasi = ?, tanggal_acara = ?, deskripsi = ?, harga = ? WHERE id = ?")) ;
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setString(1, nama);
                 sql.setInt(2, kuota);
                 sql.setString(3, lokasi);
@@ -158,7 +160,8 @@ public class Acara extends Koneksi {
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("DELETE FROM Acara WHERE id = ?");
+                a.setStatement(Koneksi.getConn().prepareStatement("DELETE FROM Acara WHERE id = ?"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setInt(1, id);
                 sql.executeUpdate();
                 sql.close();
@@ -192,17 +195,14 @@ public class Acara extends Koneksi {
      public static Acara findById(int id) {
         Koneksi a = new Koneksi();
         try {
-            PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT * FROM Acara WHERE id = ?");
+            a.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM Acara WHERE id = ?"));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
             sql.setInt(1, id);
-            ResultSet rs = sql.executeQuery();
-            if (rs.next()) {
-                Acara acara = new Acara(rs.getInt("id"), rs.getString("nama"), rs.getInt("kuota"), rs.getString("lokasi"), rs.getTimestamp("tanggal_acara"), rs.getString("deskripsi"), rs.getDouble("harga"));
-                rs.close();
-                sql.close();
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                Acara acara = new Acara(a.getResult().getInt("id"), a.getResult().getString("nama"), a.getResult().getInt("kuota"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("harga"));
                 return acara;
             }
-            rs.close();
-            sql.close();
         } catch (SQLException ex) {
             System.out.println("Failed because : " + ex.getMessage());
         }

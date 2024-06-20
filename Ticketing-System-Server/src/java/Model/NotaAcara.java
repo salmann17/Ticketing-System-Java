@@ -112,7 +112,8 @@ public class NotaAcara extends Koneksi{
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("INSERT INTO nota_acara(users_id, Acara_id, jumlah, harga) VALUES (?, ?, ?, ?)");
+                a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO nota_acara(users_id, Acara_id, jumlah, harga) VALUES (?, ?, ?, ?)"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setInt(1, user.getId());
                 sql.setInt(2, acara.getId());
                 sql.setInt(3, jumlah);
@@ -128,7 +129,8 @@ public class NotaAcara extends Koneksi{
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("UPDATE nota_acara SET users_id = ?, Acara_id = ?, jumlah = ?, harga = ? WHERE id = ?");
+                a.setStatement(Koneksi.getConn().prepareStatement("UPDATE nota_acara SET users_id = ?, Acara_id = ?, jumlah = ?, harga = ? WHERE id = ?"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setInt(1, user.getId());
                 sql.setInt(2, acara.getId());
                 sql.setInt(3, jumlah);
@@ -147,7 +149,8 @@ public class NotaAcara extends Koneksi{
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("DELETE FROM nota_acara WHERE id = ?");
+                a.setStatement(Koneksi.getConn().prepareStatement("DELETE FROM nota_acara WHERE id = ?"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setInt(1, id);
                 sql.executeUpdate();
                 sql.close();
@@ -165,19 +168,16 @@ public class NotaAcara extends Koneksi{
                            "INNER JOIN users ON nota_acara.users_id = users.id " +
                            "INNER JOIN acara ON nota_acara.Acara_id = acara.id " +
                            "WHERE nota_acara.id = ?";
-            PreparedStatement sql = Koneksi.getConn().prepareStatement(query);
+            a.setStatement(Koneksi.getConn().prepareStatement(query));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
             sql.setInt(1, id);
-            ResultSet rs = sql.executeQuery();
-            if (rs.next()) {
-                User user = new User(rs.getInt("userId"), rs.getString("username"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("no_telp"), rs.getString("email"));
-                Acara acara = new Acara(rs.getInt("acaraId"), rs.getString("nama"), rs.getInt("kuota"), rs.getString("lokasi"), rs.getTimestamp("tanggal_acara"), rs.getString("deskripsi"), rs.getDouble("acaraHarga"));
-                NotaAcara notaAcara = new NotaAcara(rs.getInt("id"), user, acara, rs.getInt("jumlah"), rs.getDouble("harga"));
-                rs.close();
-                sql.close();
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                User user = new User(a.getResult().getInt("userId"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
+                Acara acara = new Acara(a.getResult().getInt("acaraId"), a.getResult().getString("nama"), a.getResult().getInt("kuota"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("acaraHarga"));
+                NotaAcara notaAcara = new NotaAcara(a.getResult().getInt("id"), user, acara, a.getResult().getInt("jumlah"), a.getResult().getDouble("harga"));
                 return notaAcara;
             }
-            rs.close();
-            sql.close();
         } catch (SQLException ex) {
             System.out.println("Failed because : " + ex.getMessage());
         }
@@ -192,7 +192,8 @@ public class NotaAcara extends Koneksi{
                            "FROM nota_acara " +
                            "INNER JOIN users ON nota_acara.users_id = users.id " +
                            "INNER JOIN acara ON nota_acara.Acara_id = acara.id";
-            PreparedStatement sql = Koneksi.getConn().prepareStatement(query);
+            a.setStatement(Koneksi.getConn().prepareStatement(query));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
             ResultSet rs = sql.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getInt("userId"), rs.getString("username"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("no_telp"), rs.getString("email"));
@@ -200,8 +201,6 @@ public class NotaAcara extends Koneksi{
                 NotaAcara tampung = new NotaAcara(rs.getInt("id"), user, acara, rs.getInt("jumlah"), rs.getDouble("harga"));
                 collections.add(tampung);
             }
-            rs.close();
-            sql.close();
             return collections;
         } catch (SQLException ex) {
             System.out.println("Failed because : " + ex.getMessage());

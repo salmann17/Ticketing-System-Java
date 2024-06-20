@@ -66,9 +66,11 @@ public class Parkir extends Koneksi{
 
     public void insertData() {
         try{
+            Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()){
-                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement(
-                "Insert into parkir(lokasi, kuota) values (?,?)");
+                a.setStatement(Koneksi.getConn().prepareStatement(
+                "Insert into parkir(lokasi, kuota) values (?,?)"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
                 sql.setString(1, getLokasi());
                 sql.setInt(2, getKuota());
                 sql.executeUpdate();
@@ -82,9 +84,11 @@ public class Parkir extends Koneksi{
 
     public void updateData() {
         try{
+            Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()){
-                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement(
-                "UPDATE `parkir` SET `lokasi` = '?', `kuota` = '?' WHERE (`id` = '?');");
+                a.setStatement(Koneksi.getConn().prepareStatement(
+                "UPDATE `parkir` SET `lokasi` = '?', `kuota` = '?' WHERE (`id` = '?');"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
                 sql.setString(1, getLokasi());
                 sql.setInt(2, getKuota());
                 sql.setInt(3, getId());
@@ -99,9 +103,11 @@ public class Parkir extends Koneksi{
 
     public void deleteData() {
         try{
+            Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()){
-                PreparedStatement sql = (PreparedStatement) Koneksi.getConn().prepareStatement(
-                "DELETE FROM `parkir` WHERE (`id` = '?');");
+                a.setStatement(Koneksi.getConn().prepareStatement(
+                "DELETE FROM `parkir` WHERE (`id` = '?');"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
                 sql.setInt(1, getId());
                 sql.executeUpdate();
                 sql.close();
