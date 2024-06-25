@@ -4,174 +4,134 @@
  */
 package Model;
 
-import Model.User;
-import Model.Koneksi;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
+
 
 /**
  *
  * @author natha
  */
 public class NotaParkir{
-
     private int id;
-    private Posisi posisi;
-    private User User;
-    private Timestamp tglReservasi;
-    private Timestamp tglFinish;
-    private double harga;
-    
-    public NotaParkir(int id, Posisi posisi, User User, Timestamp tglReservasi, Timestamp tglFinish, double harga) {
-        this.id = id;
-        this.posisi = posisi;
-        this.User = User;
-        this.tglReservasi = tglReservasi;
-        this.tglFinish = tglFinish;
-        this.harga = harga;
-    }
+    private Timestamp tanggal_transaksi;
+    private User user;
+    private Date tanggal_booking;
+    private Slot_Parkir slot_parkir;
+    private Jam_Parkir jam_parkir;
 
     public NotaParkir() {
         this.id = 0;
-        this.posisi = new Posisi();
-        this.User = new User();
-        this.tglReservasi = new Timestamp(new Date().getTime());
-        this.tglFinish = new Timestamp(new Date().getTime());
-        this.harga = 0.0;
+        this.tanggal_transaksi = new Timestamp(new java.util.Date().getTime());
+        this.user = new User();
+        this.tanggal_booking = new Date(new java.util.Date().getTime());
+        this.slot_parkir = new Slot_Parkir();
+        this.jam_parkir = new Jam_Parkir();
+    } 
+     
+    public NotaParkir(int id, Timestamp tanggal_transaksi, User user, Date tanggal_booking, Slot_Parkir slot_parkir, Jam_Parkir jam_parkir) {
+        this.id = id;
+        this.tanggal_transaksi = tanggal_transaksi;
+        this.user = user;
+        this.tanggal_booking = tanggal_booking;
+        this.slot_parkir = slot_parkir;
+        this.jam_parkir = jam_parkir;
     }
-    
-    /**
-     * @return the id
-     */
+     
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the posisi
-     */
-    public Posisi getPosisi() {
-        return posisi;
+    public Timestamp getTanggal_transaksi() {
+        return tanggal_transaksi;
     }
 
-    /**
-     * @param posisi the posisi to set
-     */
-    public void setPosisi(Posisi posisi) {
-        this.posisi = posisi;
+    public void setTanggal_transaksi(Timestamp tanggal_transaksi) {
+        this.tanggal_transaksi = tanggal_transaksi;
     }
 
-    /**
-     * @return the User
-     */
     public User getUser() {
-        return User;
+        return user;
     }
 
-    /**
-     * @param User the User to set
-     */
-    public void setUser(User User) {
-        this.User = User;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    /**
-     * @return the tglReservasi
-     */
-    public Timestamp getTglReservasi() {
-        return tglReservasi;
+    public Date getTanggal_booking() {
+        return tanggal_booking;
     }
 
-    /**
-     * @param tglReservasi the tglReservasi to set
-     */
-    public void setTglReservasi(Timestamp tglReservasi) {
-        this.tglReservasi = tglReservasi;
+    public void setTanggal_booking(Date tanggal_booking) {
+        this.tanggal_booking = tanggal_booking;
     }
 
-    /**
-     * @return the tglFinish
-     */
-    public Timestamp getTglFinish() {
-        return tglFinish;
+    public Slot_Parkir getSlot_parkir() {
+        return slot_parkir;
     }
 
-    /**
-     * @param tglFinish the tglFinish to set
-     */
-    public void setTglFinish(Timestamp tglFinish) {
-        this.tglFinish = tglFinish;
+    public void setSlot_parkir(Slot_Parkir slot_parkir) {
+        this.slot_parkir = slot_parkir;
     }
 
-    /**
-     * @return the harga
-     */
-    public double getHarga() {
-        return harga;
+    public Jam_Parkir getJam_parkir() {
+        return jam_parkir;
     }
 
-    /**
-     * @param harga the harga to set
-     */
-    public void setHarga(double harga) {
-        this.harga = harga;
+    public void setJam_parkir(Jam_Parkir jam_parkir) {
+        this.jam_parkir = jam_parkir;
     }
+     
     
-    public void insertData() {
-        try{
-            if (!Koneksi.getConn().isClosed()){
-                Koneksi a = new Koneksi();
-                a.setStatement(Koneksi.getConn().prepareStatement(
-                "Insert into parkirs(posisi_id, users_id, tgl_reservasi, tgl_finish, harga) values (?,?,?,?,?)"));
-                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
-                sql.setInt(1, getPosisi().getId());
-                sql.setInt(2, getUser().getId());
-                sql.setTimestamp(3, getTglReservasi());
-                sql.setTimestamp(4, getTglFinish());
-                sql.setDouble(5, getHarga());
-                sql.executeUpdate();
-                sql.close();
-            }
-        }
-        catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
-    public static NotaParkir findById(int id) {
-        Koneksi a = new Koneksi();
-        try {
-            String query = "SELECT nota_parkir.id, nota_parkir.tgl_reservasi, nota_parkir.tgl_finish, nota_parkir.harga, " +
-                           "posisi.id AS posisiId, posisi.nomor, posisi.harga AS posisiHarga, " +
-                           "users.id AS userId, users.username, users.password, users.saldo, users.no_telp, users.email " +
-                           "FROM nota_parkir " +
-                           "INNER JOIN posisi ON nota_parkir.posisi_id = posisi.id " +
-                           "INNER JOIN users ON nota_parkir.users_id = users.id " +
-                           "WHERE nota_parkir.id = ?";
-            a.setStatement(Koneksi.getConn().prepareStatement(query));
-            PreparedStatement sql = (PreparedStatement)a.getStatement();
-            sql.setInt(1, id);
-            a.setResult(sql.executeQuery());
-            if (a.getResult().next()) {
-                Posisi posisi = new Posisi(a.getResult().getInt("posisiId"), a.getResult().getString("nomor"), a.getResult().getDouble("posisiHarga"));
-                User user = new User(a.getResult().getInt("userId"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
-                NotaParkir notaParkir = new NotaParkir(a.getResult().getInt("id"), posisi, user, a.getResult().getTimestamp("tgl_reservasi"), a.getResult().getTimestamp("tgl_finish"), a.getResult().getDouble("harga"));
-                return notaParkir;
-            }
-        } catch (Exception ex) {
-            System.out.println("failed because : " + ex.getMessage());
-        }
-        return null;
-    }
-
-    
+//    
+//    public void insertData() {
+//        try{
+//            if (!Koneksi.getConn().isClosed()){
+//                Koneksi a = new Koneksi();
+//                a.setStatement(Koneksi.getConn().prepareStatement(
+//                "Insert into parkirs(posisi_id, users_id, tgl_reservasi, tgl_finish, harga) values (?,?,?,?,?)"));
+//                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
+//                sql.setInt(1, getPosisi().getId());
+//                sql.setInt(2, getUser().getId());
+//                sql.setTimestamp(3, getTglReservasi());
+//                sql.setTimestamp(4, getTglFinish());
+//                sql.setDouble(5, getHarga());
+//                sql.executeUpdate();
+//                sql.close();
+//            }
+//        }
+//        catch (Exception ex){
+//            System.out.println(ex.getMessage());
+//        }
+//    }
+//    public static NotaParkir findById(int id) {
+//        Koneksi a = new Koneksi();
+//        try {
+//            String query = "SELECT nota_parkir.id, nota_parkir.tgl_reservasi, nota_parkir.tgl_finish, nota_parkir.harga, " +
+//                           "posisi.id AS posisiId, posisi.nomor, posisi.harga AS posisiHarga, " +
+//                           "users.id AS userId, users.username, users.password, users.saldo, users.no_telp, users.email " +
+//                           "FROM nota_parkir " +
+//                           "INNER JOIN posisi ON nota_parkir.posisi_id = posisi.id " +
+//                           "INNER JOIN users ON nota_parkir.users_id = users.id " +
+//                           "WHERE nota_parkir.id = ?";
+//            a.setStatement(Koneksi.getConn().prepareStatement(query));
+//            PreparedStatement sql = (PreparedStatement)a.getStatement();
+//            sql.setInt(1, id);
+//            a.setResult(sql.executeQuery());
+//            if (a.getResult().next()) {
+//                Slot_Parkir posisi = new Slot_Parkir(a.getResult().getInt("posisiId"), a.getResult().getString("nomor"), a.getResult().getDouble("posisiHarga"));
+//                User user = new User(a.getResult().getInt("userId"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
+//                NotaParkir notaParkir = new NotaParkir(a.getResult().getInt("id"), posisi, user, a.getResult().getTimestamp("tgl_reservasi"), a.getResult().getTimestamp("tgl_finish"), a.getResult().getDouble("harga"));
+//                return notaParkir;
+//            }
+//        } catch (Exception ex) {
+//            System.out.println("failed because : " + ex.getMessage());
+//        }
+//        return null;
+//    }
+        
 }

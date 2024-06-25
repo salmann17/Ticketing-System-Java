@@ -4,7 +4,7 @@
  */
 package com.server;
 
-import Model.Saldo;
+import Model.History_Transaksi;
 import Model.User;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -54,10 +54,10 @@ public class TicketingService {
      * Web service operation
      */
     @WebMethod(operationName = "getSaldoHistory")
-    public Saldo[] getSaldoHistory(@WebParam(name = "idUser") int idUser) {
+    public History_Transaksi[] getSaldoHistory(@WebParam(name = "idUser") int idUser) {
         //TODO write your implementation code here:
-        ArrayList<Saldo> s = Saldo.viewListData();
-        Saldo[] a = new Saldo[s.size()];
+        ArrayList<History_Transaksi> s = History_Transaksi.viewListData();
+        History_Transaksi[] a = new History_Transaksi[s.size()];
         s.toArray(a);
         return a;
     }

@@ -193,23 +193,23 @@ public class User {
         }
         return null;
     }
-    
-    public boolean updateSaldo(double topUpAmount) {
-        Koneksi a = new Koneksi();
-        try {
-            String query = "UPDATE users SET saldo = saldo + ? WHERE id = ?";
-            a.setStatement(Koneksi.getConn().prepareStatement(query));
-            PreparedStatement sql = (PreparedStatement)a.getStatement();
-            sql.setDouble(1, topUpAmount);
-            sql.setInt(2, this.id);
-            int rowAffected = sql.executeUpdate();
-            sql.close();
-            return rowAffected != 0;
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
+//blm ada insert history_transaksi  
+//    public boolean TopUp(double topUpAmount) {
+//        Koneksi a = new Koneksi();
+//        try {
+//            String query = "UPDATE users SET saldo = saldo + ? WHERE id = ?";
+//            a.setStatement(Koneksi.getConn().prepareStatement(query));
+//            PreparedStatement sql = (PreparedStatement)a.getStatement();
+//            sql.setDouble(1, topUpAmount);
+//            sql.setInt(2, this.id);
+//            int rowAffected = sql.executeUpdate();
+//            sql.close();
+//            return rowAffected != 0;
+//        } catch (SQLException ex) {
+//            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return false;
+//    }
 
     public void getSlotParkirData(){        
         Koneksi k = new Koneksi();
@@ -233,5 +233,5 @@ public class User {
         {
             System.out.println(ex.getMessage());
         }        
-    }
+    }    
 }
