@@ -5,9 +5,7 @@
 package Model;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,17 +16,14 @@ import java.util.logging.Logger;
  */
 public class User {
 
-    /**
-     * @return the id
-     */
     private int id;
     private String username;
     private String password;
     private double saldo;
     private String noTelp;
     private String email;
-    
-    
+    private ArrayList<Identitas>identitasList;
+        
     public User(int id, String username, String password, double saldo, String noTelp, String email) {
         this.id = id;
         this.username = username;
@@ -36,6 +31,7 @@ public class User {
         this.saldo = saldo;
         this.noTelp = noTelp;
         this.email = email;
+        this.identitasList = new ArrayList<>();
     }
 
     public User(int id, String username, String password, String noTelp, String email) {
@@ -45,6 +41,7 @@ public class User {
         this.saldo = 0;
         this.noTelp = noTelp;
         this.email = email;
+        this.identitasList = new ArrayList<>();
     }
     
     public User(){
@@ -54,130 +51,110 @@ public class User {
         this.saldo = 0.0;
         this.noTelp = "";
         this.email = "";
+        this.identitasList = new ArrayList<>();
     }
     
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the username
-     */
     public String getUsername() {
         return username;
     }
 
-    /**
-     * @param username the username to set
-     */
     public void setUsername(String username) {
         this.username = username;
     }
 
-    /**
-     * @return the password
-     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * @param password the password to set
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     * @return the saldo
-     */
     public double getSaldo() {
         return saldo;
     }
 
-    /**
-     * @param saldo the saldo to set
-     */
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 
-    /**
-     * @return the noTelp
-     */
     public String getNoTelp() {
         return noTelp;
     }
 
-    /**
-     * @param noTelp the noTelp to set
-     */
     public void setNoTelp(String noTelp) {
         this.noTelp = noTelp;
     }
 
-
-    /**
-     * @return the email
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * @param email the email to set
-     */
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public ArrayList<Identitas> getIdentitasList() {
+        return identitasList;
+    }
+
+    public void setIdentitasList(ArrayList<Identitas> identitasList) {
+        this.identitasList = identitasList;
+    }    
     
-    public boolean CekLogin(){
-        try{
-            Koneksi a = new Koneksi();
-            a.setStatement((Statement) Koneksi.getConn().createStatement());
-            a.setResult(a.getStatement().executeQuery("select * from users"));
-            if(a.getResult().next()){
-                a.getResult().getInt("id");
-                a.getResult().getDouble("saldo");
-                a.getResult().getString("no_telp");
-                a.getResult().getString("email");
-                return true;
-            }
-            
-            
-            
+    public static User CekLogin(String username, String password){
+        Koneksi k = new Koneksi();
+        try
+        {                        
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM users where username = ? and password = md5(?)"));
+            PreparedStatement sql = (PreparedStatement)k.getStatement() ;
+            sql.setString(1, username);
+            sql.setString(2, password);
+            k.setResult(sql.executeQuery());
+            if (k.getResult().next())
+            {
+                User temp = new User(k.getResult().getInt("id"), 
+                        k.getResult().getString("username"), 
+                        "", 
+                        k.getResult().getDouble("saldo"),
+                        k.getResult().getString("no_telp"),
+                        k.getResult().getString("email"));                
+                return temp;
+            }                                  
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
-        }    
-        return false;
+        }
+        return null;
     }
-    public void insertData() {
+    public boolean insertData() {
         try{
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()){                
                 PreparedStatement sql = (PreparedStatement)Koneksi.getConn().prepareStatement("Insert into users(username, password, saldo, no telp, email) values (?,md5(?),?,?, ?)");
-                sql.setString(1, getUsername());
-                sql.setString(2, getPassword());
-                sql.setDouble(3, getSaldo());
-                sql.setString(4, getNoTelp());
-                sql.setString(5, getEmail());
-                sql.executeUpdate();
+                sql.setString(1, this.getUsername());
+                sql.setString(2, this.getPassword());
+                sql.setDouble(3, 0.0);
+                sql.setString(4, this.getNoTelp());
+                sql.setString(5, this.getEmail());
+                int rowAffected = sql.executeUpdate();
                 sql.close();
+                return rowAffected > 0;
             }
         }
         catch (Exception ex){
             System.out.println(ex.getMessage());
         }
+        return false;
     }
-
     
     public boolean updateData() {
         try{
@@ -191,55 +168,15 @@ public class User {
                 sql.setString(4, getEmail());
                 sql.setInt(5, getId());
                 int rowAffacted = sql.executeUpdate();
-                return rowAffacted == 0 ? false:true;
+                return rowAffacted > 0;
             }
         }
         catch (Exception ex){
             System.out.println(ex.getMessage());
         }
         return false;
-    }
+    }    
 
-    
-    public void deleteData() {
-        try{
-            Koneksi a = new Koneksi();
-            if (!Koneksi.getConn().isClosed()){
-                 a.setStatement((PreparedStatement) Koneksi.getConn().prepareStatement("DELETE FROM `ticketing_system_java`.`users` WHERE (`id` = '?');"));
-                PreparedStatement sql = (PreparedStatement)a.getStatement();
-                sql.setInt(1, getId());
-                sql.executeUpdate();
-                sql.close();
-            }
-        }
-        catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    
-    public static ArrayList<User> viewListData() {
-        ArrayList<User> collections = new ArrayList<User>();
-        Koneksi a = new Koneksi();
-        try {
-            a.setStatement((Statement) Koneksi.getConn().createStatement());
-            a.setResult(a.getStatement().executeQuery("select * from users"));
-            while (a.getResult().next())
-            {
-                User tampung = new User(a.getResult().getInt("id"), 
-                        a.getResult().getString("username"), 
-                        a.getResult().getString("password"), 
-                        a.getResult().getDouble("saldo"), 
-                        a.getResult().getString("no_telp"),
-                        a.getResult().getString("email"));
-                collections.add(tampung);
-            }
-            return collections;            
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
     public static User findById(int id) {
         Koneksi a = new Koneksi();
         try {
@@ -256,14 +193,15 @@ public class User {
         }
         return null;
     }
-    public static boolean updateSaldo(int userId, double topUpAmount) {
+    
+    public boolean updateSaldo(double topUpAmount) {
         Koneksi a = new Koneksi();
         try {
             String query = "UPDATE users SET saldo = saldo + ? WHERE id = ?";
             a.setStatement(Koneksi.getConn().prepareStatement(query));
             PreparedStatement sql = (PreparedStatement)a.getStatement();
             sql.setDouble(1, topUpAmount);
-            sql.setInt(2, userId);
+            sql.setInt(2, this.id);
             int rowAffected = sql.executeUpdate();
             sql.close();
             return rowAffected != 0;
@@ -271,5 +209,29 @@ public class User {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public void getSlotParkirData(){        
+        Koneksi k = new Koneksi();
+        try
+        {                        
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM identitas where users_id = ?"));
+            PreparedStatement sql = (PreparedStatement)k.getStatement() ;
+            sql.setInt(1, this.id);
+            k.setResult(sql.executeQuery());
+            while (k.getResult().next())
+            {
+                Identitas temp = new Identitas(k.getResult().getInt("id"), 
+                        k.getResult().getString("nama"), 
+                        k.getResult().getString("alamat"), 
+                        k.getResult().getString("no_ktp"),
+                        this);
+                this.identitasList.add(temp);
+            }                      
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }        
     }
 }
