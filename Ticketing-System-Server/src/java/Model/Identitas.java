@@ -4,18 +4,12 @@
  */
 package Model;
 
-import Model.User;
-import Model.Koneksi;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 /**
  *
  * @author natha
  */
-public class Identitas extends Koneksi{
+public class Identitas {
 
     private int id;
     private String nama;
@@ -39,85 +33,54 @@ public class Identitas extends Koneksi{
         this.user = new User();
     }
     
-    /**
-     * @return the id
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the nama
-     */
     public String getNama() {
         return nama;
     }
 
-    /**
-     * @param nama the nama to set
-     */
     public void setNama(String nama) {
         this.nama = nama;
     }
 
-    /**
-     * @return the alamat
-     */
     public String getAlamat() {
         return alamat;
     }
 
-    /**
-     * @param alamat the alamat to set
-     */
     public void setAlamat(String alamat) {
         this.alamat = alamat;
     }
 
-    /**
-     * @return the noKTP
-     */
     public String getNoKTP() {
         return noKTP;
     }
 
-    /**
-     * @param noKTP the noKTP to set
-     */
     public void setNoKTP(String noKTP) {
         this.noKTP = noKTP;
     }
 
-    /**
-     * @return the user
-     */
     public User getUser() {
         return user;
     }
-
-    /**
-     * @param user the user to set
-     */
     public void setUser(User user) {
         this.user = user;
     }
     public static Identitas findById(int id) {
-        Koneksi a = new Koneksi();
+        Koneksi k = new Koneksi();
         try {
-            a.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM identitas WHERE id = ?"));
-            PreparedStatement sql = (PreparedStatement)a.getStatement();
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM identitas WHERE id = ?"));
+            PreparedStatement sql = (PreparedStatement)k.getStatement();
             sql.setInt(1, id);
-            a.setResult(sql.executeQuery());
-            if (a.getResult().next()) {
-                User user = User.findById(a.getResult().getInt("users_id"));
-                Identitas identitas = new Identitas(a.getResult().getInt("id"), a.getResult().getString("nama"), a.getResult().getString("alamat"), a.getResult().getString("no_ktp"), user);
+            k.setResult(sql.executeQuery());
+            if (k.getResult().next()) {
+                User user = User.findById(k.getResult().getInt("users_id"));
+                Identitas identitas = new Identitas(k.getResult().getInt("id"), k.getResult().getString("nama"), k.getResult().getString("alamat"), k.getResult().getString("no_ktp"), user);
                 return identitas;
             }
         } catch (Exception ex) {
@@ -125,5 +88,4 @@ public class Identitas extends Koneksi{
         }
         return null;
     }
-   
 }
