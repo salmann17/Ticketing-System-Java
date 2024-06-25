@@ -4,7 +4,6 @@
  */
 package Model;
 
-import Model.Koneksi;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -13,23 +12,28 @@ import java.util.ArrayList;
  *
  * @author natha
  */
-public class Parkir extends Koneksi{
+public class Parkir{
 
     private int id;
+    private String nama;
     private String lokasi;
     private int kuota;
-    private ArrayList<Posisi> listPosisi;
+    private ArrayList<Slot_Parkir> slot_parkir;
     
-    public Parkir(int id, String lokasi, int kuota) {
+    public Parkir(int id, String nama, String lokasi, int kuota, ArrayList<Slot_Parkir> slotParkir ) {
         this.id = id;
+        this.nama = nama;
         this.lokasi = lokasi;
-        this.kuota = kuota;
+        this.kuota = kuota;  
+        this.slot_parkir = slotParkir;
     }
     
     public Parkir() {
         this.id = 0;
+        this.nama = "";
         this.lokasi = "";
         this.kuota = 0;
+        this.slot_parkir = new ArrayList<>();
     }
     
     public int getId() {
@@ -39,7 +43,15 @@ public class Parkir extends Koneksi{
     public void setId(int id) {
         this.id = id;
     }
+    
+    public String getNama() {
+        return nama;
+    }
 
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+    
     public String getLokasi() {
         return lokasi;
     }
@@ -55,100 +67,116 @@ public class Parkir extends Koneksi{
     public void setKuota(int kuota) {
         this.kuota = kuota;
     }
-
-    public ArrayList<Posisi> getListPosisi() {
-        return listPosisi;
+    
+    public ArrayList<Slot_Parkir> getSlot_parkir() {
+        return slot_parkir;
     }
 
-    public void setListPosisi(ArrayList<Posisi> listPosisi) {
-        this.listPosisi = listPosisi;
+    public void setSlot_parkir(ArrayList<Slot_Parkir> slot_parkir) {
+        this.slot_parkir = slot_parkir;
     }
-
-    public void insertData() {
-        try{
-            Koneksi a = new Koneksi();
-            if (!Koneksi.getConn().isClosed()){
-                a.setStatement(Koneksi.getConn().prepareStatement(
-                "Insert into parkir(lokasi, kuota) values (?,?)"));
-                PreparedStatement sql = (PreparedStatement)a.getStatement();
-                sql.setString(1, getLokasi());
-                sql.setInt(2, getKuota());
-                sql.executeUpdate();
-                sql.close();
-            }
-        }
-        catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    public void updateData() {
-        try{
-            Koneksi a = new Koneksi();
-            if (!Koneksi.getConn().isClosed()){
-                a.setStatement(Koneksi.getConn().prepareStatement(
-                "UPDATE `parkir` SET `lokasi` = '?', `kuota` = '?' WHERE (`id` = '?');"));
-                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
-                sql.setString(1, getLokasi());
-                sql.setInt(2, getKuota());
-                sql.setInt(3, getId());
-                sql.executeUpdate();
-                sql.close();
-            }
-        }
-        catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    public void deleteData() {
-        try{
-            Koneksi a = new Koneksi();
-            if (!Koneksi.getConn().isClosed()){
-                a.setStatement(Koneksi.getConn().prepareStatement(
-                "DELETE FROM `parkir` WHERE (`id` = '?');"));
-                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
-                sql.setInt(1, getId());
-                sql.executeUpdate();
-                sql.close();
-            }
-        }
-        catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
-
-//    public ArrayList<Parkir> viewListData() {
-//        ArrayList<Parkir> collections = new ArrayList<Parkir>();
-//        try
-//        {
-//            this.statement = (Statement) Koneksi.conn.createStatement();
-//            this.result = this.statement.executeQuery("select * from parkir");
-//            while (this.result.next())
-//            {
-//                Parkir tampung = new Parkir(this.result.getInt("id"), 
-//                        this.result.getString("lokasi"), 
-//                        this.result.getInt("kuota"));
-//                collections.add(tampung);
-//            }
-//            
-//            for (Parkir p : collections)
-//            {
-//                this.result = this.statement.executeQuery("select * from posisi where parkir_id='"+p.getId()+"';");
-//                while (this.result.next())
-//                    {
-//                        Posisi tampung = new Posisi(this.result.getInt("id"), 
-//                                    this.result.getString("nomor"), 
-//                                    this.result.getDouble("harga"),
-//                                    p);
-//                        p.listPosisi.add(tampung);
-//                    }
+    
+// tidak perlu insert, update, delete
+//    public void insertData() {
+//        try{
+//            Koneksi a = new Koneksi();
+//            if (!Koneksi.getConn().isClosed()){
+//                a.setStatement(Koneksi.getConn().prepareStatement(
+//                "Insert into parkir(lokasi, kuota) values (?,?)"));
+//                PreparedStatement sql = (PreparedStatement)a.getStatement();
+//                sql.setString(1, getLokasi());
+//                sql.setInt(2, getKuota());
+//                sql.executeUpdate();
+//                sql.close();
 //            }
 //        }
-//        catch (Exception ex)
-//        {
+//        catch (Exception ex){
 //            System.out.println(ex.getMessage());
 //        }
-//        return collections;
 //    }
+//
+//    public void updateData() {
+//        try{
+//            Koneksi a = new Koneksi();
+//            if (!Koneksi.getConn().isClosed()){
+//                a.setStatement(Koneksi.getConn().prepareStatement(
+//                "UPDATE `parkir` SET `lokasi` = '?', `kuota` = '?' WHERE (`id` = '?');"));
+//                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
+//                sql.setString(1, getLokasi());
+//                sql.setInt(2, getKuota());
+//                sql.setInt(3, getId());
+//                sql.executeUpdate();
+//                sql.close();
+//            }
+//        }
+//        catch (Exception ex){
+//            System.out.println(ex.getMessage());
+//        }
+//    }
+//
+//    public void deleteData() {
+//        try{
+//            Koneksi a = new Koneksi();
+//            if (!Koneksi.getConn().isClosed()){
+//                a.setStatement(Koneksi.getConn().prepareStatement(
+//                "DELETE FROM `parkir` WHERE (`id` = '?');"));
+//                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
+//                sql.setInt(1, getId());
+//                sql.executeUpdate();
+//                sql.close();
+//            }
+//        }
+//        catch (Exception ex){
+//            System.out.println(ex.getMessage());
+//        }
+//    }
+
+    public static ArrayList<Parkir> viewListData() {
+        ArrayList<Parkir> collections = new ArrayList<>();
+        Koneksi k = new Koneksi();
+        try
+        {
+            k.setStatement((Statement)Koneksi.getConn().createStatement());
+            k.setResult(k.getStatement().executeQuery("SELECT * FROM Parkir"));
+            while (k.getResult().next())
+            {
+                Parkir tampung = new Parkir(k.getResult().getInt("id"), 
+                        k.getResult().getString("nama"), 
+                        k.getResult().getString("lokasi"), 
+                        k.getResult().getInt("kuota"),
+                        null);
+                collections.add(tampung);
+            }
+            return collections;
+          
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public void getSlotParkirData(){        
+        Koneksi k = new Koneksi();
+        try
+        {                        
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT kode,harga FROM slot_parkir where parkir_id = ?"));
+            PreparedStatement sql = (PreparedStatement)k.getStatement() ;
+            sql.setInt(1, this.id);
+            k.setResult(sql.executeQuery());
+            while (k.getResult().next())
+            {
+                Slot_Parkir temp = new Slot_Parkir(this, k.getResult().getString("kode"), k.getResult().getDouble("harga"));
+                this.getSlot_parkir().add(temp);
+            }                      
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }        
+    }
+
+
+
 }
