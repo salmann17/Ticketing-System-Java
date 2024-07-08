@@ -9,13 +9,12 @@ import java.awt.Color;
 
 public class DashBoard extends javax.swing.JFrame {
 
-
+    
+    
     public DashBoard() {
         initComponents();
         this.setLocationRelativeTo(null);
-
     }
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -690,4 +689,5 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JPanel panelSaldo;
     private javax.swing.JPanel panelSaldoLine;
     // End of variables declaration//GEN-END:variables
+
 }

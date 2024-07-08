@@ -4,59 +4,21 @@
 <xsd:import namespace="http://server.com/" schemaLocation="http://localhost:8080/Ticketing-System-Server/TicketingService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="hello">
-<part name="parameters" element="tns:hello"/>
-</message>
-<message name="helloResponse">
-<part name="parameters" element="tns:helloResponse"/>
-</message>
 <message name="updateUser">
 <part name="parameters" element="tns:updateUser"/>
 </message>
 <message name="updateUserResponse">
 <part name="parameters" element="tns:updateUserResponse"/>
 </message>
-<message name="getUser">
-<part name="parameters" element="tns:getUser"/>
-</message>
-<message name="getUserResponse">
-<part name="parameters" element="tns:getUserResponse"/>
-</message>
 <portType name="TicketingService">
-<operation name="hello">
-<input wsam:Action="http://server.com/TicketingService/helloRequest" message="tns:hello"/>
-<output wsam:Action="http://server.com/TicketingService/helloResponse" message="tns:helloResponse"/>
-</operation>
 <operation name="updateUser">
 <input wsam:Action="http://server.com/TicketingService/updateUserRequest" message="tns:updateUser"/>
 <output wsam:Action="http://server.com/TicketingService/updateUserResponse" message="tns:updateUserResponse"/>
 </operation>
-<operation name="getUser">
-<input wsam:Action="http://server.com/TicketingService/getUserRequest" message="tns:getUser"/>
-<output wsam:Action="http://server.com/TicketingService/getUserResponse" message="tns:getUserResponse"/>
-</operation>
 </portType>
 <binding name="TicketingServicePortBinding" type="tns:TicketingService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="hello">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="updateUser">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getUser">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

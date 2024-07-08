@@ -110,6 +110,18 @@ public class User {
         this.identitasList = identitasList;
     }    
     
+    @Override
+    public String toString(){
+        String[] temp = new String[]{
+            String.valueOf(this.id),
+            this.username,
+            String.valueOf(this.saldo),
+            this.noTelp,
+            this.email
+        };
+        return String.join("~", temp);
+    }
+    
     public static User CekLogin(String username, String password){
         Koneksi k = new Koneksi();
         try

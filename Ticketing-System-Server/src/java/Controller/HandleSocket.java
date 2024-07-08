@@ -29,7 +29,7 @@ public class HandleSocket extends Thread{
             this.client = client;
             this.in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             this.out = new DataOutputStream(this.client.getOutputStream());
-            this.user = new User();
+            this.user = null;
         } catch (IOException ex) {
             Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -44,13 +44,12 @@ public class HandleSocket extends Thread{
         public void Aksi(String msg){
         String msgSplit[] = msg.split("~");
         if(msgSplit[0].contains("LOG")){
-            user.setUsername(msgSplit[1]);
-            user.setPassword(msgSplit[2]);
-            if(user.CekLogin() == false){
+            user = User.CekLogin(msgSplit[1], msgSplit[2]);
+            if(user == null){
                 SendChat("404");
             }
             else{
-                SendChat("200");
+                SendChat("200~" + user.toString());
             }
         }
         else if(msgSplit[0].contains("REGIST")){

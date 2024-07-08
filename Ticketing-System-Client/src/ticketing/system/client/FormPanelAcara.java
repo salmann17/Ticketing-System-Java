@@ -231,18 +231,18 @@ public class FormPanelAcara extends javax.swing.JPanel {
     private void jButtonBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBookActionPerformed
 
         // TODO add your handling code here:
-        JFrameBookTicket frameBookTicket = new JFrameBookTicket((JFrameScheduleList)this.parent, this.flightNumber, this.departureDate, this.departureAirport, this.arrivalAirport, this.seatClass, this.airlineName, this.price, ((JFrameScheduleList)parent).adult, ((JFrameScheduleList)parent).children, ((JFrameScheduleList)parent).infant);
-        frameBookTicket.setVisible(true);
-        parent.setVisible(false);
+//        JFrameBookTicket frameBookTicket = new JFrameBookTicket((JFrameScheduleList)this.parent, this.flightNumber, this.departureDate, this.departureAirport, this.arrivalAirport, this.seatClass, this.airlineName, this.price, ((JFrameScheduleList)parent).adult, ((JFrameScheduleList)parent).children, ((JFrameScheduleList)parent).infant);
+//        frameBookTicket.setVisible(true);
+//        parent.setVisible(false);
 
     }//GEN-LAST:event_jButtonBookActionPerformed
 
     private void jButtonBook1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBook1ActionPerformed
 
         // TODO add your handling code here:
-        JFrameBookTicket frameBookTicket = new JFrameBookTicket((JFrameScheduleList)this.parent, this.flightNumber, this.departureDate, this.departureAirport, this.arrivalAirport, this.seatClass, this.airlineName, this.price, ((JFrameScheduleList)parent).adult, ((JFrameScheduleList)parent).children, ((JFrameScheduleList)parent).infant);
-        frameBookTicket.setVisible(true);
-        parent.setVisible(false);
+//        JFrameBookTicket frameBookTicket = new JFrameBookTicket((JFrameScheduleList)this.parent, this.flightNumber, this.departureDate, this.departureAirport, this.arrivalAirport, this.seatClass, this.airlineName, this.price, ((JFrameScheduleList)parent).adult, ((JFrameScheduleList)parent).children, ((JFrameScheduleList)parent).infant);
+//        frameBookTicket.setVisible(true);
+//        parent.setVisible(false);
 
     }//GEN-LAST:event_jButtonBook1ActionPerformed
 
