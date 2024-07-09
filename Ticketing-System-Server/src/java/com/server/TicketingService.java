@@ -5,6 +5,7 @@
 package com.server;
 
 import Model.Acara;
+import Model.History_Transaksi;
 import Model.Jam_Parkir;
 import Model.Parkir;
 import Model.Slot_Parkir;
@@ -71,11 +72,13 @@ public class TicketingService {
         
         return arrTransaksi;
     }
+    
     @WebMethod(operationName = "getAcaraByNama")
     public Acara getAcaraByNama(@WebParam(name = "nama") String nama) {
         //TODO write your implementation code here:
         Acara a= Acara.findByName(nama);
         return a;
+    }
     @WebMethod(operationName = "getParkir")
     public Parkir[] getParkir() {
         ArrayList<Parkir> listParkir = Parkir.viewListData();
@@ -102,14 +105,15 @@ public class TicketingService {
         //TODO write your implementation code here:
         return (Jam_Parkir[])(Jam_Parkir.viewListData().toArray());
     }
-    
-    
-    
-    
-    
-    
-    
-    
 
-
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "TambahNotaParkir")
+    public boolean TambahNotaParkir(@WebParam(name = "idUser") int idUser, @WebParam(name = "tanggal_booking") String tanggal_booking, @WebParam(name = "parkir_id") int parkir_id, @WebParam(name = "slot_parkir_kode") String slot_parkir_kode, @WebParam(name = "jam_parkir_id") int jam_parkir_id) {
+        //TODO write your implementation code here:
+        return false;
+    }
+    
+    
 }

@@ -172,8 +172,7 @@ public class FormAcara extends javax.swing.JPanel {
             if (obj instanceof ticketing.system.client.Acara)
             {
                 ticketing.system.client.Acara tampung = (ticketing.system.client.Acara)obj;
-                rowData[0]=tampung.getNama();
-                rowData[1]=tampung.getKuota();
+                rowData[0]=tampung.getNama();                
                 rowData[2]=tampung.getLokasi();
                 rowData[3]=tampung.getTanggalAcara();
                 model.addRow(rowData);

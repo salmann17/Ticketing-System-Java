@@ -272,4 +272,5 @@ public class ProfileUser extends javax.swing.JFrame {
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
         return port.getUserById(id);
     }
+
 }
