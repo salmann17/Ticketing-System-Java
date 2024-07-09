@@ -25,8 +25,7 @@ public class Parkir{
         this.lokasi = lokasi;
         this.kuota = kuota;
     }
-
-    private String lokasi;    
+    
     private ArrayList<Slot_Parkir> slot_parkir;
     
     public Parkir(int id, String nama, String lokasi, ArrayList<Slot_Parkir> slotParkir ) {

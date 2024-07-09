@@ -5,6 +5,7 @@
 package com.server;
 
 import Model.Acara;
+import Model.History_Transaksi;
 import Model.Jam_Parkir;
 import Model.Parkir;
 import Model.Slot_Parkir;
@@ -61,9 +62,9 @@ public class TicketingService {
      * Web service operation
      */
     @WebMethod(operationName = "getHistoryTransaksi")
-    public History_Transaksi[] getHistoryTransaksi() {
+    public History_Transaksi[] getHistoryTransaksi(@WebParam(name = "id") int id) {
         //TODO write your implementation code here:
-        ArrayList<History_Transaksi> listHistory = User.DataHistoryTransaksi();
+        ArrayList<History_Transaksi> listHistory = User.DataHistoryTransaksi(id);
         
         History_Transaksi[] arrTransaksi = new History_Transaksi[listHistory.size()];
         
@@ -76,6 +77,8 @@ public class TicketingService {
         //TODO write your implementation code here:
         Acara a= Acara.findByName(nama);
         return a;
+    }
+    
     @WebMethod(operationName = "getParkir")
     public Parkir[] getParkir() {
         ArrayList<Parkir> listParkir = Parkir.viewListData();

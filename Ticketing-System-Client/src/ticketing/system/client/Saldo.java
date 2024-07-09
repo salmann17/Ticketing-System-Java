@@ -1,25 +1,48 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package ticketing.system.client;
 
-import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Salman Alfarizi
  */
-public class InfoSaldo extends javax.swing.JFrame {
+public class Saldo extends javax.swing.JPanel {
 
     /**
-     * Creates new form InfoSaldo
+     * Creates new form Saldo
      */
-    public InfoSaldo() {
+     private DashBoard parent;
+    int idUser;
+    public Saldo() {
         initComponents();
     }
-
+     public Saldo(DashBoard p,int id) {
+        this();
+        parent = p;
+        idUser = id;
+        RefreshTabel(idUser);
+    }
+      public void RefreshTabel(int idUser){
+        DefaultTableModel dtm = (DefaultTableModel) tableSaldo.getModel();
+        dtm.setRowCount(0);
+        Object[] rowData = new Object[5];
+        
+        java.util.List<ticketing.system.client.HistoryTransaksi> listTransaksi = getHistoryTransaksi(this.idUser);
+        for ( ticketing.system.client.HistoryTransaksi obj : listTransaksi)
+        {
+            if (obj instanceof ticketing.system.client.HistoryTransaksi)
+            {
+                ticketing.system.client.HistoryTransaksi tampung = (ticketing.system.client.HistoryTransaksi)obj;
+                rowData[0]=tampung.getId();
+                rowData[1]=tampung.getJumlah();
+                dtm.addRow(rowData);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,60 +52,16 @@ public class InfoSaldo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        kGradientPanel1 = new keeptoo.KGradientPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableKendaraan = new javax.swing.JTable();
         jTextFieldUsername = new javax.swing.JTextField();
         jTextFieldSaldo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButtonBack = new javax.swing.JButton();
         jButtonTopup = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        kGradientPanel1.setkEndColor(new java.awt.Color(0, 255, 204));
-        kGradientPanel1.setkStartColor(new java.awt.Color(0, 102, 153));
-
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("INFO SALDO");
-
-        javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
-        kGradientPanel1.setLayout(kGradientPanel1Layout);
-        kGradientPanel1Layout.setHorizontalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(297, 297, 297)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        kGradientPanel1Layout.setVerticalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2)
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
-
-        tableKendaraan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "ID", "Jumlah", "Keterangan"
-            }
-        ));
-        tableKendaraan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableKendaraanMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tableKendaraan);
+        kGradientPanel1 = new keeptoo.KGradientPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableSaldo = new javax.swing.JTable();
 
         jTextFieldUsername.setEditable(false);
 
@@ -110,8 +89,50 @@ public class InfoSaldo extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        kGradientPanel1.setkEndColor(new java.awt.Color(0, 255, 204));
+        kGradientPanel1.setkStartColor(new java.awt.Color(0, 102, 153));
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("INFO SALDO");
+
+        javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
+        kGradientPanel1.setLayout(kGradientPanel1Layout);
+        kGradientPanel1Layout.setHorizontalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(297, 297, 297)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        kGradientPanel1Layout.setVerticalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel2)
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+
+        tableSaldo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Jumlah", "Keterangan"
+            }
+        ));
+        tableSaldo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableSaldoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableSaldo);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -130,7 +151,7 @@ public class InfoSaldo extends javax.swing.JFrame {
                         .addComponent(jButtonBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonTopup)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
@@ -153,82 +174,25 @@ public class InfoSaldo extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonBack)
                             .addComponent(jButtonTopup))))
-                .addGap(0, 33, Short.MAX_VALUE))
+                .addGap(0, 43, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tableKendaraanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKendaraanMouseClicked
-        // TODO add your handling code here:
-       
-
-    }//GEN-LAST:event_tableKendaraanMouseClicked
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         // TODO add your handling code here:
-        new DashBoard().show();
-        this.dispose();
+
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonTopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTopupActionPerformed
         // TODO add your handling code here:
-       new Topup().show();
-       this.dispose();
-    }//GEN-LAST:event_jButtonTopupActionPerformed
-    public void RefreshTabel(){
-        DefaultTableModel dtm = (DefaultTableModel) tableKendaraan.getModel();
-        dtm.setRowCount(0);
-        Object[] rowData = new Object[5];
-        
-        ArrayList<Object> listVehicle = new ArrayList<Object>();
-//        listVehicle = v.viewListData();
-//        for(Object myV : listVehicle){
-//            if(myV instanceof Vehicle){
-//                Vehicle temp = (Vehicle)myV;
-//                rowData[0] = temp.getId();
-//                rowData[1] = temp.getNumberPlate();
-//                rowData[2] = temp.getBrand();
-//                rowData[3] = temp.getVehicleClass();
-//                rowData[4] = temp.getColor();
-//                dtm.addRow(rowData);
-//            }          
-//        }
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InfoSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InfoSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InfoSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InfoSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InfoSaldo().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_jButtonTopupActionPerformed
+
+    private void tableSaldoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSaldoMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tableSaldoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;
@@ -240,6 +204,12 @@ public class InfoSaldo extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldSaldo;
     private javax.swing.JTextField jTextFieldUsername;
     private keeptoo.KGradientPanel kGradientPanel1;
-    private javax.swing.JTable tableKendaraan;
+    private javax.swing.JTable tableSaldo;
     // End of variables declaration//GEN-END:variables
+
+    private static java.util.List<ticketing.system.client.HistoryTransaksi> getHistoryTransaksi(int id) {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.getHistoryTransaksi(id);
+    }
 }
