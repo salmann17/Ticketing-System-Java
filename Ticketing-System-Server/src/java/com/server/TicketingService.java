@@ -62,9 +62,9 @@ public class TicketingService {
      * Web service operation
      */
     @WebMethod(operationName = "getHistoryTransaksi")
-    public History_Transaksi[] getHistoryTransaksi(@WebParam(name = "id") int id) {
+    public History_Transaksi[] getHistoryTransaksi() {
         //TODO write your implementation code here:
-        ArrayList<History_Transaksi> listHistory = User.DataHistoryTransaksi(id);
+        ArrayList<History_Transaksi> listHistory = User.DataHistoryTransaksi();
         
         History_Transaksi[] arrTransaksi = new History_Transaksi[listHistory.size()];
         
@@ -82,8 +82,11 @@ public class TicketingService {
     @WebMethod(operationName = "getParkir")
     public Parkir[] getParkir() {
         ArrayList<Parkir> listParkir = Parkir.viewListData();
+        Parkir[] arrParkir = new Parkir[listParkir.size()];
         
-        return (Parkir[])(listParkir.toArray());
+        listParkir.toArray(arrParkir);
+        
+        return arrParkir;
     }
 
     /**
@@ -94,7 +97,10 @@ public class TicketingService {
         Parkir parkir = new Parkir();
         parkir.setId(idParkir);
         parkir.getDataSlotParkir();
-        return (Slot_Parkir[])(parkir.getSlot_parkir().toArray());
+        
+        Slot_Parkir[] arrSlotParkir = new Slot_Parkir[parkir.getSlot_parkir().size()];
+        parkir.getSlot_parkir().toArray(arrSlotParkir);
+        return arrSlotParkir;
     }
 
     /**
@@ -103,7 +109,12 @@ public class TicketingService {
     @WebMethod(operationName = "getJam_Parkir")
     public Jam_Parkir[] getJam_Parkir() {
         //TODO write your implementation code here:
-        return (Jam_Parkir[])(Jam_Parkir.viewListData().toArray());
+        ArrayList<Jam_Parkir> listJamParkir = Jam_Parkir.viewListData();
+        Jam_Parkir[] arrJamParkir = new Jam_Parkir[listJamParkir.size()];
+        
+        listJamParkir.toArray(arrJamParkir);
+        
+        return arrJamParkir;
     }
 
     /**

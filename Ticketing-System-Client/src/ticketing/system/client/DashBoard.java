@@ -608,10 +608,6 @@ public class DashBoard extends javax.swing.JFrame {
         panelSaldo.setBackground(new Color(0,102,153));
         panelSaldoLine.setBackground(new Color(255,255,255));
         btnSaldo.setForeground(new Color(255,255,255));
-
-        panelMain.removeAll();
-        panelMain.add(new Saldo(this,idUserLogin));        
-        panelMain.revalidate();
     }//GEN-LAST:event_btnSaldoMouseClicked
 
     private void btnSaldoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaldoMouseEntered
@@ -623,6 +619,7 @@ public class DashBoard extends javax.swing.JFrame {
     private void btnSaldoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaldoMouseExited
         panelSaldo.setBackground(new Color(255,255,255));
         panelSaldoLine.setBackground(new Color(255,255,255));
+        btnSaldo.setForeground(new Color(102,102,102));
     }//GEN-LAST:event_btnSaldoMouseExited
 
     private void btnParkirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnParkirMouseClicked
