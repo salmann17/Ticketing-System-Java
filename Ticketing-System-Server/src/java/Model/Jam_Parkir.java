@@ -58,7 +58,7 @@ public class Jam_Parkir {
         try
         {
             k.setStatement((Statement)Koneksi.getConn().createStatement());
-            k.setResult(k.getStatement().executeQuery("SELECT * FROM jam+parkir"));
+            k.setResult(k.getStatement().executeQuery("SELECT * FROM jam_parkir"));
             while (k.getResult().next())
             {
                 Jam_Parkir temp = new Jam_Parkir(k.getResult().getInt("id"), 
