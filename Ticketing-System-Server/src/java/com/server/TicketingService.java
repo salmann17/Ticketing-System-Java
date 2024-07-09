@@ -63,6 +63,7 @@ public class TicketingService {
         //TODO write your implementation code here:
         Acara a= Acara.findByName(nama);
         return a;
+    }
     @WebMethod(operationName = "getParkir")
     public Parkir[] getParkir() {
         //TODO write your implementation code here:
