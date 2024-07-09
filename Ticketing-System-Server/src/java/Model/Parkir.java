@@ -16,23 +16,20 @@ public class Parkir{
 
     private int id;
     private String nama;
-    private String lokasi;
-    private int kuota;
+    private String lokasi;    
     private ArrayList<Slot_Parkir> slot_parkir;
     
-    public Parkir(int id, String nama, String lokasi, int kuota, ArrayList<Slot_Parkir> slotParkir ) {
+    public Parkir(int id, String nama, String lokasi, ArrayList<Slot_Parkir> slotParkir ) {
         this.id = id;
         this.nama = nama;
-        this.lokasi = lokasi;
-        this.kuota = kuota;  
+        this.lokasi = lokasi;        
         this.slot_parkir = slotParkir;
     }
     
     public Parkir() {
         this.id = 0;
         this.nama = "";
-        this.lokasi = "";
-        this.kuota = 0;
+        this.lokasi = "";        
         this.slot_parkir = new ArrayList<>();
     }
     
@@ -59,14 +56,6 @@ public class Parkir{
     public void setLokasi(String lokasi) {
         this.lokasi = lokasi;
     }
-
-    public int getKuota() {
-        return kuota;
-    }
-
-    public void setKuota(int kuota) {
-        this.kuota = kuota;
-    }
     
     public ArrayList<Slot_Parkir> getSlot_parkir() {
         return slot_parkir;
@@ -88,8 +77,7 @@ public class Parkir{
             {
                 Parkir tampung = new Parkir(k.getResult().getInt("id"), 
                         k.getResult().getString("nama"), 
-                        k.getResult().getString("lokasi"), 
-                        k.getResult().getInt("kuota"),
+                        k.getResult().getString("lokasi"),                         
                         null);
                 collections.add(tampung);
             }

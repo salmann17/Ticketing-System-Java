@@ -5,7 +5,7 @@
 package com.server;
 
 import Model.Acara;
-import Model.History_Transaksi;
+import Model.Parkir;
 import Model.User;
 import java.util.ArrayList;
 import javax.jws.WebService;
@@ -53,6 +53,15 @@ public class TicketingService {
         listAcara.toArray(arrAcara);        
         
         return arrAcara;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getParkir")
+    public Parkir[] getParkir() {
+        //TODO write your implementation code here:
+        return null;
     }
     
     
