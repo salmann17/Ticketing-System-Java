@@ -33,7 +33,7 @@ public class FormAcara extends javax.swing.JPanel {
     }
     DashBoard parent;
     int idUser;
-    int idAcara;
+    Acara acaraPilih = new Acara();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,11 +53,11 @@ public class FormAcara extends javax.swing.JPanel {
         jTextFieldNama = new javax.swing.JTextField();
         jTextFieldTanggal = new javax.swing.JTextField();
         jTextFieldLokasi = new javax.swing.JTextField();
-        jButtonDeskripsi = new javax.swing.JButton();
+        jButtonReservasi = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldHarga = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jButtonDeskripsi1 = new javax.swing.JButton();
+        jButtonDeskripsi = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -102,8 +102,8 @@ public class FormAcara extends javax.swing.JPanel {
 
         jTextFieldLokasi.setEnabled(false);
 
-        jButtonDeskripsi.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        jButtonDeskripsi.setText("Reservasi");
+        jButtonReservasi.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jButtonReservasi.setText("Reservasi");
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel5.setText("Harga :");
@@ -113,8 +113,8 @@ public class FormAcara extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel6.setText("Rp");
 
-        jButtonDeskripsi1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        jButtonDeskripsi1.setText("Lihat Deskripsi");
+        jButtonDeskripsi.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jButtonDeskripsi.setText("Lihat Deskripsi");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -149,9 +149,9 @@ public class FormAcara extends javax.swing.JPanel {
                                         .addComponent(jTextFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(119, 119, 119))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButtonDeskripsi1)
+                                .addComponent(jButtonDeskripsi)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonReservasi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnAcara1))
@@ -183,8 +183,8 @@ public class FormAcara extends javax.swing.JPanel {
                             .addComponent(jLabel6))
                         .addGap(70, 70, 70)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonDeskripsi)
-                            .addComponent(jButtonDeskripsi1)))
+                            .addComponent(jButtonReservasi)
+                            .addComponent(jButtonDeskripsi)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(99, Short.MAX_VALUE))
         );
@@ -201,8 +201,7 @@ public class FormAcara extends javax.swing.JPanel {
         jTextFieldTanggal.setText(klik.getValueAt(row, 2).toString());
         jTextFieldHarga.setText(klik.getValueAt(row, 3).toString());
         
-        Acara acara = getAcaraByNama(jTextFieldNama.getText());
-        idAcara = acara.getId();
+        acaraPilih = getAcaraByNama(jTextFieldNama.getText());
     }//GEN-LAST:event_jTabelHasilMouseClicked
 
     private void RefreshTable()
@@ -229,7 +228,7 @@ public class FormAcara extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAcara1;
     private javax.swing.JButton jButtonDeskripsi;
-    private javax.swing.JButton jButtonDeskripsi1;
+    private javax.swing.JButton jButtonReservasi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

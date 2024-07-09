@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -68,9 +68,9 @@
                                   <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="jButtonDeskripsi1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonDeskripsi" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButtonDeskripsi" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="jButtonReservasi" min="-2" pref="200" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -112,8 +112,8 @@
                           </Group>
                           <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jButtonReservasi" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonDeskripsi" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonDeskripsi1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jScrollPane1" alignment="0" min="-2" pref="505" max="-2" attributes="0"/>
@@ -235,7 +235,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonDeskripsi">
+        <Component class="javax.swing.JButton" name="jButtonReservasi">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="24" style="0"/>
@@ -264,7 +264,7 @@
             <Property name="text" type="java.lang.String" value="Rp"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonDeskripsi1">
+        <Component class="javax.swing.JButton" name="jButtonDeskripsi">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="24" style="0"/>
