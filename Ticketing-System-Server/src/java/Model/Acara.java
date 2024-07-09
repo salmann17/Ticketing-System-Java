@@ -18,17 +18,15 @@ import java.util.Date;
 public class Acara{
 
     private int id;
-    private String nama;
-    private int kuota;
+    private String nama;    
     private String lokasi;
     private String tanggalAcara;
     private String deskripsi;
     private double harga;
     
-    public Acara(int id, String nama, int kuota, String lokasi, Timestamp tanggalAcara, String deskripsi, double harga) {
+    public Acara(int id, String nama, String lokasi, Timestamp tanggalAcara, String deskripsi, double harga) {
         this.id = id;
-        this.nama = nama;
-        this.kuota = kuota;
+        this.nama = nama;        
         this.lokasi = lokasi;
         setTanggalAcara(tanggalAcara.toString());
         this.deskripsi = deskripsi;
@@ -36,8 +34,7 @@ public class Acara{
     }  
     public Acara() {
         this.id = 0;
-        this.nama = "";
-        this.kuota = 0;
+        this.nama = "";        
         this.lokasi = "";
         setTanggalAcara(new Timestamp(new Date().getTime()).toString());
         this.deskripsi = "";
@@ -57,14 +54,6 @@ public class Acara{
 
     public void setNama(String nama) {
         this.nama = nama;
-    }
-    
-    public int getKuota() {
-        return kuota;
-    }
-
-    public void setKuota(int kuota) {
-        this.kuota = kuota;
     }
 
     public String getLokasi() {
@@ -106,8 +95,7 @@ public class Acara{
             k.setResult(k.getStatement().executeQuery("SELECT * FROM Acara"));
             while (k.getResult().next()) {
                 Acara tampung = new Acara(k.getResult().getInt("id"),
-                        k.getResult().getString("nama"),
-                        k.getResult().getInt("kuota"),
+                        k.getResult().getString("nama"),                        
                         k.getResult().getString("lokasi"),
                         k.getResult().getTimestamp("tanggal_acara"),
                         k.getResult().getString("deskripsi"),
@@ -129,7 +117,7 @@ public class Acara{
             sql.setInt(1, id);
             a.setResult(sql.executeQuery());
             if (a.getResult().next()) {
-                Acara acara = new Acara(a.getResult().getInt("id"), a.getResult().getString("nama"), a.getResult().getInt("kuota"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("harga"));
+                Acara acara = new Acara(a.getResult().getInt("id"), a.getResult().getString("nama"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("harga"));
                 return acara;
             }
         } catch (SQLException ex) {
@@ -146,7 +134,7 @@ public class Acara{
             sql.setTimestamp(1, tgl);
             a.setResult(sql.executeQuery());
             if (a.getResult().next()) {
-                Acara acara = new Acara(a.getResult().getInt("id"), a.getResult().getString("nama"), a.getResult().getInt("kuota"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("harga"));
+                Acara acara = new Acara(a.getResult().getInt("id"), a.getResult().getString("nama"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("harga"));
                 return acara;
             }
         } catch (SQLException ex) {

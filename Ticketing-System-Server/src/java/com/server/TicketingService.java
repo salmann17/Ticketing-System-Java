@@ -5,7 +5,7 @@
 package com.server;
 
 import Model.Acara;
-import Model.History_Transaksi;
+import Model.Parkir;
 import Model.User;
 import java.util.ArrayList;
 import javax.jws.WebService;
@@ -63,6 +63,10 @@ public class TicketingService {
         //TODO write your implementation code here:
         Acara a= Acara.findByName(nama);
         return a;
+    @WebMethod(operationName = "getParkir")
+    public Parkir[] getParkir() {
+        //TODO write your implementation code here:
+        return null;
     }
     
     
