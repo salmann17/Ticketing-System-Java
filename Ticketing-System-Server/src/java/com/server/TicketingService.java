@@ -5,7 +5,9 @@
 package com.server;
 
 import Model.Acara;
-import Model.History_Transaksi;
+import Model.Jam_Parkir;
+import Model.Parkir;
+import Model.Slot_Parkir;
 import Model.User;
 import java.util.ArrayList;
 import javax.jws.WebService;
@@ -69,6 +71,41 @@ public class TicketingService {
         
         return arrTransaksi;
     }
+    @WebMethod(operationName = "getAcaraByNama")
+    public Acara getAcaraByNama(@WebParam(name = "nama") String nama) {
+        //TODO write your implementation code here:
+        Acara a= Acara.findByName(nama);
+        return a;
+    @WebMethod(operationName = "getParkir")
+    public Parkir[] getParkir() {
+        ArrayList<Parkir> listParkir = Parkir.viewListData();
+        
+        return (Parkir[])(listParkir.toArray());
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getSlotParkir")
+    public Slot_Parkir[] getSlotParkir(@WebParam(name = "idParkir") int idParkir) {
+        Parkir parkir = new Parkir();
+        parkir.setId(idParkir);
+        parkir.getDataSlotParkir();
+        return (Slot_Parkir[])(parkir.getSlot_parkir().toArray());
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getJam_Parkir")
+    public Jam_Parkir[] getJam_Parkir() {
+        //TODO write your implementation code here:
+        return (Jam_Parkir[])(Jam_Parkir.viewListData().toArray());
+    }
+    
+    
+    
+    
     
     
     
