@@ -86,24 +86,38 @@ public class NotaAcara{
         this.identitasList = identitasList;
     }
     
-//  blm ada update saldo dan insert table ticket_acara  
-//    public void insertData() {
-//        try {
-//            Koneksi a = new Koneksi();
-//            if (!Koneksi.getConn().isClosed()) {
-//                a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO nota_acara(users_id, Acara_id, jumlah, harga) VALUES (?, ?, ?, ?)"));
-//                PreparedStatement sql = (PreparedStatement)a.getStatement();
-//                sql.setInt(1, user.getId());
-//                sql.setInt(2, acara.getId());
-//                sql.setInt(3, jumlah);
-//                sql.setDouble(4, harga);
-//                sql.executeUpdate();
-//                sql.close();
-//            }
-//        } catch (Exception ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//    }
+    public void insertData(int identitasId) {
+        try {
+            Koneksi a = new Koneksi();
+            if (!Koneksi.getConn().isClosed()) {
+                a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO nota_acara(users_id, Acara_id, jumlah, harga) VALUES (?, ?, ?, ?)"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement();
+                sql.setInt(1, user.getId());
+                sql.setInt(2, acara.getId());
+                sql.setInt(3, jumlah);
+                sql.setDouble(4, harga);
+                sql.executeUpdate();
+                sql.close();
+                
+                a.setStatement(Koneksi.getConn().prepareStatement("UPDATE users SET saldo = saldo - ? WHERE id = ?"));
+                PreparedStatement sqlUpdateSaldo = (PreparedStatement)a.getStatement();
+                sqlUpdateSaldo.setDouble(1, harga);
+                sqlUpdateSaldo.setInt(2, user.getId());
+                sqlUpdateSaldo.executeUpdate();
+                sqlUpdateSaldo.close();
+                
+                Identitas i = Identitas.findById(identitasId);
+                a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO ticket_acara(identitas_id, nota_acara_id) VALUES (?, (SELECT id FROM nota_acara WHERE users_id = ? ORDER BY id DESC LIMIT 1))"));
+                PreparedStatement sqlTicketAcara = (PreparedStatement)a.getStatement();
+                sqlTicketAcara.setInt(1, i.getId());  
+                sqlTicketAcara.setInt(2, user.getId());
+                sqlTicketAcara.executeUpdate();
+                sqlTicketAcara.close();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
     public static NotaAcara findById(int id) {
         Koneksi a = new Koneksi();

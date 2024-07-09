@@ -76,60 +76,6 @@ public class Parkir{
         this.slot_parkir = slot_parkir;
     }
     
-// tidak perlu insert, update, delete
-//    public void insertData() {
-//        try{
-//            Koneksi a = new Koneksi();
-//            if (!Koneksi.getConn().isClosed()){
-//                a.setStatement(Koneksi.getConn().prepareStatement(
-//                "Insert into parkir(lokasi, kuota) values (?,?)"));
-//                PreparedStatement sql = (PreparedStatement)a.getStatement();
-//                sql.setString(1, getLokasi());
-//                sql.setInt(2, getKuota());
-//                sql.executeUpdate();
-//                sql.close();
-//            }
-//        }
-//        catch (Exception ex){
-//            System.out.println(ex.getMessage());
-//        }
-//    }
-//
-//    public void updateData() {
-//        try{
-//            Koneksi a = new Koneksi();
-//            if (!Koneksi.getConn().isClosed()){
-//                a.setStatement(Koneksi.getConn().prepareStatement(
-//                "UPDATE `parkir` SET `lokasi` = '?', `kuota` = '?' WHERE (`id` = '?');"));
-//                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
-//                sql.setString(1, getLokasi());
-//                sql.setInt(2, getKuota());
-//                sql.setInt(3, getId());
-//                sql.executeUpdate();
-//                sql.close();
-//            }
-//        }
-//        catch (Exception ex){
-//            System.out.println(ex.getMessage());
-//        }
-//    }
-//
-//    public void deleteData() {
-//        try{
-//            Koneksi a = new Koneksi();
-//            if (!Koneksi.getConn().isClosed()){
-//                a.setStatement(Koneksi.getConn().prepareStatement(
-//                "DELETE FROM `parkir` WHERE (`id` = '?');"));
-//                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
-//                sql.setInt(1, getId());
-//                sql.executeUpdate();
-//                sql.close();
-//            }
-//        }
-//        catch (Exception ex){
-//            System.out.println(ex.getMessage());
-//        }
-//    }
 
     public static ArrayList<Parkir> viewListData() {
         ArrayList<Parkir> collections = new ArrayList<>();
