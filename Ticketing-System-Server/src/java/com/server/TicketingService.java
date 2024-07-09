@@ -10,6 +10,7 @@ import Model.Jam_Parkir;
 import Model.Parkir;
 import Model.Slot_Parkir;
 import Model.User;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -58,20 +59,7 @@ public class TicketingService {
         return arrAcara;
     }
     
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "getHistoryTransaksi")
-    public History_Transaksi[] getHistoryTransaksi(@WebParam(name = "id") int id) {
-        //TODO write your implementation code here:
-        ArrayList<History_Transaksi> listHistory = User.DataHistoryTransaksi();
-        
-        History_Transaksi[] arrTransaksi = new History_Transaksi[listHistory.size()];
-        
-        listHistory.toArray(arrTransaksi);
-        
-        return arrTransaksi;
-    }
+
     
     @WebMethod(operationName = "getAcaraByNama")
     public Acara getAcaraByNama(@WebParam(name = "nama") String nama) {
@@ -124,6 +112,35 @@ public class TicketingService {
     public boolean TambahNotaParkir(@WebParam(name = "idUser") int idUser, @WebParam(name = "tanggal_booking") String tanggal_booking, @WebParam(name = "parkir_id") int parkir_id, @WebParam(name = "slot_parkir_kode") String slot_parkir_kode, @WebParam(name = "jam_parkir_id") int jam_parkir_id) {
         //TODO write your implementation code here:
         return false;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "dataHistoryTransaksi")
+    public History_Transaksi[] dataHistoryTransaksi(@WebParam(name = "id") int id) {
+        //TODO write your implementation code here:
+        System.out.println("Menerima permintaan untuk user ID: " + id);
+
+        ArrayList<History_Transaksi> listTransaksi = User.DataHistoryTransaksi(id);
+
+        if (listTransaksi == null) {
+            System.out.println("Tidak ada transaksi ditemukan untuk user ID: " + id);
+            return new History_Transaksi[0]; // Kembalikan array kosong jika tidak ada transaksi
+        }
+
+        System.out.println("Menemukan " + listTransaksi.size() + " transaksi untuk user ID: " + id);
+
+        History_Transaksi[] arrTransaksi = new History_Transaksi[listTransaksi.size()];
+        listTransaksi.toArray(arrTransaksi);
+
+        return arrTransaksi;
+//        ArrayList<History_Transaksi> listTransaksi = User.DataHistoryTransaksi(id);
+//        History_Transaksi[] arrTransaksi = new History_Transaksi[listTransaksi.size()];
+//        
+//        listTransaksi.toArray(arrTransaksi);
+//        
+//        return arrTransaksi;
     }
     
     

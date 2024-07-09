@@ -17,6 +17,11 @@ public class History_Transaksi {
     private Boolean is_topup;
     private NotaAcara notaAcara;
     private NotaParkir notaParkir;
+
+    public History_Transaksi(int id, double jumlah) {
+        this.id = id;
+        this.jumlah = jumlah;
+    }
     
     public History_Transaksi(int id, double jumlah, User user, Boolean is_topup, NotaAcara notaAcara, NotaParkir notaParkir) {
         this.id = id;
