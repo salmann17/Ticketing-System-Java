@@ -17,16 +17,14 @@ public class NotaAcara{
     private User user;
     private Acara acara;
     private int jumlah;
-    private double harga;
-    private ArrayList<Identitas> identitasList;
+    private double harga;    
     
     public NotaAcara(int id, User user, Acara acara, int jumlah, double harga) {
         this.id = id;
         this.user = user;
         this.acara = acara;
         this.jumlah = jumlah;
-        this.harga = harga;
-        this.identitasList = new ArrayList<>();
+        this.harga = harga;        
     }
     
     public NotaAcara() {
@@ -34,8 +32,7 @@ public class NotaAcara{
         this.user = new User();
         this.acara = new Acara();
         this.jumlah = 0;
-        this.harga = 0.0;
-        this.identitasList = new ArrayList<>();
+        this.harga = 0.0;        
     }
 
     public int getId() {
@@ -78,14 +75,6 @@ public class NotaAcara{
         this.harga = harga;
     }
     
-    public ArrayList<Identitas> getIdentitasList() {
-        return identitasList;
-    }
-
-    public void setIdentitasList(ArrayList<Identitas> identitasList) {
-        this.identitasList = identitasList;
-    }
-    
     public void insertData(int identitasId) {
         try {
             Koneksi a = new Koneksi();
@@ -105,14 +94,7 @@ public class NotaAcara{
                 sqlUpdateSaldo.setInt(2, user.getId());
                 sqlUpdateSaldo.executeUpdate();
                 sqlUpdateSaldo.close();
-                
-                Identitas i = Identitas.findById(identitasId);
-                a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO ticket_acara(identitas_id, nota_acara_id) VALUES (?, (SELECT id FROM nota_acara WHERE users_id = ? ORDER BY id DESC LIMIT 1))"));
-                PreparedStatement sqlTicketAcara = (PreparedStatement)a.getStatement();
-                sqlTicketAcara.setInt(1, i.getId());  
-                sqlTicketAcara.setInt(2, user.getId());
-                sqlTicketAcara.executeUpdate();
-                sqlTicketAcara.close();
+               
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -134,7 +116,7 @@ public class NotaAcara{
             a.setResult(sql.executeQuery());
             if (a.getResult().next()) {
                 User user = new User(a.getResult().getInt("userId"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
-                Acara acara = new Acara(a.getResult().getInt("acaraId"), a.getResult().getString("nama"), a.getResult().getInt("kuota"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("acaraHarga"));
+                Acara acara = new Acara(a.getResult().getInt("acaraId"), a.getResult().getString("nama"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("acaraHarga"));
                 NotaAcara notaAcara = new NotaAcara(a.getResult().getInt("id"), user, acara, a.getResult().getInt("jumlah"), a.getResult().getDouble("harga"));
                 return notaAcara;
             }

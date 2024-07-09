@@ -6,7 +6,6 @@ package Model;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,8 +20,7 @@ public class User {
     private String password;
     private double saldo;
     private String noTelp;
-    private String email;
-    private ArrayList<Identitas>identitasList;
+    private String email;    
         
     public User(int id, String username, String password, double saldo, String noTelp, String email) {
         this.id = id;
@@ -30,8 +28,7 @@ public class User {
         this.password = password;
         this.saldo = saldo;
         this.noTelp = noTelp;
-        this.email = email;
-        this.identitasList = new ArrayList<>();
+        this.email = email;        
     }
 
     public User(int id, String username, String password, String noTelp, String email) {
@@ -40,8 +37,7 @@ public class User {
         this.password = password;
         this.saldo = 0;
         this.noTelp = noTelp;
-        this.email = email;
-        this.identitasList = new ArrayList<>();
+        this.email = email;        
     }
     
     public User(){
@@ -50,8 +46,7 @@ public class User {
         this.password = "";
         this.saldo = 0.0;
         this.noTelp = "";
-        this.email = "";
-        this.identitasList = new ArrayList<>();
+        this.email = "";        
     }
     
     public int getId() {
@@ -101,14 +96,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public ArrayList<Identitas> getIdentitasList() {
-        return identitasList;
-    }
-
-    public void setIdentitasList(ArrayList<Identitas> identitasList) {
-        this.identitasList = identitasList;
-    }    
     
     @Override
     public String toString(){
@@ -222,28 +209,4 @@ public class User {
 //        }
 //        return false;
 //    }
-
-    public void getSlotParkirData(){        
-        Koneksi k = new Koneksi();
-        try
-        {                        
-            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM identitas where users_id = ?"));
-            PreparedStatement sql = (PreparedStatement)k.getStatement() ;
-            sql.setInt(1, this.id);
-            k.setResult(sql.executeQuery());
-            while (k.getResult().next())
-            {
-                Identitas temp = new Identitas(k.getResult().getInt("id"), 
-                        k.getResult().getString("nama"), 
-                        k.getResult().getString("alamat"), 
-                        k.getResult().getString("no_ktp"),
-                        this);
-                this.identitasList.add(temp);
-            }                      
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex.getMessage());
-        }        
-    }    
 }
