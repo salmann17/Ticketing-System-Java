@@ -17,8 +17,7 @@ public class Parkir{
     private int id;
     private String nama;
     private String lokasi;
-    private int kuota;
-    private ArrayList<Slot_Parkir> slot_parkir;
+    private int kuota;    
     
     public Parkir(int id, String nama, String lokasi, int kuota) {
         this.id = id;
@@ -28,18 +27,16 @@ public class Parkir{
     }
     
     
-    public Parkir(int id, String nama, String lokasi, ArrayList<Slot_Parkir> slotParkir ) {
+    public Parkir(int id, String nama, String lokasi ) {
         this.id = id;
         this.nama = nama;
-        this.lokasi = lokasi;        
-        this.slot_parkir = slotParkir;
+        this.lokasi = lokasi;                
     }
     
     public Parkir() {
         this.id = 0;
         this.nama = "";
-        this.lokasi = "";        
-        this.slot_parkir = new ArrayList<>();
+        this.lokasi = "";                
     }
     
     public int getId() {
@@ -66,13 +63,6 @@ public class Parkir{
         this.lokasi = lokasi;
     }
     
-    public ArrayList<Slot_Parkir> getSlot_parkir() {
-        return slot_parkir;
-    }
-
-    public void setSlot_parkir(ArrayList<Slot_Parkir> slot_parkir) {
-        this.slot_parkir = slot_parkir;
-    }
     public static Parkir findById(int id) {
         Koneksi a = new Koneksi();
         try {
@@ -107,8 +97,7 @@ public class Parkir{
             {
                 Parkir tampung = new Parkir(k.getResult().getInt("id"), 
                         k.getResult().getString("nama"), 
-                        k.getResult().getString("lokasi"),                         
-                        null);
+                        k.getResult().getString("lokasi"));
                 collections.add(tampung);
             }
             return collections;
@@ -140,25 +129,27 @@ public class Parkir{
         }        
     }
     
-    public void getDataSlotParkir(){
+    public ArrayList<Slot_Parkir> getDataSlotParkir(){
         Koneksi k = new Koneksi();
         try
         {   
             this.getParkir();
-            this.slot_parkir.clear();            
+            ArrayList<Slot_Parkir> listSlotParkir = new ArrayList<>();
             k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM slot_parkir WHERE parkir_id = ?"));
             PreparedStatement sql = (PreparedStatement)k.getStatement();
             sql.setInt(1, this.id);
             k.setResult(sql.executeQuery());
             while (k.getResult().next()) {
                 Slot_Parkir temp = new Slot_Parkir(this, k.getResult().getString("kode"), k.getResult().getDouble("harga"));  
-                this.slot_parkir.add(temp);
-            }                          
+                listSlotParkir.add(temp);
+            }     
+            return listSlotParkir;
         }
         catch (Exception ex)
         {
             System.out.println(ex.getMessage());
         }
+        return null;
     }
 
 

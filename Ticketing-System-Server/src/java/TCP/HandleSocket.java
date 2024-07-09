@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package TCP;
 
 import Model.User;
 import java.io.BufferedReader;
@@ -29,7 +29,7 @@ public class HandleSocket extends Thread{
             this.client = client;
             this.in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             this.out = new DataOutputStream(this.client.getOutputStream());
-            this.user = null;
+            this.user = null;            
         } catch (IOException ex) {
             Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
         }

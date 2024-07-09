@@ -36,8 +36,15 @@ public class FormRegister extends javax.swing.JFrame implements Runnable{
             s = new Socket("localhost", 6969);
             this.in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             this.out = new DataOutputStream(s.getOutputStream());
+            start();
         } catch (IOException ex) {
             Logger.getLogger(FormRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void start(){
+        if(t == null){
+            t = new Thread(this, "client");
+            t.start();
         }
     }
     

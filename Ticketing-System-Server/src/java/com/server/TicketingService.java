@@ -7,6 +7,7 @@ package com.server;
 import Model.Acara;
 import Model.History_Transaksi;
 import Model.Jam_Parkir;
+import Model.NotaParkir;
 import Model.Parkir;
 import Model.Slot_Parkir;
 import Model.User;
@@ -97,9 +98,10 @@ public class TicketingService {
         Parkir parkir = new Parkir();
         parkir.setId(idParkir);
         parkir.getDataSlotParkir();
+        ArrayList<Slot_Parkir> listSlotParkir = parkir.getDataSlotParkir();
         
-        Slot_Parkir[] arrSlotParkir = new Slot_Parkir[parkir.getSlot_parkir().size()];
-        parkir.getSlot_parkir().toArray(arrSlotParkir);
+        Slot_Parkir[] arrSlotParkir = new Slot_Parkir[listSlotParkir.size()];
+        listSlotParkir.toArray(arrSlotParkir);
         return arrSlotParkir;
     }
 
@@ -117,14 +119,16 @@ public class TicketingService {
         return arrJamParkir;
     }
 
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "TambahNotaParkir")
-    public boolean TambahNotaParkir(@WebParam(name = "idUser") int idUser, @WebParam(name = "tanggal_booking") String tanggal_booking, @WebParam(name = "parkir_id") int parkir_id, @WebParam(name = "slot_parkir_kode") String slot_parkir_kode, @WebParam(name = "jam_parkir_id") int jam_parkir_id) {
-        //TODO write your implementation code here:
-        return false;
-    }
+//    /**
+//     * Web service operation
+//     */
+//    @WebMethod(operationName = "TambahNotaParkir")
+//    public boolean TambahNotaParkir(@WebParam(name = "idUser") int idUser, @WebParam(name = "tanggal_booking") String tanggal_booking, @WebParam(name = "parkir_id") int parkir_id, @WebParam(name = "slot_parkir_kode") String slot_parkir_kode, @WebParam(name = "jam_parkir_id") int jam_parkir_id) {
+//        //TODO write your implementation code here:
+//        NotaParkir np = new NotaParkir(0, "", User.findById(idUser), tanggal_booking, Slot_Parkir.findByKodeIdParkir(parkir_id, slot_parkir_kode), Jam_Parkir.findById(jam_parkir_id),0.0);
+//        
+//        np.insertData();
+//    }
     
     
 }

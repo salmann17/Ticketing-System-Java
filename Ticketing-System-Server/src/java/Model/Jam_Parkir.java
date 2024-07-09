@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -71,6 +73,24 @@ public class Jam_Parkir {
         catch (Exception ex)
         {
             System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public static Jam_Parkir findById(int id){
+        Koneksi a = new Koneksi();
+        try {
+            String query = "SELECT * FROM jam_parkir WHERE id = ?";
+            a.setStatement(Koneksi.getConn().prepareStatement(query));
+            PreparedStatement sql = (PreparedStatement) a.getStatement();
+            sql.setInt(1, id);            
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                Jam_Parkir jp = new Jam_Parkir(id, a.getResult().getTime("jam_mulai").toString(), a.getResult().getTime("jam_selesai").toString());
+                return jp;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Failed because: " + ex.getMessage());
         }
         return null;
     }

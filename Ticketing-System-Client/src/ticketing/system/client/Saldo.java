@@ -31,7 +31,7 @@ public class Saldo extends javax.swing.JPanel {
         dtm.setRowCount(0);
         Object[] rowData = new Object[5];
         
-        java.util.List<ticketing.system.client.HistoryTransaksi> listTransaksi = getHistoryTransaksi(this.idUser);
+        java.util.List<ticketing.system.client.HistoryTransaksi> listTransaksi = getHistoryTransaksi();
         for ( ticketing.system.client.HistoryTransaksi obj : listTransaksi)
         {
             if (obj instanceof ticketing.system.client.HistoryTransaksi)
@@ -207,9 +207,13 @@ public class Saldo extends javax.swing.JPanel {
     private javax.swing.JTable tableSaldo;
     // End of variables declaration//GEN-END:variables
 
-    private static java.util.List<ticketing.system.client.HistoryTransaksi> getHistoryTransaksi(int id) {
+    private static java.util.List<ticketing.system.client.HistoryTransaksi> getHistoryTransaksi() {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-        return port.getHistoryTransaksi(id);
+        return port.getHistoryTransaksi();
     }
+
+
+
+
 }
