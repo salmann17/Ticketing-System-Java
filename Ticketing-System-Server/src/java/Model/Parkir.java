@@ -89,26 +89,46 @@ public class Parkir{
             System.out.println(ex.getMessage());
         }
         return null;
-    }
+    }            
     
-    public void getSlotParkirData(){        
+    public void getParkir(){        
         Koneksi k = new Koneksi();
         try
-        {                        
-            k.setStatement(Koneksi.getConn().prepareStatement("SELECT kode,harga FROM slot_parkir where parkir_id = ?"));
-            PreparedStatement sql = (PreparedStatement)k.getStatement() ;
+        {                  
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM parkir WHERE id = ?"));
+            PreparedStatement sql = (PreparedStatement)k.getStatement();
             sql.setInt(1, this.id);
             k.setResult(sql.executeQuery());
-            while (k.getResult().next())
-            {
-                Slot_Parkir temp = new Slot_Parkir(this, k.getResult().getString("kode"), k.getResult().getDouble("harga"));
-                this.getSlot_parkir().add(temp);
-            }                      
+            if (k.getResult().next()) {
+                this.setNama(k.getResult().getString("nama"));                
+                this.setLokasi(k.getResult().getString("lokasi"));                
+            }                          
         }
         catch (Exception ex)
         {
             System.out.println(ex.getMessage());
         }        
+    }
+    
+    public void getDataSlotParkir(){
+        Koneksi k = new Koneksi();
+        try
+        {   
+            this.getParkir();
+            this.slot_parkir.clear();            
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM slot_parkir WHERE parkir_id = ?"));
+            PreparedStatement sql = (PreparedStatement)k.getStatement();
+            sql.setInt(1, this.id);
+            k.setResult(sql.executeQuery());
+            while (k.getResult().next()) {
+                Slot_Parkir temp = new Slot_Parkir(this, k.getResult().getString("kode"), k.getResult().getDouble("harga"));  
+                this.slot_parkir.add(temp);
+            }                          
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
     }
 
 

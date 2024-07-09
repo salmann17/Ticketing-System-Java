@@ -5,9 +5,7 @@
 package Model;
 
 import java.sql.Statement;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -15,26 +13,26 @@ import java.util.Date;
  */
 public class Jam_Parkir {
     private int id;
-    private Time jam_mulai;
-    private Time jam_selesai;
+    private String jam_mulai;
+    private String jam_selesai;
 
     public Jam_Parkir() {
         this.id = 0;
-        this.jam_mulai = new Time(new Date().getTime());
-        this.jam_selesai = new Time(new Date().getTime());       
+        this.jam_mulai = "";
+        this.jam_selesai = "";
     }
 
-    public Jam_Parkir(int id, Time jam_mulai, Time jam_selesai) {
+    public Jam_Parkir(int id, String jam_mulai, String jam_selesai) {
         this.id = id;
         this.jam_mulai = jam_mulai;
         this.jam_selesai = jam_selesai;
     }
 
-    public Time getJam_selesai() {
+    public String getJam_selesai() {
         return jam_selesai;
     }
 
-    public void setJam_selesai(Time jam_selesai) {
+    public void setJam_selesai(String jam_selesai) {
         this.jam_selesai = jam_selesai;
     }
 
@@ -46,11 +44,11 @@ public class Jam_Parkir {
         this.id = id;
     }
 
-    public Time getJam_mulai() {
+    public String getJam_mulai() {
         return jam_mulai;
     }
 
-    public void setJam_mulai(Time jam_mulai) {
+    public void setJam_mulai(String jam_mulai) {
         this.jam_mulai = jam_mulai;
     }
     
@@ -64,8 +62,8 @@ public class Jam_Parkir {
             while (k.getResult().next())
             {
                 Jam_Parkir temp = new Jam_Parkir(k.getResult().getInt("id"), 
-                        k.getResult().getTime("jam_mulai"), 
-                        k.getResult().getTime("jam_selesai"));
+                        k.getResult().getTime("jam_mulai").toString(), 
+                        k.getResult().getTime("jam_selesai").toString());
                 collections.add(temp);
             }
             return collections;          
