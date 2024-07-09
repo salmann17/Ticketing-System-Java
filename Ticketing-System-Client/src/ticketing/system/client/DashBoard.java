@@ -41,6 +41,10 @@ public class DashBoard extends javax.swing.JFrame {
         panelSaldoLine = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnSaldo = new javax.swing.JLabel();
+        panelIdentitas = new javax.swing.JPanel();
+        panelIdentitasLine = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        btnIdentitas = new javax.swing.JLabel();
         panelParkir = new javax.swing.JPanel();
         panelParkirLine = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -321,6 +325,71 @@ public class DashBoard extends javax.swing.JFrame {
 
         menu.add(panelSaldo);
         panelSaldo.setBounds(20, 270, 252, 61);
+
+        panelIdentitas.setBackground(new java.awt.Color(255, 255, 255));
+        panelIdentitas.setPreferredSize(new java.awt.Dimension(252, 61));
+
+        panelIdentitasLine.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelIdentitasLineLayout = new javax.swing.GroupLayout(panelIdentitasLine);
+        panelIdentitasLine.setLayout(panelIdentitasLineLayout);
+        panelIdentitasLineLayout.setHorizontalGroup(
+            panelIdentitasLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 8, Short.MAX_VALUE)
+        );
+        panelIdentitasLineLayout.setVerticalGroup(
+            panelIdentitasLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 49, Short.MAX_VALUE)
+        );
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Identity.png"))); // NOI18N
+
+        btnIdentitas.setBackground(new java.awt.Color(0, 0, 0));
+        btnIdentitas.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        btnIdentitas.setForeground(new java.awt.Color(102, 102, 102));
+        btnIdentitas.setText("Identitas");
+        btnIdentitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIdentitasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnIdentitasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnIdentitasMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelIdentitasLayout = new javax.swing.GroupLayout(panelIdentitas);
+        panelIdentitas.setLayout(panelIdentitasLayout);
+        panelIdentitasLayout.setHorizontalGroup(
+            panelIdentitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIdentitasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelIdentitasLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnIdentitas, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelIdentitasLayout.setVerticalGroup(
+            panelIdentitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIdentitasLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelIdentitasLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(panelIdentitasLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIdentitasLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnIdentitas, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        menu.add(panelIdentitas);
+        panelIdentitas.setBounds(20, 470, 252, 61);
 
         panelParkir.setBackground(new java.awt.Color(255, 255, 255));
         panelParkir.setPreferredSize(new java.awt.Dimension(252, 61));
@@ -623,10 +692,28 @@ public class DashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogOutMouseEntered
 
     private void btnLogOutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogOutMouseExited
-         panelLogOut.setBackground(new Color(255,255,255));
+        panelLogOut.setBackground(new Color(255,255,255));
         panelLogOutLine.setBackground(new Color(255,255,255));
         btnLogOut.setForeground(new Color(102,102,102));
     }//GEN-LAST:event_btnLogOutMouseExited
+
+    private void btnIdentitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIdentitasMouseClicked
+        panelIdentitas.setBackground(new Color(0,102,153));
+        panelIdentitasLine.setBackground(new Color(255,255,255));
+        btnIdentitas.setForeground(new Color(255,255,255));
+    }//GEN-LAST:event_btnIdentitasMouseClicked
+
+    private void btnIdentitasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIdentitasMouseEntered
+        panelIdentitas.setBackground(new Color(0,102,153));
+        panelIdentitasLine.setBackground(new Color(255,255,255));
+        btnIdentitas.setForeground(new Color(255,255,255));
+    }//GEN-LAST:event_btnIdentitasMouseEntered
+
+    private void btnIdentitasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIdentitasMouseExited
+        panelIdentitas.setBackground(new Color(255,255,255));
+        panelIdentitasLine.setBackground(new Color(255,255,255));
+        btnIdentitas.setForeground(new Color(102,102,102));
+    }//GEN-LAST:event_btnIdentitasMouseExited
 
     /**
      * @param args the command line arguments
@@ -665,6 +752,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAcara;
+    private javax.swing.JLabel btnIdentitas;
     private javax.swing.JLabel btnLogOut;
     private javax.swing.JLabel btnNota;
     private javax.swing.JLabel btnParkir;
@@ -676,12 +764,15 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel9;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JPanel kananAtas;
     private keeptoo.KGradientPanel menu;
     private javax.swing.JPanel panelAcaraLine;
     private javax.swing.JPanel panelAcaraMain;
     private javax.swing.JPanel panelDasar;
+    private javax.swing.JPanel panelIdentitas;
+    private javax.swing.JPanel panelIdentitasLine;
     private javax.swing.JPanel panelKanan;
     private javax.swing.JPanel panelLogOut;
     private javax.swing.JPanel panelLogOutLine;
