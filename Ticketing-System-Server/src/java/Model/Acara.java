@@ -98,66 +98,6 @@ public class Acara{
     public void setHarga(double harga) {
         this.harga = harga;
     }
-
-// Class Acara tidak perlu insert, update, delete. 
-//    public boolean insertData() {
-//        try {
-//            Koneksi k = new Koneksi();
-//            if (!Koneksi.getConn().isClosed()) {                
-//                k.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO Acara(nama, kuota, lokasi, tanggal_acara, deskripsi, harga) VALUES (?,?,?,?,?,?)"));
-//                PreparedStatement sql = (PreparedStatement)k.getStatement();
-//                sql.setString(1, nama);
-//                sql.setInt(2, kuota);
-//                sql.setString(3, lokasi);
-//                sql.setTimestamp(4, tanggalAcara);
-//                sql.setString(5, deskripsi);
-//                sql.setDouble(6, harga);
-//                int rowAffected = sql.executeUpdate();
-//                sql.close();
-//                
-//                return rowAffected > 0;
-//            }
-//        } catch (Exception ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//        return false;
-//    }
-//    public boolean updateData() {
-//        try {
-//            Koneksi k = new Koneksi();
-//            if (!Koneksi.getConn().isClosed()) {                
-//                k.setStatement(Koneksi.getConn().prepareStatement("UPDATE Acara SET nama = ?, kuota = ?, lokasi = ?, tanggal_acara = ?, deskripsi = ?, harga = ? WHERE id = ?")) ;
-//                PreparedStatement sql = (PreparedStatement)k.getStatement();
-//                sql.setString(1, nama);
-//                sql.setInt(2, kuota);
-//                sql.setString(3, lokasi);
-//                sql.setTimestamp(4, tanggalAcara);
-//                sql.setString(5, deskripsi);
-//                sql.setDouble(6, harga);
-//                sql.setInt(7, id);
-//                int rowAffected = sql.executeUpdate();
-//                sql.close();
-//                return rowAffected != 0;
-//            }
-//        } catch (Exception ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//        return false;
-//    }
-//     public void deleteData() {
-//        try {
-//            Koneksi k = new Koneksi();
-//            if (!Koneksi.getConn().isClosed()) {
-//                k.setStatement(Koneksi.getConn().prepareStatement("DELETE FROM Acara WHERE id = ?"));
-//                PreparedStatement sql = (PreparedStatement)k.getStatement();
-//                sql.setInt(1, id);
-//                sql.executeUpdate();
-//                sql.close();
-//            }
-//        } catch (Exception ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//    }
      public static ArrayList<Acara> viewListData() {
         ArrayList<Acara> collections = new ArrayList<Acara>();
         Koneksi k = new Koneksi();

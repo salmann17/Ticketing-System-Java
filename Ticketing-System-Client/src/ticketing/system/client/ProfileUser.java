@@ -22,12 +22,12 @@ public class ProfileUser extends javax.swing.JFrame {
         Display();
     }
     public void Display(){
-        java.util.List<ticketing.system.client.User> user = getUser();
-        jTextFieldUsername.setText(user.get(0).username);
-        jTextFieldPassword.setText(user.get(0).password);
-        jTextFieldTelephone.setText(user.get(0).noTelp);
-        jTextFieldEmail.setText(user.get(0).email);
-        idUser = user.get(0).id;
+//        java.util.List<ticketing.system.client.User> user = getUser();
+//        jTextFieldUsername.setText(user.get(0).username);
+//        jTextFieldPassword.setText(user.get(0).password);
+//        jTextFieldTelephone.setText(user.get(0).noTelp);
+//        jTextFieldEmail.setText(user.get(0).email);
+//        idUser = user.get(0).id;
     }
 
     /**
@@ -239,11 +239,11 @@ public class ProfileUser extends javax.swing.JFrame {
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 
-    private static java.util.List<ticketing.system.client.User> getUser() {
-        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
-        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-        return port.getUser();
-    }
+//    private static java.util.List<ticketing.system.client.User> getUser() {
+//        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+//        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+//        return port.getUser();
+//    }
 
     private static Boolean updateUser(int id, java.lang.String username, java.lang.String password, java.lang.String noKtp, java.lang.String email) {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
