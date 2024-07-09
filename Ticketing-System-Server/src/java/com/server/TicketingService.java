@@ -62,7 +62,7 @@ public class TicketingService {
      * Web service operation
      */
     @WebMethod(operationName = "getHistoryTransaksi")
-    public History_Transaksi[] getHistoryTransaksi() {
+    public History_Transaksi[] getHistoryTransaksi(@WebParam(name = "id") int id) {
         //TODO write your implementation code here:
         ArrayList<History_Transaksi> listHistory = User.DataHistoryTransaksi();
         

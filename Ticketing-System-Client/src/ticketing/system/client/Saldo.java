@@ -212,4 +212,8 @@ public class Saldo extends javax.swing.JPanel {
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
         return port.getHistoryTransaksi(id);
     }
+
+
+
+
 }

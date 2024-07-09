@@ -588,8 +588,6 @@ public class DashBoard extends javax.swing.JFrame {
         panelMain.removeAll();
         panelMain.add(new FormAcara());        
         panelMain.revalidate();
-        panelMain.repaint();
-        pack();
     }//GEN-LAST:event_btnAcaraMouseClicked
 
     private void btnAcaraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcaraMouseEntered
@@ -608,6 +606,9 @@ public class DashBoard extends javax.swing.JFrame {
         panelSaldo.setBackground(new Color(0,102,153));
         panelSaldoLine.setBackground(new Color(255,255,255));
         btnSaldo.setForeground(new Color(255,255,255));
+        panelMain.removeAll();
+        panelMain.add(new Saldo(this,idUserLogin));        
+        panelMain.revalidate();
     }//GEN-LAST:event_btnSaldoMouseClicked
 
     private void btnSaldoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaldoMouseEntered

@@ -4,11 +4,11 @@
 <xsd:import namespace="http://server.com/" schemaLocation="http://localhost:8080/Ticketing-System-Server/TicketingService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getJam_Parkir">
-<part name="parameters" element="tns:getJam_Parkir"/>
+<message name="updateUser">
+<part name="parameters" element="tns:updateUser"/>
 </message>
-<message name="getJam_ParkirResponse">
-<part name="parameters" element="tns:getJam_ParkirResponse"/>
+<message name="updateUserResponse">
+<part name="parameters" element="tns:updateUserResponse"/>
 </message>
 <message name="getSlotParkir">
 <part name="parameters" element="tns:getSlotParkir"/>
@@ -22,35 +22,11 @@
 <message name="getAcaraByNamaResponse">
 <part name="parameters" element="tns:getAcaraByNamaResponse"/>
 </message>
-<message name="updateUser">
-<part name="parameters" element="tns:updateUser"/>
-</message>
-<message name="updateUserResponse">
-<part name="parameters" element="tns:updateUserResponse"/>
-</message>
-<message name="getJam_Parkir">
-<part name="parameters" element="tns:getJam_Parkir"/>
-</message>
-<message name="getJam_ParkirResponse">
-<part name="parameters" element="tns:getJam_ParkirResponse"/>
-</message>
-<message name="getSlotParkir">
-<part name="parameters" element="tns:getSlotParkir"/>
-</message>
-<message name="getSlotParkirResponse">
-<part name="parameters" element="tns:getSlotParkirResponse"/>
-</message>
-<message name="getHistoryTransaksi">
-<part name="parameters" element="tns:getHistoryTransaksi"/>
-</message>
-<message name="getHistoryTransaksiResponse">
-<part name="parameters" element="tns:getHistoryTransaksiResponse"/>
-</message>
 <message name="getParkir">
 <part name="parameters" element="tns:getParkir"/>
 </message>
-<message name="getJam_ParkirResponse">
-<part name="parameters" element="tns:getJam_ParkirResponse"/>
+<message name="getParkirResponse">
+<part name="parameters" element="tns:getParkirResponse"/>
 </message>
 <message name="getAcara">
 <part name="parameters" element="tns:getAcara"/>
@@ -64,58 +40,29 @@
 <message name="getUserByIdResponse">
 <part name="parameters" element="tns:getUserByIdResponse"/>
 </message>
+<message name="getJam_Parkir">
+<part name="parameters" element="tns:getJam_Parkir"/>
+</message>
+<message name="getJam_ParkirResponse">
+<part name="parameters" element="tns:getJam_ParkirResponse"/>
+</message>
+<message name="TambahNotaParkir">
+<part name="parameters" element="tns:TambahNotaParkir"/>
+</message>
+<message name="TambahNotaParkirResponse">
+<part name="parameters" element="tns:TambahNotaParkirResponse"/>
+</message>
 <message name="getHistoryTransaksi">
 <part name="parameters" element="tns:getHistoryTransaksi"/>
 </message>
 <message name="getHistoryTransaksiResponse">
 <part name="parameters" element="tns:getHistoryTransaksiResponse"/>
-<message name="getAcaraByNama">
-<part name="parameters" element="tns:getAcaraByNama"/>
-</message>
-<message name="getAcaraByNamaResponse">
-<part name="parameters" element="tns:getAcaraByNamaResponse"/>
 </message>
 <portType name="TicketingService">
-<operation name="getJam_Parkir">
-<input wsam:Action="http://server.com/TicketingService/getJam_ParkirRequest" message="tns:getJam_Parkir"/>
-<output wsam:Action="http://server.com/TicketingService/getJam_ParkirResponse" message="tns:getJam_ParkirResponse"/>
-</operation>
-<operation name="getSlotParkir">
-<input wsam:Action="http://server.com/TicketingService/getSlotParkirRequest" message="tns:getSlotParkir"/>
-<output wsam:Action="http://server.com/TicketingService/getSlotParkirResponse" message="tns:getSlotParkirResponse"/>
-</operation>
-<operation name="getAcaraByNama">
-<input wsam:Action="http://server.com/TicketingService/getAcaraByNamaRequest" message="tns:getAcaraByNama"/>
-<output wsam:Action="http://server.com/TicketingService/getAcaraByNamaResponse" message="tns:getAcaraByNamaResponse"/>
-</operation>
 <operation name="updateUser">
 <input wsam:Action="http://server.com/TicketingService/updateUserRequest" message="tns:updateUser"/>
 <output wsam:Action="http://server.com/TicketingService/updateUserResponse" message="tns:updateUserResponse"/>
 </operation>
-<operation name="getJam_Parkir">
-<input wsam:Action="http://server.com/TicketingService/getJam_ParkirRequest" message="tns:getJam_Parkir"/>
-<output wsam:Action="http://server.com/TicketingService/getJam_ParkirResponse" message="tns:getJam_ParkirResponse"/>
-</operation>
-<operation name="getSlotParkir">
-<input wsam:Action="http://server.com/TicketingService/getSlotParkirRequest" message="tns:getSlotParkir"/>
-<output wsam:Action="http://server.com/TicketingService/getSlotParkirResponse" message="tns:getSlotParkirResponse"/>
-</operation>
-<operation name="getHistoryTransaksi">
-<input wsam:Action="http://server.com/TicketingService/getHistoryTransaksiRequest" message="tns:getHistoryTransaksi"/>
-<output wsam:Action="http://server.com/TicketingService/getHistoryTransaksiResponse" message="tns:getHistoryTransaksiResponse"/>
-</operation>
-<operation name="getParkir">
-<input wsam:Action="http://server.com/TicketingService/getParkirRequest" message="tns:getParkir"/>
-<output wsam:Action="http://server.com/TicketingService/getParkirResponse" message="tns:getParkirResponse"/>
-</operation>
-<operation name="getUserById">
-<input wsam:Action="http://server.com/TicketingService/getUserByIdRequest" message="tns:getUserById"/>
-<output wsam:Action="http://server.com/TicketingService/getUserByIdResponse" message="tns:getUserByIdResponse"/>
-</operation>
-<operation name="getParkir">
-<input wsam:Action="http://server.com/TicketingService/getParkirRequest" message="tns:getParkir"/>
-<output wsam:Action="http://server.com/TicketingService/getParkirResponse" message="tns:getParkirResponse"/>
-</operation>
 <operation name="getSlotParkir">
 <input wsam:Action="http://server.com/TicketingService/getSlotParkirRequest" message="tns:getSlotParkir"/>
 <output wsam:Action="http://server.com/TicketingService/getSlotParkirResponse" message="tns:getSlotParkirResponse"/>
@@ -123,6 +70,10 @@
 <operation name="getAcaraByNama">
 <input wsam:Action="http://server.com/TicketingService/getAcaraByNamaRequest" message="tns:getAcaraByNama"/>
 <output wsam:Action="http://server.com/TicketingService/getAcaraByNamaResponse" message="tns:getAcaraByNamaResponse"/>
+</operation>
+<operation name="getParkir">
+<input wsam:Action="http://server.com/TicketingService/getParkirRequest" message="tns:getParkir"/>
+<output wsam:Action="http://server.com/TicketingService/getParkirResponse" message="tns:getParkirResponse"/>
 </operation>
 <operation name="getAcara">
 <input wsam:Action="http://server.com/TicketingService/getAcaraRequest" message="tns:getAcara"/>
@@ -132,43 +83,21 @@
 <input wsam:Action="http://server.com/TicketingService/getUserByIdRequest" message="tns:getUserById"/>
 <output wsam:Action="http://server.com/TicketingService/getUserByIdResponse" message="tns:getUserByIdResponse"/>
 </operation>
+<operation name="getJam_Parkir">
+<input wsam:Action="http://server.com/TicketingService/getJam_ParkirRequest" message="tns:getJam_Parkir"/>
+<output wsam:Action="http://server.com/TicketingService/getJam_ParkirResponse" message="tns:getJam_ParkirResponse"/>
+</operation>
+<operation name="TambahNotaParkir">
+<input wsam:Action="http://server.com/TicketingService/TambahNotaParkirRequest" message="tns:TambahNotaParkir"/>
+<output wsam:Action="http://server.com/TicketingService/TambahNotaParkirResponse" message="tns:TambahNotaParkirResponse"/>
+</operation>
 <operation name="getHistoryTransaksi">
 <input wsam:Action="http://server.com/TicketingService/getHistoryTransaksiRequest" message="tns:getHistoryTransaksi"/>
 <output wsam:Action="http://server.com/TicketingService/getHistoryTransaksiResponse" message="tns:getHistoryTransaksiResponse"/>
-<operation name="getAcaraByNama">
-<input wsam:Action="http://server.com/TicketingService/getAcaraByNamaRequest" message="tns:getAcaraByNama"/>
-<output wsam:Action="http://server.com/TicketingService/getAcaraByNamaResponse" message="tns:getAcaraByNamaResponse"/>
 </operation>
 </portType>
 <binding name="TicketingServicePortBinding" type="tns:TicketingService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getJam_Parkir">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getSlotParkir">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getAcaraByNama">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="updateUser">
 <soap:operation soapAction=""/>
 <input>
@@ -178,15 +107,6 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getJam_Parkir">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getSlotParkir">
 <soap:operation soapAction=""/>
 <input>
@@ -196,7 +116,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getHistoryTransaksi">
+<operation name="getAcaraByNama">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -232,44 +152,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="getJam_Parkir">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="TambahNotaParkir">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="getHistoryTransaksi">
-<operation name="getParkir">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getSlotParkir">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getAcaraByNama">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getAcara">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getAcaraByNama">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
