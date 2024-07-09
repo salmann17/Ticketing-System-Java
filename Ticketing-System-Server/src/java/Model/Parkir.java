@@ -5,6 +5,7 @@
 package Model;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -13,9 +14,18 @@ import java.util.ArrayList;
  * @author natha
  */
 public class Parkir{
-
     private int id;
     private String nama;
+    private String lokasi;
+    private int kuota;
+    
+    public Parkir(int id, String nama, String lokasi, int kuota) {
+        this.id = id;
+        this.nama = nama;
+        this.lokasi = lokasi;
+        this.kuota = kuota;
+    }
+
     private String lokasi;    
     private ArrayList<Slot_Parkir> slot_parkir;
     
@@ -64,7 +74,28 @@ public class Parkir{
     public void setSlot_parkir(ArrayList<Slot_Parkir> slot_parkir) {
         this.slot_parkir = slot_parkir;
     }
-    
+    public static Parkir findById(int id) {
+        Koneksi a = new Koneksi();
+        try {
+            String query = "SELECT id, nama, lokasi, kuota FROM parkir WHERE id = ?";
+            a.setStatement(Koneksi.getConn().prepareStatement(query));
+            PreparedStatement sql = (PreparedStatement) a.getStatement();
+            sql.setInt(1, id);
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                Parkir parkir = new Parkir(
+                    a.getResult().getInt("id"),
+                    a.getResult().getString("nama"),
+                    a.getResult().getString("lokasi"),
+                    a.getResult().getInt("kuota")
+                );
+                return parkir;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Failed because: " + ex.getMessage());
+        }
+        return null;
+    }
 
     public static ArrayList<Parkir> viewListData() {
         ArrayList<Parkir> collections = new ArrayList<>();
@@ -89,26 +120,46 @@ public class Parkir{
             System.out.println(ex.getMessage());
         }
         return null;
-    }
+    }            
     
-    public void getSlotParkirData(){        
+    public void getParkir(){        
         Koneksi k = new Koneksi();
         try
-        {                        
-            k.setStatement(Koneksi.getConn().prepareStatement("SELECT kode,harga FROM slot_parkir where parkir_id = ?"));
-            PreparedStatement sql = (PreparedStatement)k.getStatement() ;
+        {                  
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM parkir WHERE id = ?"));
+            PreparedStatement sql = (PreparedStatement)k.getStatement();
             sql.setInt(1, this.id);
             k.setResult(sql.executeQuery());
-            while (k.getResult().next())
-            {
-                Slot_Parkir temp = new Slot_Parkir(this, k.getResult().getString("kode"), k.getResult().getDouble("harga"));
-                this.getSlot_parkir().add(temp);
-            }                      
+            if (k.getResult().next()) {
+                this.setNama(k.getResult().getString("nama"));                
+                this.setLokasi(k.getResult().getString("lokasi"));                
+            }                          
         }
         catch (Exception ex)
         {
             System.out.println(ex.getMessage());
         }        
+    }
+    
+    public void getDataSlotParkir(){
+        Koneksi k = new Koneksi();
+        try
+        {   
+            this.getParkir();
+            this.slot_parkir.clear();            
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM slot_parkir WHERE parkir_id = ?"));
+            PreparedStatement sql = (PreparedStatement)k.getStatement();
+            sql.setInt(1, this.id);
+            k.setResult(sql.executeQuery());
+            while (k.getResult().next()) {
+                Slot_Parkir temp = new Slot_Parkir(this, k.getResult().getString("kode"), k.getResult().getDouble("harga"));  
+                this.slot_parkir.add(temp);
+            }                          
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
     }
 
 

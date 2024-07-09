@@ -5,6 +5,8 @@
 package Model;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 
@@ -85,7 +87,53 @@ public class NotaParkir{
     public void setJam_parkir(Jam_Parkir jam_parkir) {
         this.jam_parkir = jam_parkir;
     }
-     
+//    public static NotaParkir findById(int id) {
+//    Koneksi a = new Koneksi();
+//    try {
+//        String query = "SELECT nota_parkir.id, nota_parkir.tgl_reservasi, nota_parkir.tgl_finish, nota_parkir.harga, " +
+//                       "slot_parkir.id AS posisiId, slot_parkir.kode, slot_parkir.harga AS posisiHarga, " +
+//                       "users.id AS userId, users.username, users.password, users.saldo, users.no_telp, users.email " +
+//                       "FROM nota_parkir " +
+//                       "INNER JOIN slot_parkir ON nota_parkir.slot_parkir_id = slot_parkir.id " +
+//                       "INNER JOIN users ON nota_parkir.users_id = users.id " +
+//                       "WHERE nota_parkir.id = ?";
+//        a.setStatement(Koneksi.getConn().prepareStatement(query));
+//        PreparedStatement sql = (PreparedStatement) a.getStatement();
+//        sql.setInt(1, id);
+//        a.setResult(sql.executeQuery());
+//        
+//        if (a.getResult().next()) {
+//            int posisiId = a.getResult().getInt("posisiId");
+//            String kode = a.getResult().getString("kode");
+//            double posisiHarga = a.getResult().getDouble("posisiHarga");
+//            Parkir p = Parkir.findById(posisiId);
+//            Slot_Parkir posisi = new Slot_Parkir(p, kode, posisiHarga);
+//
+//            User user = new User(
+//                a.getResult().getInt("userId"),
+//                a.getResult().getString("username"),
+//                a.getResult().getString("password"),
+//                a.getResult().getDouble("saldo"),
+//                a.getResult().getString("no_telp"),
+//                a.getResult().getString("email")
+//            );
+//
+//            NotaParkir notaParkir = new NotaParkir(
+//                a.getResult().getInt("id"),
+//                posisi,
+//                user,
+//                a.getResult().getTimestamp("tgl_reservasi"),
+//                a.getResult().getTimestamp("tgl_finish"),
+//                a.getResult().getDouble("harga")
+//            );
+//
+//            return notaParkir;
+//        }
+//    } catch (SQLException ex) {
+//        System.out.println("Failed because: " + ex.getMessage());
+//    }
+//    return null;
+//} 
     
 //    
 //    public void insertData() {

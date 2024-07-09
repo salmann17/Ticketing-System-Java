@@ -6,6 +6,8 @@ package Model;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -192,6 +194,33 @@ public class User {
         }
         return null;
     }
+    public static ArrayList<History_Transaksi> DataHistoryTransaksi() {
+    ArrayList<History_Transaksi> collections = new ArrayList<>();
+    Koneksi k = new Koneksi();
+    try {
+        k.setStatement((Statement) Koneksi.getConn().createStatement());
+        k.setResult(k.getStatement().executeQuery("SELECT * FROM history_transaksi"));
+        
+        while (k.getResult().next()) {
+            int id = k.getResult().getInt("id");
+            double jumlah = k.getResult().getDouble("jumlah");
+            int usersId = k.getResult().getInt("users_id");
+            boolean isTopup = k.getResult().getBoolean("is_topup");
+            int notaAcaraId = k.getResult().getInt("nota_acara_id");
+            int notaParkirId = k.getResult().getInt("nota_parkir_id");
+
+            User user = findById(usersId);
+            NotaAcara na = NotaAcara.findById(notaAcaraId);
+            
+            History_Transaksi tampung = new History_Transaksi(id, jumlah, user, isTopup, na, null);
+            collections.add(tampung);
+        }
+        return collections;
+    } catch (SQLException ex) {
+        System.out.println("Failed because : " + ex.getSQLState());
+    }
+    return null;
+}
 //blm ada insert history_transaksi  
 //    public boolean TopUp(double topUpAmount) {
 //        Koneksi a = new Koneksi();

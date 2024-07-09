@@ -87,7 +87,7 @@ public class Acara{
     public void setHarga(double harga) {
         this.harga = harga;
     }
-     public static ArrayList<Acara> viewListData() {
+    public static ArrayList<Acara> viewListData() {
         ArrayList<Acara> collections = new ArrayList<Acara>();
         Koneksi k = new Koneksi();
         try {
