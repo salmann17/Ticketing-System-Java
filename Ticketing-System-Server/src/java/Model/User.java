@@ -194,21 +194,25 @@ public class User {
         }
         return null;
     }
-    public static ArrayList<History_Transaksi> DataHistoryTransaksi(int userId) {
+    public static ArrayList<History_Transaksi> DataHistoryTransaksi() {
     ArrayList<History_Transaksi> collections = new ArrayList<>();
     Koneksi k = new Koneksi();
     try {
-        String query = "SELECT id, jumlah FROM history_transaksi WHERE users_id = ?";
-        k.setStatement(Koneksi.getConn().prepareStatement(query));
-        PreparedStatement sql = (PreparedStatement) k.getStatement();
-        sql.setInt(1, userId);
-        k.setResult(sql.executeQuery());
+        k.setStatement((Statement) Koneksi.getConn().createStatement());
+        k.setResult(k.getStatement().executeQuery("SELECT * FROM history_transaksi"));
         
         while (k.getResult().next()) {
             int id = k.getResult().getInt("id");
             double jumlah = k.getResult().getDouble("jumlah");
+            int usersId = k.getResult().getInt("users_id");
+            boolean isTopup = k.getResult().getBoolean("is_topup");
+            int notaAcaraId = k.getResult().getInt("nota_acara_id");
+            int notaParkirId = k.getResult().getInt("nota_parkir_id");
 
-            History_Transaksi tampung = new History_Transaksi(id, jumlah);
+            User user = findById(usersId);
+            NotaAcara na = NotaAcara.findById(notaAcaraId);
+            
+            History_Transaksi tampung = new History_Transaksi(id, jumlah, user, isTopup, na, null);
             collections.add(tampung);
         }
         return collections;
@@ -216,39 +220,7 @@ public class User {
         System.out.println("Failed because : " + ex.getSQLState());
     }
     return null;
-    }
-    //iki sek njlimet, tak simpleno ae mek ngetokno id karo jumlah
-//    public static ArrayList<History_Transaksi> DataHistoryTransaksi(int userId) {
-//    ArrayList<History_Transaksi> collections = new ArrayList<>();
-//    Koneksi k = new Koneksi();
-//    try {
-//        String query = "SELECT * FROM history_transaksi WHERE users_id = ?";
-//        k.setStatement(Koneksi.getConn().prepareStatement(query));
-//        PreparedStatement sql = (PreparedStatement) k.getStatement();
-//        sql.setInt(1, userId);
-//        k.setResult(sql.executeQuery());
-//        
-//        while (k.getResult().next()) {
-//            int id = k.getResult().getInt("id");
-//            double jumlah = k.getResult().getDouble("jumlah");
-//            int usersId = k.getResult().getInt("users_id");
-//            boolean isTopup = k.getResult().getBoolean("is_topup");
-//            int notaAcaraId = k.getResult().getInt("nota_acara_id");
-//            int notaParkirId = k.getResult().getInt("nota_parkir_id");
-//
-//            User user = User.findById(usersId);  
-//            NotaAcara na = NotaAcara.findById(notaAcaraId);  
-////            NotaParkir np = NotaParkir.findById(notaParkirId);  method blm dibuat/masih error
-//            
-//            History_Transaksi tampung = new History_Transaksi(id, jumlah, user, isTopup, na, null);
-//            collections.add(tampung);
-//        }
-//        return collections;
-//    } catch (SQLException ex) {
-//        System.out.println("Failed because : " + ex.getSQLState());
-//    }
-//    return null;
-//    }
+}
 //blm ada insert history_transaksi  
 //    public boolean TopUp(double topUpAmount) {
 //        Koneksi a = new Koneksi();
