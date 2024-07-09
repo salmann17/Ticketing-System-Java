@@ -4,12 +4,6 @@
  */
 package ticketing.system.client;
     
-import com.server.Acara;
-import java.awt.BorderLayout;
-import java.sql.Timestamp;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -250,8 +244,9 @@ public class FormAcara extends javax.swing.JPanel {
     }
 
     private static Acara getAcaraByNama(java.lang.String nama) {
-        com.server.TicketingService_Service service = new com.server.TicketingService_Service();
-        com.server.TicketingService port = service.getTicketingServicePort();
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
         return port.getAcaraByNama(nama);
     }
+
 }
