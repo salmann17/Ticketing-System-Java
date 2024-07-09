@@ -5,6 +5,7 @@
 package Model;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -13,11 +14,18 @@ import java.util.ArrayList;
  * @author natha
  */
 public class Parkir{
-
     private int id;
     private String nama;
     private String lokasi;
     private int kuota;
+    
+    public Parkir(int id, String nama, String lokasi, int kuota) {
+        this.id = id;
+        this.nama = nama;
+        this.lokasi = lokasi;
+        this.kuota = kuota;
+    }
+
     private ArrayList<Slot_Parkir> slot_parkir;
     
     public Parkir(int id, String nama, String lokasi, int kuota, ArrayList<Slot_Parkir> slotParkir ) {
@@ -75,7 +83,28 @@ public class Parkir{
     public void setSlot_parkir(ArrayList<Slot_Parkir> slot_parkir) {
         this.slot_parkir = slot_parkir;
     }
-    
+    public static Parkir findById(int id) {
+        Koneksi a = new Koneksi();
+        try {
+            String query = "SELECT id, nama, lokasi, kuota FROM parkir WHERE id = ?";
+            a.setStatement(Koneksi.getConn().prepareStatement(query));
+            PreparedStatement sql = (PreparedStatement) a.getStatement();
+            sql.setInt(1, id);
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                Parkir parkir = new Parkir(
+                    a.getResult().getInt("id"),
+                    a.getResult().getString("nama"),
+                    a.getResult().getString("lokasi"),
+                    a.getResult().getInt("kuota")
+                );
+                return parkir;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Failed because: " + ex.getMessage());
+        }
+        return null;
+    }
 
     public static ArrayList<Parkir> viewListData() {
         ArrayList<Parkir> collections = new ArrayList<>();

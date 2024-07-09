@@ -68,13 +68,13 @@ public class InfoSaldo extends javax.swing.JFrame {
 
         tableKendaraan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Tanggal", "Jumlah", "Keterangan"
+                "ID", "Jumlah", "Keterangan"
             }
         ));
         tableKendaraan.addMouseListener(new java.awt.event.MouseAdapter() {

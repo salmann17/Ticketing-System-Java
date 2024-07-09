@@ -54,6 +54,21 @@ public class TicketingService {
         
         return arrAcara;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getHistoryTransaksi")
+    public History_Transaksi[] getHistoryTransaksi() {
+        //TODO write your implementation code here:
+        ArrayList<History_Transaksi> listHistory = User.DataHistoryTransaksi();
+        
+        History_Transaksi[] arrTransaksi = new History_Transaksi[listHistory.size()];
+        
+        listHistory.toArray(arrTransaksi);
+        
+        return arrTransaksi;
+    }
     
     
     
