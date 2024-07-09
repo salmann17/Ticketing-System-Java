@@ -142,6 +142,22 @@ public class Acara{
         }
         return null;
     }
-
+     
+     public static Acara findByName(String nama) {
+        Koneksi a = new Koneksi();
+        try {
+            a.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM Acara WHERE nama = ?;"));
+            PreparedStatement sql = (PreparedStatement)a.getStatement();
+            sql.setString(1, nama);
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {
+                Acara acara = new Acara(a.getResult().getInt("id"), a.getResult().getString("nama"), a.getResult().getInt("kuota"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("harga"));
+                return acara;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Failed because : " + ex.getMessage());
+        }
+        return null;
+    }
     
 }

@@ -60,6 +60,11 @@ public class TicketingService {
     /**
      * Web service operation
      */
+    @WebMethod(operationName = "getAcaraByNama")
+    public Acara getAcaraByNama(@WebParam(name = "nama") String nama) {
+        //TODO write your implementation code here:
+        Acara a= Acara.findByName(nama);
+        return a;
     @WebMethod(operationName = "getParkir")
     public Parkir[] getParkir() {
         ArrayList<Parkir> listParkir = Parkir.viewListData();
