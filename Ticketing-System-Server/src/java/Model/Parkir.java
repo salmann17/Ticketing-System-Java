@@ -27,6 +27,7 @@ public class Parkir{
         this.kuota = kuota;
     }
     
+    
     public Parkir(int id, String nama, String lokasi, ArrayList<Slot_Parkir> slotParkir ) {
         this.id = id;
         this.nama = nama;
