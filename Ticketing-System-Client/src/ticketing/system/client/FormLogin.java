@@ -291,7 +291,7 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
                 String[] splittedMessage = tmp.split("~");
                 if(splittedMessage[0].equals("200")){
                     JOptionPane.showMessageDialog(this, "Login Berhasil");
-                    new DashBoard().show();
+                    new DashBoard(Integer.parseInt(splittedMessage[1])).show();
                     this.dispose();
                    
                 }

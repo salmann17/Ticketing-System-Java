@@ -4,6 +4,7 @@
  */
 package com.server;
 
+import Model.Acara;
 import Model.History_Transaksi;
 import Model.User;
 import java.util.ArrayList;
@@ -27,6 +28,36 @@ public class TicketingService {
         User u =  new User(id, username, password, noTelp, email);
         return u.updateData();        
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserById")
+    public User getUserById(@WebParam(name = "id") int id) {
+        //TODO write your implementation code here:
+        User u = User.findById(id);
+        return u;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getAcara")
+    public Acara[] getAcara() {
+        //TODO write your implementation code here:
+        ArrayList<Acara> listAcara = Acara.viewListData();
+        
+        
+        Acara[] arrAcara = new Acara[listAcara.size()];
+        
+        listAcara.toArray(arrAcara);        
+        
+        return arrAcara;
+    }
+    
+    
+    
+    
 
 
 }

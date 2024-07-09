@@ -16,18 +16,24 @@ public class ProfileUser extends javax.swing.JFrame {
     /**
      * Creates new form ProfileUser
      */
+    private DashBoard parent;
     int idUser;
-    public ProfileUser() {
+    
+    public ProfileUser(){
         initComponents();
+    }
+    public ProfileUser(DashBoard p,int id) {
+        this();
+        parent = p;
+        idUser = id;
         Display();
     }
     public void Display(){
-//        java.util.List<ticketing.system.client.User> user = getUser();
-//        jTextFieldUsername.setText(user.get(0).username);
-//        jTextFieldPassword.setText(user.get(0).password);
-//        jTextFieldTelephone.setText(user.get(0).noTelp);
-//        jTextFieldEmail.setText(user.get(0).email);
-//        idUser = user.get(0).id;
+        ticketing.system.client.User user = getUserById(idUser);
+        jTextFieldUsername.setText(user.username);
+        jTextFieldPassword.setText(user.password);
+        jTextFieldTelephone.setText(user.noTelp);
+        jTextFieldEmail.setText(user.email);        
     }
 
     /**
@@ -52,7 +58,12 @@ public class ProfileUser extends javax.swing.JFrame {
         jButtonBack = new javax.swing.JButton();
         jButtonChange = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         kGradientPanel1.setkEndColor(new java.awt.Color(0, 255, 204));
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 102, 153));
@@ -184,9 +195,14 @@ public class ProfileUser extends javax.swing.JFrame {
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         // TODO add your handling code here:
-        new DashBoard().show();
+        parent.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonBackActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        jButtonBackActionPerformed(null);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -249,5 +265,11 @@ public class ProfileUser extends javax.swing.JFrame {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
         return port.updateUser(id, username, password, noKtp, email);
+    }
+
+    private static User getUserById(int id) {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.getUserById(id);
     }
 }
