@@ -5,6 +5,7 @@
 package com.server;
 
 import Model.Acara;
+import Model.History_Transaksi;
 import Model.Jam_Parkir;
 import Model.Parkir;
 import Model.Slot_Parkir;
@@ -56,7 +57,7 @@ public class TicketingService {
         
         return arrAcara;
     }
-
+    
     /**
      * Web service operation
      */

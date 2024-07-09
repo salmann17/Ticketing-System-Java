@@ -4,6 +4,7 @@
  */
 package ticketing.system.client;
     
+import com.server.Acara;
 import java.awt.BorderLayout;
 import java.sql.Timestamp;
 import javax.swing.BoxLayout;
@@ -200,7 +201,8 @@ public class FormAcara extends javax.swing.JPanel {
         jTextFieldTanggal.setText(klik.getValueAt(row, 2).toString());
         jTextFieldHarga.setText(klik.getValueAt(row, 3).toString());
         
-        
+        Acara acara = getAcaraByNama(jTextFieldNama.getText());
+        idAcara = acara.getId();
     }//GEN-LAST:event_jTabelHasilMouseClicked
 
     private void RefreshTable()
@@ -216,8 +218,7 @@ public class FormAcara extends javax.swing.JPanel {
             if (obj instanceof ticketing.system.client.Acara)
             {
                 ticketing.system.client.Acara tampung = (ticketing.system.client.Acara)obj;
-                rowData[0]=tampung.getNama();
-                rowData[1]=tampung.getKuota();
+                rowData[0]=tampung.getNama();                
                 rowData[2]=tampung.getLokasi();
                 rowData[3]=tampung.getTanggalAcara();
                 model.addRow(rowData);
@@ -247,5 +248,11 @@ public class FormAcara extends javax.swing.JPanel {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
         return port.getAcara();
+    }
+
+    private static Acara getAcaraByNama(java.lang.String nama) {
+        com.server.TicketingService_Service service = new com.server.TicketingService_Service();
+        com.server.TicketingService port = service.getTicketingServicePort();
+        return port.getAcaraByNama(nama);
     }
 }
