@@ -15,7 +15,7 @@ public class Saldo extends javax.swing.JPanel {
     /**
      * Creates new form Saldo
      */
-     private DashBoard parent;
+    private DashBoard parent;
     int idUser;
     public Saldo() {
         initComponents();
@@ -26,12 +26,12 @@ public class Saldo extends javax.swing.JPanel {
         idUser = id;
         RefreshTabel(idUser);
     }
-      public void RefreshTabel(int idUser){
+    private void RefreshTabel(int idUser){
         DefaultTableModel dtm = (DefaultTableModel) tableSaldo.getModel();
         dtm.setRowCount(0);
-        Object[] rowData = new Object[5];
+        Object[] rowData = new Object[2];
         
-        java.util.List<ticketing.system.client.HistoryTransaksi> listTransaksi = getHistoryTransaksi();
+        java.util.List<ticketing.system.client.HistoryTransaksi> listTransaksi = dataHistoryTransaksi(idUser);
         for ( ticketing.system.client.HistoryTransaksi obj : listTransaksi)
         {
             if (obj instanceof ticketing.system.client.HistoryTransaksi)
@@ -207,10 +207,10 @@ public class Saldo extends javax.swing.JPanel {
     private javax.swing.JTable tableSaldo;
     // End of variables declaration//GEN-END:variables
 
-    private static java.util.List<ticketing.system.client.HistoryTransaksi> getHistoryTransaksi() {
+    private static java.util.List<ticketing.system.client.HistoryTransaksi> dataHistoryTransaksi(int id) {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-        return port.getHistoryTransaksi();
+        return port.dataHistoryTransaksi(id);
     }
 
 

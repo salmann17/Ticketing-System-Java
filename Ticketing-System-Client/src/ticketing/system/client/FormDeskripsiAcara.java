@@ -21,6 +21,9 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         initComponents();
         acaraPilih = a;
         parent = p;
+        
+        jLabelNama.setText(a.getNama());
+        jLabelDeskripsi.setText(a.getDeskripsi());
     }
     Acara acaraPilih;
     FormAcara parent;
@@ -34,7 +37,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabelNama = new javax.swing.JLabel();
-        jLabelNama1 = new javax.swing.JLabel();
+        jLabelDeskripsi = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabelNama2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -46,8 +49,8 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         jLabelNama.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabelNama.setText("Nama Acara");
 
-        jLabelNama1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabelNama1.setText("Nama Acara");
+        jLabelDeskripsi.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabelDeskripsi.setText("Nama Acara");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
@@ -103,7 +106,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
                         .addComponent(jLabelNama))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(jLabelNama1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -113,7 +116,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jLabelNama)
                 .addGap(18, 18, 18)
-                .addComponent(jLabelNama1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -159,8 +162,8 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabelDeskripsi;
     private javax.swing.JLabel jLabelNama;
-    private javax.swing.JLabel jLabelNama1;
     private javax.swing.JLabel jLabelNama2;
     private javax.swing.JLabel jLabelNama3;
     private javax.swing.JPanel jPanel1;
