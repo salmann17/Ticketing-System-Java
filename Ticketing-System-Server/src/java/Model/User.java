@@ -170,10 +170,10 @@ public class User {
     
     public boolean updateData() {
         try{
-            Koneksi a = new Koneksi();
+            Koneksi k = new Koneksi();
             if (!Koneksi.getConn().isClosed()){ 
-                a.setStatement(Koneksi.getConn().prepareStatement("UPDATE users SET username = ?, password = md5(?), no_telp = ?, email = ? WHERE id = ?;"));
-                PreparedStatement sql = (PreparedStatement) a.getStatement();
+                k.setStatement(Koneksi.getConn().prepareStatement("UPDATE users SET username = ?, password = md5(?), no_telp = ?, email = ? WHERE id = ?;"));
+                PreparedStatement sql = (PreparedStatement) k.getStatement();
                 sql.setString(1, getUsername());
                 sql.setString(2, getPassword());
                 sql.setString(3, getNoTelp());
@@ -190,14 +190,14 @@ public class User {
     }    
 
     public static User findById(int id) {
-        Koneksi a = new Koneksi();
+        Koneksi k = new Koneksi();
         try {
-            a.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM users WHERE id = ?"));
-            PreparedStatement sql = (PreparedStatement)a.getStatement();
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM users WHERE id = ?"));
+            PreparedStatement sql = (PreparedStatement)k.getStatement();
             sql.setInt(1, id);
-            a.setResult(sql.executeQuery());
-            if (a.getResult().next()) {
-                User user = new User(a.getResult().getInt("id"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
+            k.setResult(sql.executeQuery());
+            if (k.getResult().next()) {
+                User user = new User(k.getResult().getInt("id"), k.getResult().getString("username"), k.getResult().getString("password"), k.getResult().getDouble("saldo"), k.getResult().getString("no_telp"), k.getResult().getString("email"));
                 return user;
             }
         } catch (SQLException ex) {

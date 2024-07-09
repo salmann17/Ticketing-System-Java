@@ -24,7 +24,7 @@ public class Koneksi {
         this.result = result;
     }
     public Koneksi(){
-        this.conn = this._getConnection();
+        conn = this._getConnection();
         this.statement = null;
         this.result = null;
     }

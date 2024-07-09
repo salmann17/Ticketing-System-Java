@@ -8,11 +8,15 @@ import java.awt.Color;
 
 
 public class DashBoard extends javax.swing.JFrame {
-
+    public int idUserLogin;
     
-    
-    public DashBoard() {
+    public DashBoard(){
         initComponents();
+    }
+    
+    public DashBoard(int idUser) {
+        this();
+        idUserLogin = idUser;
         this.setLocationRelativeTo(null);
     }
     
@@ -513,8 +517,10 @@ public class DashBoard extends javax.swing.JFrame {
         btnAcara.setForeground(new Color(255,255,255));
         
         panelMain.removeAll();
-        panelMain.add(new FormAcara());
+        panelMain.add(new FormAcara());        
         panelMain.revalidate();
+        panelMain.repaint();
+        pack();
     }//GEN-LAST:event_btnAcaraMouseClicked
 
     private void btnAcaraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcaraMouseEntered
@@ -584,9 +590,9 @@ public class DashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNotaMouseExited
 
     private void btnProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileMouseClicked
-        ProfileUser form = new ProfileUser();
+        ProfileUser form = new ProfileUser(this,idUserLogin);
         form.show();
-        this.dispose();
+        this.setVisible(false);
         panelProfile.setBackground(new Color(0,102,153));
         panelProfileLine.setBackground(new Color(255,255,255));
         btnProfile.setForeground(new Color(255,255,255));

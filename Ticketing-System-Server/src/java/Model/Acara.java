@@ -21,7 +21,7 @@ public class Acara{
     private String nama;
     private int kuota;
     private String lokasi;
-    private Timestamp tanggalAcara;
+    private String tanggalAcara;
     private String deskripsi;
     private double harga;
     
@@ -30,7 +30,7 @@ public class Acara{
         this.nama = nama;
         this.kuota = kuota;
         this.lokasi = lokasi;
-        this.tanggalAcara = tanggalAcara;
+        setTanggalAcara(tanggalAcara.toString());
         this.deskripsi = deskripsi;
         this.harga = harga;
     }  
@@ -39,7 +39,7 @@ public class Acara{
         this.nama = "";
         this.kuota = 0;
         this.lokasi = "";
-        this.tanggalAcara = new Timestamp(new Date().getTime());
+        setTanggalAcara(new Timestamp(new Date().getTime()).toString());
         this.deskripsi = "";
         this.harga = 0.0;
     }
@@ -75,11 +75,11 @@ public class Acara{
         this.lokasi = lokasi;
     }
 
-    public Timestamp getTanggalAcara() {
+    public String getTanggalAcara() {
         return tanggalAcara;
     }
 
-    public void setTanggalAcara(Timestamp tanggalAcara) {
+    public void setTanggalAcara(String tanggalAcara) {
         this.tanggalAcara = tanggalAcara;
     }
 
@@ -214,4 +214,6 @@ public class Acara{
         }
         return null;
     }
+
+    
 }
