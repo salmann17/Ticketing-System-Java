@@ -33,8 +33,12 @@
 <xs:element name="updateUserResponse" type="tns:updateUserResponse"/>
 
 <xs:complexType name="getHistoryTransaksi">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getHistoryTransaksiResponse">
 <xs:sequence>
-<xs:element name="id" type="xs:int"/>
+<xs:element name="return" type="tns:historyTransaksi" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

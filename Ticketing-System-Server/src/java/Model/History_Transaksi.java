@@ -5,7 +5,6 @@
 package Model;
 
 import java.sql.PreparedStatement;
-import java.util.ArrayList;
 
 /**
  *
