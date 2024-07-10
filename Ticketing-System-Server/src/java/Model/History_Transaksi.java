@@ -32,13 +32,12 @@ public class History_Transaksi {
         this.notaParkir = notaParkir;
     }
     
-    //untuk jenis transaksi topup
-    public History_Transaksi(double jumlah, User user) {
+    public History_Transaksi(double jumlah, User user, Boolean is_topup) {
         this.jumlah = jumlah;
         this.user = user;        
         this.is_topup = true;
     }
-    //untuk jenis transaksi acara
+
     public History_Transaksi(int id,double jumlah, User user, String keterangan, NotaAcara notaAcara) {
         this.id = id;
         this.jumlah = jumlah;
@@ -48,7 +47,6 @@ public class History_Transaksi {
         this.notaParkir = null;  
     }
     
-    //untuk jenis transaksi parkir
     public History_Transaksi(int id,double jumlah, User user, String keterangan, NotaParkir notaParkir) {
         this.id = id;
         this.jumlah = jumlah;
@@ -114,26 +112,14 @@ public class History_Transaksi {
     public void setNotaParkir(NotaParkir notaParkir) {
         this.notaParkir = notaParkir;
     }
-    public boolean insertData() {
+    public boolean topUp() {
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("INSERT INTO saldo(jumlah, users_id, is_topup, nota_acara_id, nota_parkir_id) VALUES (?, ?, ?, ?, ?)");
+                PreparedStatement sql = Koneksi.getConn().prepareStatement("INSERT INTO history_transaksi(jumlah, users_id, is_topup) VALUES (?, ?, ?)");
                 sql.setDouble(1, this.jumlah);
                 sql.setInt(2, this.user.getId());          
                 sql.setBoolean(3, this.is_topup);
-                if(this.Is_topup()){
-                    sql.setNull(4, java.sql.Types.INTEGER);
-                    sql.setNull(5, java.sql.Types.INTEGER);
-                }
-                else if(this.notaAcara == null){
-                    sql.setNull(4, java.sql.Types.INTEGER);
-                    sql.setInt(5, this.notaParkir.getId()); 
-                }
-                else{
-                    sql.setNull(4, this.notaAcara.getId());
-                    sql.setInt(5, java.sql.Types.INTEGER); 
-                }
             
                 int rowAffected = sql.executeUpdate();                
                 sql.close();

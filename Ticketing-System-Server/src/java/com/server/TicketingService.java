@@ -144,6 +144,16 @@ public class TicketingService {
 //        
 //        return arrTransaksi;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "TopUp")
+    public Boolean TopUp(@WebParam(name = "jumlah") double jumlah, @WebParam(name = "users_id") int users_id, @WebParam(name = "is_topup") boolean is_topup) {
+        //TODO write your implementation code here:
+        History_Transaksi ht = new History_Transaksi(jumlah,User.findById(users_id),is_topup);
+        return ht.topUp();
+    }
     
     
 }
