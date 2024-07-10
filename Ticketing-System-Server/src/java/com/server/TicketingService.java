@@ -115,7 +115,7 @@ public class TicketingService {
     public boolean TambahNotaParkir(@WebParam(name = "idUser") int idUser, @WebParam(name = "tanggal_booking") String tanggal_booking, @WebParam(name = "parkir_id") int parkir_id, @WebParam(name = "slot_parkir_kode") String slot_parkir_kode, @WebParam(name = "jam_parkir_id") int jam_parkir_id) {
         //TODO write your implementation code here:
         NotaParkir np = new NotaParkir(0, "", User.findById(idUser), tanggal_booking, Slot_Parkir.findByKodeIdParkir(parkir_id, slot_parkir_kode), Jam_Parkir.findById(jam_parkir_id),0.0);
-        return np.insertData();
+            return np.insertData();
     }
 
     /**
@@ -180,6 +180,14 @@ public class TicketingService {
         //TODO write your implementation code here:
         boolean isClaim = NotaAcara.ClaimTicketAcara(userId);
         return isClaim;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "CekKetersediaanSlotParkir")
+    public Boolean CekKetersediaanSlotParkir(@WebParam(name = "parkir_id") int parkir_id, @WebParam(name = "kode") String kode, @WebParam(name = "jam_parkir_id") int jam_parkir_id) {        
+        return Slot_Parkir.CekKetersediaan(Slot_Parkir.findByKodeIdParkir(parkir_id, kode), Jam_Parkir.findById(jam_parkir_id));
     }
     
     

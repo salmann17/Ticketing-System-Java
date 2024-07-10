@@ -679,6 +679,10 @@ public class DashBoard extends javax.swing.JFrame {
         panelParkir.setBackground(new Color(0,102,153));
         panelParkirLine.setBackground(new Color(255,255,255));
         btnParkir.setForeground(new Color(255,255,255));
+        
+        panelMain.removeAll();
+        panelMain.add(new FormParkir(this));        
+        panelMain.revalidate();
     }//GEN-LAST:event_btnParkirMouseClicked
 
     private void btnParkirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnParkirMouseEntered
