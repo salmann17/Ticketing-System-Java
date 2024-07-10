@@ -17,7 +17,6 @@ public class ClaimTicket extends javax.swing.JPanel {
     /**
      * Creates new form ClaimTicket
      */
-    NotaAcara notaPilih = new NotaAcara();
     DashBoard parent;
     int idUser;
     public ClaimTicket() {
@@ -210,7 +209,6 @@ public class ClaimTicket extends javax.swing.JPanel {
         jTextFieldTanggal.setText(klik.getValueAt(row, 2).toString());
         jTextFieldHarga.setText(klik.getValueAt(row, 3).toString());
         
-        notaPilih = getAcaraByNama(jTextFieldId.getText());
     }//GEN-LAST:event_jTabelHasilMouseClicked
 
     private void jButtonClaimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClaimActionPerformed
@@ -228,17 +226,17 @@ public class ClaimTicket extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTabelHasil.getModel();
         model.setRowCount(0);
         Object[] rowData=new Object[5];
-        java.util.List<ticketing.system.client.NotaAcara> listNotaAcaras = bacaDataNotaAcara();
+        java.util.List<ticketing.system.client.NotaAcara> listNotaAcara = bacaDataNotaAcara();
         
         for ( ticketing.system.client.NotaAcara obj : listNotaAcara)
         {
             if (obj instanceof ticketing.system.client.NotaAcara)
             {
                 ticketing.system.client.NotaAcara tampung = (ticketing.system.client.NotaAcara)obj;
-                rowData[0]=tampung.getNama();                
-                rowData[1]=tampung.getLokasi();
-                rowData[2]=tampung.getTanggalAcara();
-                rowData[3]=tampung.getHarga();
+                rowData[0]=tampung.getId();                
+                rowData[1]=tampung.getJumlah();
+                rowData[2]=tampung.getHarga();
+                rowData[3]=tampung.getTanggalTransaksi();
                 model.addRow(rowData);
             }
         }
