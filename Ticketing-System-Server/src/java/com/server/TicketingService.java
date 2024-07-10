@@ -7,6 +7,7 @@ package com.server;
 import Model.Acara;
 import Model.History_Transaksi;
 import Model.Jam_Parkir;
+import Model.NotaAcara;
 import Model.NotaParkir;
 import Model.Parkir;
 import Model.Slot_Parkir;
@@ -149,11 +150,36 @@ public class TicketingService {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "TopUp")
-    public Boolean TopUp(@WebParam(name = "jumlah") double jumlah, @WebParam(name = "users_id") int users_id, @WebParam(name = "is_topup") boolean is_topup) {
+    @WebMethod(operationName = "TambahNotaAcara")
+    public NotaAcara TambahNotaAcara(@WebParam(name = "idUser") int idUser, @WebParam(name = "idAcara") int idAcara, @WebParam(name = "jumlah") int jumlah) {
+        //TODO write your implementation code here:
+        NotaAcara na = new NotaAcara();
+        na.setAcara(Acara.findById(idAcara));
+        na.setUser(User.findById(idUser));
+        na.setJumlah(jumlah);
+        na.setHarga(jumlah*na.getAcara().getHarga());
+        boolean status = na.insertData();
+        if (status==true)
+        {
+            return na;
+        }
+        return new NotaAcara();
+    }
+    @WebMethod(operationName = "TambahTopUp")
+    public Boolean TambahTopUp(@WebParam(name = "jumlah") double jumlah, @WebParam(name = "users_id") int users_id, @WebParam(name = "is_topup") boolean is_topup) {
         //TODO write your implementation code here:
         History_Transaksi ht = new History_Transaksi(jumlah,User.findById(users_id),is_topup);
-        return ht.topUp();
+        return ht.topUpSaldo();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "ClaimTicket")
+    public Boolean ClaimTicket(@WebParam(name = "userId") int userId) {
+        //TODO write your implementation code here:
+        boolean isClaim = NotaAcara.ClaimTicket(userId);
+        return isClaim;
     }
 
     /**

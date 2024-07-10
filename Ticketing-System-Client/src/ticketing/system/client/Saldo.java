@@ -30,9 +30,9 @@ public class Saldo extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) tableSaldo.getModel();
         dtm.setRowCount(0);
         Object[] rowData = new Object[2];
-        
         java.util.List<ticketing.system.client.HistoryTransaksi> listTransaksi = dataHistoryTransaksi(idUser);
-        for ( ticketing.system.client.HistoryTransaksi obj : listTransaksi)
+        
+        for (ticketing.system.client.HistoryTransaksi obj : listTransaksi)
         {
             if (obj instanceof ticketing.system.client.HistoryTransaksi)
             {
@@ -83,6 +83,11 @@ public class Saldo extends javax.swing.JPanel {
 
         jButtonTopup.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         jButtonTopup.setText("TOPUP");
+        jButtonTopup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonTopupMouseClicked(evt);
+            }
+        });
         jButtonTopup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTopupActionPerformed(evt);
@@ -193,6 +198,11 @@ public class Saldo extends javax.swing.JPanel {
 
     }//GEN-LAST:event_tableSaldoMouseClicked
 
+    private void jButtonTopupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonTopupMouseClicked
+        Topup form = new Topup(this, idUser);
+        form.show();
+    }//GEN-LAST:event_jButtonTopupMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;
@@ -212,8 +222,4 @@ public class Saldo extends javax.swing.JPanel {
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
         return port.dataHistoryTransaksi(id);
     }
-
-
-
-
 }

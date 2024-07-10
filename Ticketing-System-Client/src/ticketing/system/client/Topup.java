@@ -4,17 +4,23 @@
  */
 package ticketing.system.client;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Salman Alfarizi
  */
 public class Topup extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Topup
-     */
+    private Saldo parent;
+    int idUser;
     public Topup() {
         initComponents();
+    }
+    public Topup(Saldo p, int id) {
+        initComponents();
+        parent=p;
+        idUser=id;
     }
 
     /**
@@ -103,7 +109,14 @@ public class Topup extends javax.swing.JFrame {
 
     private void jButtonTopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTopupActionPerformed
         // TODO add your handling code here:
-
+        double jumlah = Double.parseDouble(jTextFieldNominal.getText()) ;
+        int userId = idUser;
+        Boolean is_topup = true;
+        if(tambahTopUp(jumlah, userId, true) == true){
+            JOptionPane.showMessageDialog(parent, "topup berhasil");
+        } else{
+            JOptionPane.showMessageDialog(parent, "topup gagal");
+        }
     }//GEN-LAST:event_jButtonTopupActionPerformed
 
     /**
@@ -148,4 +161,11 @@ public class Topup extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNominal;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private static Boolean tambahTopUp(double jumlah, int usersId, boolean isTopup) {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.tambahTopUp(jumlah, usersId, isTopup);
+    }
+    
 }
