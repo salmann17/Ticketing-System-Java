@@ -226,7 +226,7 @@ public class ClaimTicket extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTabelHasil.getModel();
         model.setRowCount(0);
         Object[] rowData=new Object[5];
-        java.util.List<ticketing.system.client.NotaAcara> listNotaAcara = bacaDataNotaAcara();
+        java.util.List<ticketing.system.client.NotaAcara> listNotaAcara = bacaDataNotaAcara(idUser);
         
         for ( ticketing.system.client.NotaAcara obj : listNotaAcara)
         {
@@ -284,11 +284,13 @@ public class ClaimTicket extends javax.swing.JPanel {
         return port.claimTicketAcara(userId);
     }
 
-    private static java.util.List<ticketing.system.client.NotaAcara> bacaDataNotaAcara() {
+    private static java.util.List<ticketing.system.client.NotaAcara> bacaDataNotaAcara(int userId) {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-        return port.bacaDataNotaAcara();
+        return port.bacaDataNotaAcara(userId);
     }
+
+
 
     
     
