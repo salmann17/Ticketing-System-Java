@@ -4,6 +4,8 @@
  */
 package ticketing.system.client;
 
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,7 +22,7 @@ public class FormSlotParkir extends javax.swing.JFrame {
     Parkir parkir;
     java.util.List<ticketing.system.client.SlotParkir> listSlotParkir;
     java.util.List<ticketing.system.client.JamParkir> listJamParkir;
-    SlotParkir selectedParkir;
+    SlotParkir selectedSlotParkir;
     public FormSlotParkir() {
         initComponents();        
     }
@@ -29,7 +31,7 @@ public class FormSlotParkir extends javax.swing.JFrame {
         parent = p;
         parkir = selectedParkir; 
         RefreshTable();
-        RefreshJamParkir();
+        RefreshJamParkir();                 
     }
 
     /**
@@ -49,13 +51,10 @@ public class FormSlotParkir extends javax.swing.JFrame {
         jTextFieldNama = new javax.swing.JTextField();
         jTextFieldLokasi = new javax.swing.JTextField();
         jButtonBook = new javax.swing.JButton();
-        jTextFieldTgl = new javax.swing.JTextField();
-        jTextFieldBln = new javax.swing.JTextField();
-        jTextFieldTahun = new javax.swing.JTextField();
         jComboBoxJamParkir = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        kGradientPanel3 = new keeptoo.KGradientPanel();
-        btnParkir = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -85,9 +84,8 @@ public class FormSlotParkir extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Kode :");
 
-        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Harga :");
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        jLabel3.setText("Tanggal:");
 
         jTextFieldNama.setEditable(false);
         jTextFieldNama.setEnabled(false);
@@ -98,17 +96,18 @@ public class FormSlotParkir extends javax.swing.JFrame {
         jButtonBook.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButtonBook.setForeground(new java.awt.Color(255, 255, 255));
         jButtonBook.setText("Book");
+        jButtonBook.setEnabled(false);
         jButtonBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBookActionPerformed(evt);
             }
         });
 
-        jTextFieldTgl.setText("Tanggal");
-
-        jTextFieldBln.setText("Bulan");
-
-        jTextFieldTahun.setText("jTextField1");
+        jComboBoxJamParkir.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxJamParkirItemStateChanged(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
@@ -140,6 +139,17 @@ public class FormSlotParkir extends javax.swing.JFrame {
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
+        jDateChooser1.setDate(new java.util.Date());
+        jDateChooser1.setMinSelectableDate(new java.util.Date());
+        jDateChooser1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooser1PropertyChange(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        jLabel5.setText("Harga:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -147,32 +157,30 @@ public class FormSlotParkir extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonBook, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(74, 74, 74)
-                            .addComponent(jTextFieldNama))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextFieldTgl)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addGap(36, 36, 36)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextFieldLokasi)
-                                        .addComponent(jComboBoxJamParkir, 0, 295, Short.MAX_VALUE)))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(31, 31, 31)
-                                    .addComponent(jTextFieldBln, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTextFieldTahun, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addComponent(kGradientPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(btnSlotParkir))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(118, 118, 118)
+                                .addComponent(jButtonBook))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
+                                .addGap(72, 72, 72)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBoxJamParkir, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldLokasi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldNama, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,24 +188,21 @@ public class FormSlotParkir extends javax.swing.JFrame {
                 .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldTgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldBln, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldTahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
+                            .addComponent(jTextFieldNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldLokasi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jTextFieldLokasi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jTextFieldNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
+                                .addGap(17, 17, 17)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxJamParkir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
@@ -218,7 +223,8 @@ public class FormSlotParkir extends javax.swing.JFrame {
         jTextFieldNama.setText(klik.getValueAt(row, 0).toString());
         jTextFieldLokasi.setText(klik.getValueAt(row, 1).toString());
 
-        selectedParkir = listSlotParkir.get(row);
+        selectedSlotParkir = listSlotParkir.get(row);
+        refreshButtonBook();
     }//GEN-LAST:event_jTabelParkirMouseClicked
 
     private void RefreshTable()
@@ -246,11 +252,43 @@ public class FormSlotParkir extends javax.swing.JFrame {
             jComboBoxJamParkir.addItem(jp.jamMulai + " - " + jp.jamSelesai);
         }
     }
-    
-    private void jButtonBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBookActionPerformed
-        // TODO add your handling code here:
+    private void refreshButtonBook(){
+        if(selectedSlotParkir != null){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            if(cekKetersediaanSlotParkir(selectedSlotParkir.getParkir().getId(),selectedSlotParkir.getKode(),listJamParkir.get(jComboBoxJamParkir.getSelectedIndex()).getId(),sdf.format(jDateChooser1.getDate()))){
+                jButtonBook.setEnabled(true);
+            }
+            else{
+                jButtonBook.setEnabled(false);
+            }
         
+        }
+        
+    }
+    private void jButtonBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBookActionPerformed
+        // TODO add your handling code here:        
+        if(JOptionPane.showConfirmDialog(this, "Apakah anda yakin ingin memesan?","Konfirmasi",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)== JOptionPane.YES_OPTION){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            if(tambahNotaParkir(parent.parent.idUserLogin, sdf.format(jDateChooser1.getDate()), parkir.getId(), selectedSlotParkir.getKode(), listJamParkir.get(jComboBoxJamParkir.getSelectedIndex()).getId())){
+                JOptionPane.showMessageDialog(parent, "Booking berhasil");
+                parent.setVisible(true);
+                this.dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(parent, "Booking gagal");
+            }
+        }
     }//GEN-LAST:event_jButtonBookActionPerformed
+
+    private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser1PropertyChange
+        // TODO add your handling code here:       
+        refreshButtonBook();
+    }//GEN-LAST:event_jDateChooser1PropertyChange
+
+    private void jComboBoxJamParkirItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxJamParkirItemStateChanged
+        // TODO add your handling code here:
+        refreshButtonBook();
+    }//GEN-LAST:event_jComboBoxJamParkirItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -291,18 +329,16 @@ public class FormSlotParkir extends javax.swing.JFrame {
     private javax.swing.JLabel btnParkir;
     private javax.swing.JButton jButtonBook;
     private javax.swing.JComboBox<String> jComboBoxJamParkir;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelParkir;
-    private javax.swing.JTextField jTextFieldBln;
     private javax.swing.JTextField jTextFieldLokasi;
     private javax.swing.JTextField jTextFieldNama;
-    private javax.swing.JTextField jTextFieldTahun;
-    private javax.swing.JTextField jTextFieldTgl;
-    private keeptoo.KGradientPanel kGradientPanel3;
     // End of variables declaration//GEN-END:variables
 
     private static java.util.List<ticketing.system.client.SlotParkir> getSlotParkir(int idParkir) {
@@ -316,6 +352,20 @@ public class FormSlotParkir extends javax.swing.JFrame {
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
         return port.getJamParkir();
     }
+
+    private static Boolean cekKetersediaanSlotParkir(int parkirId, java.lang.String kode, int jamParkirId, java.lang.String tanggalBooking) {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.cekKetersediaanSlotParkir(parkirId, kode, jamParkirId, tanggalBooking);
+    }
+
+    private static boolean tambahNotaParkir(int idUser, java.lang.String tanggalBooking, int parkirId, java.lang.String slotParkirKode, int jamParkirId) {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.tambahNotaParkir(idUser, tanggalBooking, parkirId, slotParkirKode, jamParkirId);
+    }
+
+
 
 
 }

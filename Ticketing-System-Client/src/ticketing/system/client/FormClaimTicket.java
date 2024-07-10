@@ -12,17 +12,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Salman Alfarizi
  */
-public class ClaimTicket extends javax.swing.JPanel {
+public class FormClaimTicket extends javax.swing.JPanel {
 
     /**
-     * Creates new form ClaimTicket
+     * Creates new form FormClaimTicket
      */
     DashBoard parent;
     int idUser;
-    public ClaimTicket() {
+    public FormClaimTicket() {
         initComponents();
     }
-    public ClaimTicket(DashBoard p,int id) {
+    public FormClaimTicket(DashBoard p,int id) {
         this();
         parent = p;
         idUser = id;
