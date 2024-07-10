@@ -58,7 +58,7 @@ public class Slot_Parkir{
             a.setStatement(Koneksi.getConn().prepareStatement(query));
             PreparedStatement sql = (PreparedStatement) a.getStatement();
             sql.setInt(1, parkir_id);
-            sql.setString(1, kode);
+            sql.setString(2, kode);
             a.setResult(sql.executeQuery());
             if (a.getResult().next()) {
                 int parkirId = a.getResult().getInt("parkir_id");                

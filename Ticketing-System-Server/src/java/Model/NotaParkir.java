@@ -149,7 +149,7 @@ public class NotaParkir{
             if (!Koneksi.getConn().isClosed()){
                 Koneksi a = new Koneksi();
                 a.setStatement(Koneksi.getConn().prepareStatement(
-                "Insert ignore into nota_parkir(tanggal_transaksi,users_id,tanggal_booking,slot_parkir_parkir_id,slot_parkir_kode,jam_parkir_id,harga) values (now(),?,?,?,?,?)"));
+                "Insert ignore into nota_parkir(tanggal_transaksi,users_id,tanggal_booking,slot_parkir_parkir_id,slot_parkir_kode,jam_parkir_id,harga) values (now(),?,?,?,?,?,?)"));
                 PreparedStatement sql = (PreparedStatement)a.getStatement() ;
                 sql.setInt(1, this.user.getId());
                 sql.setDate(2, Date.valueOf(this.tanggal_booking));
