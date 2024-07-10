@@ -72,4 +72,23 @@ public class Slot_Parkir{
         }
         return null;
     }
+    
+    public static boolean CekKetersediaan(Slot_Parkir slot_parkir, Jam_Parkir jam_parkir){
+        Koneksi a = new Koneksi();
+        try {
+            String query = "SELECT * FROM nota_parkir WHERE slot_parkir_parkir_id = ? and slot_parkir_kode = ? and  jam_parkir_id = ?";
+            a.setStatement(Koneksi.getConn().prepareStatement(query));
+            PreparedStatement sql = (PreparedStatement) a.getStatement();
+            sql.setInt(1, slot_parkir.getParkir().getId());
+            sql.setString(2, slot_parkir.getKode());
+            sql.setInt(3, jam_parkir.getId());
+            a.setResult(sql.executeQuery());
+            if (a.getResult().next()) {                
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Failed because: " + ex.getMessage());
+        }
+        return true;
+    }
 }
