@@ -6,9 +6,6 @@ package Model;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-
 
 /**
  *
@@ -16,28 +13,31 @@ import java.sql.Timestamp;
  */
 public class NotaParkir{
     private int id;
-    private Timestamp tanggal_transaksi;
+    private String tanggal_transaksi;
     private User user;
-    private Date tanggal_booking;
+    private String tanggal_booking;
     private Slot_Parkir slot_parkir;
     private Jam_Parkir jam_parkir;
+    private Double harga;
 
     public NotaParkir() {
         this.id = 0;
-        this.tanggal_transaksi = new Timestamp(new java.util.Date().getTime());
+        this.tanggal_transaksi = "";
         this.user = new User();
-        this.tanggal_booking = new Date(new java.util.Date().getTime());
+        this.tanggal_booking = "";
         this.slot_parkir = new Slot_Parkir();
         this.jam_parkir = new Jam_Parkir();
+        this.harga = 0.0;
     } 
      
-    public NotaParkir(int id, Timestamp tanggal_transaksi, User user, Date tanggal_booking, Slot_Parkir slot_parkir, Jam_Parkir jam_parkir) {
+    public NotaParkir(int id, String tanggal_transaksi, User user, String tanggal_booking, Slot_Parkir slot_parkir, Jam_Parkir jam_parkir,Double harga) {
         this.id = id;
         this.tanggal_transaksi = tanggal_transaksi;
         this.user = user;
         this.tanggal_booking = tanggal_booking;
         this.slot_parkir = slot_parkir;
         this.jam_parkir = jam_parkir;
+        this.harga = harga;
     }
      
     public int getId() {
@@ -48,11 +48,11 @@ public class NotaParkir{
         this.id = id;
     }
 
-    public Timestamp getTanggal_transaksi() {
+    public String getTanggal_transaksi() {
         return tanggal_transaksi;
     }
 
-    public void setTanggal_transaksi(Timestamp tanggal_transaksi) {
+    public void setTanggal_transaksi(String tanggal_transaksi) {
         this.tanggal_transaksi = tanggal_transaksi;
     }
 
@@ -64,11 +64,11 @@ public class NotaParkir{
         this.user = user;
     }
 
-    public Date getTanggal_booking() {
+    public String getTanggal_booking() {
         return tanggal_booking;
     }
 
-    public void setTanggal_booking(Date tanggal_booking) {
+    public void setTanggal_booking(String tanggal_booking) {
         this.tanggal_booking = tanggal_booking;
     }
 
@@ -87,6 +87,14 @@ public class NotaParkir{
     public void setJam_parkir(Jam_Parkir jam_parkir) {
         this.jam_parkir = jam_parkir;
     }
+    public Double getHarga() {
+        return harga;
+    }
+
+    public void setHarga(Double harga) {
+        this.harga = harga;
+    }
+    
 //    public static NotaParkir findById(int id) {
 //    Koneksi a = new Koneksi();
 //    try {
@@ -136,26 +144,29 @@ public class NotaParkir{
 //} 
     
 //    
-//    public void insertData() {
-//        try{
-//            if (!Koneksi.getConn().isClosed()){
-//                Koneksi a = new Koneksi();
-//                a.setStatement(Koneksi.getConn().prepareStatement(
-//                "Insert into parkirs(posisi_id, users_id, tgl_reservasi, tgl_finish, harga) values (?,?,?,?,?)"));
-//                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
-//                sql.setInt(1, getPosisi().getId());
-//                sql.setInt(2, getUser().getId());
-//                sql.setTimestamp(3, getTglReservasi());
-//                sql.setTimestamp(4, getTglFinish());
-//                sql.setDouble(5, getHarga());
-//                sql.executeUpdate();
-//                sql.close();
-//            }
-//        }
-//        catch (Exception ex){
-//            System.out.println(ex.getMessage());
-//        }
-//    }
+    public boolean insertData() {
+        try{
+            if (!Koneksi.getConn().isClosed()){
+                Koneksi a = new Koneksi();
+                a.setStatement(Koneksi.getConn().prepareStatement(
+                "Insert ignore into nota_parkir(tanggal_transaksi,users_id,tanggal_booking,slot_parkir_parkir_id,slot_parkir_kode,jam_parkir_id,harga) values (now(),?,?,?,?,?)"));
+                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
+                sql.setInt(1, this.user.getId());
+                sql.setDate(2, Date.valueOf(this.tanggal_booking));
+                sql.setInt(3, this.slot_parkir.getParkir().getId());
+                sql.setString(4, this.slot_parkir.getKode());
+                sql.setInt(5, this.jam_parkir.getId());
+                sql.setDouble(6, this.slot_parkir.getHarga());
+                int rowAffected = sql.executeUpdate();
+                sql.close();
+                return rowAffected != 0;
+            }
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
 //    public static NotaParkir findById(int id) {
 //        Koneksi a = new Koneksi();
 //        try {
@@ -181,5 +192,7 @@ public class NotaParkir{
 //        }
 //        return null;
 //    }
+
+
         
 }

@@ -51,22 +51,20 @@ public class Slot_Parkir{
     public void setHarga(double harga) {
         this.harga = harga;
     }            
-    public static Slot_Parkir findById(int id) {
+    public static Slot_Parkir findByKodeIdParkir(int parkir_id, String kode) {
         Koneksi a = new Koneksi();
         try {
-            String query = "SELECT id, kode, harga FROM slot_parkir WHERE id = ?";
+            String query = "SELECT * FROM slot_parkir WHERE parkir_id = ? and kode = ?";
             a.setStatement(Koneksi.getConn().prepareStatement(query));
             PreparedStatement sql = (PreparedStatement) a.getStatement();
-            sql.setInt(1, id);
+            sql.setInt(1, parkir_id);
+            sql.setString(1, kode);
             a.setResult(sql.executeQuery());
             if (a.getResult().next()) {
-                int parkirId = a.getResult().getInt("id");
-                String kode = a.getResult().getString("kode");
-                double harga = a.getResult().getDouble("harga");
-                
+                int parkirId = a.getResult().getInt("parkir_id");                
                 Parkir p = Parkir.findById(parkirId);
                 
-                Slot_Parkir slotParkir = new Slot_Parkir(p,kode,harga);
+                Slot_Parkir slotParkir = new Slot_Parkir(p,a.getResult().getString("kode"),a.getResult().getDouble("harga"));
                 return slotParkir;
             }
         } catch (SQLException ex) {

@@ -140,7 +140,7 @@ public class User {
         try{
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()){                
-                PreparedStatement sql = (PreparedStatement)Koneksi.getConn().prepareStatement("Insert into users(username, password, saldo, no telp, email) values (?,md5(?),?,?, ?)");
+                PreparedStatement sql = (PreparedStatement)Koneksi.getConn().prepareStatement("Insert into users(username, password, saldo, no_telp, email) values (?,md5(?),?,?, ?)");
                 sql.setString(1, this.getUsername());
                 sql.setString(2, this.getPassword());
                 sql.setDouble(3, 0.0);

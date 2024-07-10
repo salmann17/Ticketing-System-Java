@@ -7,6 +7,7 @@ package com.server;
 import Model.Acara;
 import Model.History_Transaksi;
 import Model.Jam_Parkir;
+import Model.NotaParkir;
 import Model.Parkir;
 import Model.Slot_Parkir;
 import Model.User;
@@ -85,9 +86,10 @@ public class TicketingService {
         Parkir parkir = new Parkir();
         parkir.setId(idParkir);
         parkir.getDataSlotParkir();
+        ArrayList<Slot_Parkir> listSlotParkir = parkir.getDataSlotParkir();
         
-        Slot_Parkir[] arrSlotParkir = new Slot_Parkir[parkir.getSlot_parkir().size()];
-        parkir.getSlot_parkir().toArray(arrSlotParkir);
+        Slot_Parkir[] arrSlotParkir = new Slot_Parkir[listSlotParkir.size()];
+        listSlotParkir.toArray(arrSlotParkir);
         return arrSlotParkir;
     }
 
