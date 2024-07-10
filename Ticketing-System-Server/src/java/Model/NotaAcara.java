@@ -8,8 +8,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -202,5 +204,27 @@ public class NotaAcara{
             ex.printStackTrace();
         }
         return false;
+    }
+    
+//    public static ArrayList<Acara> viewListData() {
+//        ArrayList<NotaAcara> collections = new ArrayList<NotaAcara>();
+//        Koneksi k = new Koneksi();
+//        try {
+//            k.setStatement((Statement)Koneksi.getConn().createStatement());
+//            k.setResult(k.getStatement().executeQuery("SELECT * FROM Acara"));
+//            while (k.getResult().next()) {
+//                Acara tampung = new Acara(k.getResult().getInt("id"),
+//                        k.getResult().getString("nama"),                        
+//                        k.getResult().getString("lokasi"),
+//                        k.getResult().getTimestamp("tanggal_acara"),
+//                        k.getResult().getString("deskripsi"),
+//                        k.getResult().getDouble("harga"));
+//                collections.add(tampung);
+//            }
+//            return collections;            
+//        } catch (SQLException ex) {
+//            System.out.println("Failed because : " + ex.getSQLState());
+//        }
+//        return null;
     }
 }
