@@ -112,11 +112,11 @@ public class Topup extends javax.swing.JFrame {
         double jumlah = Double.parseDouble(jTextFieldNominal.getText()) ;
         int userId = idUser;
         Boolean is_topup = true;
-//        if(topUp(jumlah, userId, true) == true){
-//            JOptionPane.showMessageDialog(parent, "topup berhasil");
-//        } else{
-//            JOptionPane.showMessageDialog(parent, "topup gagal");
-//        }
+        if(tambahTopUp(jumlah, userId, true) == true){
+            JOptionPane.showMessageDialog(parent, "topup berhasil");
+        } else{
+            JOptionPane.showMessageDialog(parent, "topup gagal");
+        }
     }//GEN-LAST:event_jButtonTopupActionPerformed
 
     /**
@@ -161,10 +161,11 @@ public class Topup extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNominal;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
-//
-//    private static Boolean topUp(double jumlah, int usersId, boolean isTopup) {
-//        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
-//        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-//        return port.topUp(jumlah, usersId, isTopup);
-//    }
+
+    private static Boolean tambahTopUp(double jumlah, int usersId, boolean isTopup) {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.tambahTopUp(jumlah, usersId, isTopup);
+    }
+    
 }

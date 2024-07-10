@@ -112,7 +112,7 @@ public class History_Transaksi {
     public void setNotaParkir(NotaParkir notaParkir) {
         this.notaParkir = notaParkir;
     }
-    public boolean topUp() {
+    public boolean topUpSaldo() {
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
