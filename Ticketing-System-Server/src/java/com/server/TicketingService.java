@@ -194,9 +194,9 @@ public class TicketingService {
      * Web service operation
      */
     @WebMethod(operationName = "BacaDataNotaAcara")
-    public NotaAcara[] BacaDataNotaAcara() {
+    public NotaAcara[] BacaDataNotaAcara(@WebParam(name = "userId") int userId) {
         //TODO write your implementation code here:
-        ArrayList<NotaAcara> listNotaAcara = NotaAcara.viewListNotaAcara();
+        ArrayList<NotaAcara> listNotaAcara = NotaAcara.viewListNotaAcara(userId);
         
         
         NotaAcara[] arrNotaAcara = new NotaAcara[listNotaAcara.size()];

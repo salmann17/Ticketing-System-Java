@@ -225,12 +225,15 @@ public class NotaAcara{
         }
         return false;
     }
-    public static ArrayList<NotaAcara> viewListNotaAcara() {
+    public static ArrayList<NotaAcara> viewListNotaAcara(int idUser) {
         ArrayList<NotaAcara> collections = new ArrayList<NotaAcara>();
         Koneksi k = new Koneksi();
         try {
             k.setStatement(Koneksi.getConn().createStatement());
-            k.setResult(k.getStatement().executeQuery("SELECT * FROM nota_acara"));
+            k.setResult(k.getStatement().executeQuery("SELECT * FROM nota_acara where users_id = ?"));
+            PreparedStatement sql = (PreparedStatement) k.getStatement();
+            sql.setInt(1, idUser); 
+            k.setResult(sql.executeQuery());
             while (k.getResult().next()) {
                 int id = k.getResult().getInt("id");
                 int userId = k.getResult().getInt("users_id");
@@ -239,8 +242,10 @@ public class NotaAcara{
                 double harga = k.getResult().getDouble("harga");
                 Timestamp tgl = k.getResult().getTimestamp("tanggal_transaksi");
                 boolean status = k.getResult().getBoolean("status");
+                
                 Acara a = Acara.findById(acaraId);
                 User u = User.findById(userId);
+                
                 NotaAcara tampung = new NotaAcara(id, u,a,jumlah,harga,tgl.toString(),status);
                 collections.add(tampung);
             }
