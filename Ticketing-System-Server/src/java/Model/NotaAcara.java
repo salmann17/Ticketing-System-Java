@@ -150,7 +150,7 @@ public class NotaAcara{
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT tanggal_transaksi FROM your_table_name WHERE id = ?");
+                PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT tanggal_transaksi FROM nota_acara WHERE id = ?");
                 sql.setInt(1, userId);
                 ResultSet rs = sql.executeQuery();
 
@@ -160,9 +160,20 @@ public class NotaAcara{
                         LocalDate recordDate = timestamp.toLocalDateTime().toLocalDate();
                         LocalDate currentDate = LocalDate.now();
 
-                        rs.close();
-                        sql.close();
-                        return recordDate.equals(currentDate);
+                        if (recordDate.equals(currentDate)) {
+                            rs.close();
+                            sql.close();
+
+                            PreparedStatement updateStatus = Koneksi.getConn().prepareStatement(
+                                "UPDATE nota_acara SET status = ? WHERE id = ?"
+                            );
+                            updateStatus.setBoolean(1, true);
+                            updateStatus.setInt(2, userId);
+                            updateStatus.executeUpdate();
+                            updateStatus.close();
+
+                            return true;
+                        }
                     }
                 }
 
