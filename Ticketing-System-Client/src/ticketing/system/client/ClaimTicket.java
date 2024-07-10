@@ -4,6 +4,10 @@
  */
 package ticketing.system.client;
 
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Salman Alfarizi
@@ -13,10 +17,18 @@ public class ClaimTicket extends javax.swing.JPanel {
     /**
      * Creates new form ClaimTicket
      */
+    Acara acaraPilih = new Acara();
+    DashBoard parent;
+    int idUser;
     public ClaimTicket() {
         initComponents();
     }
-
+    public ClaimTicket(DashBoard p,int id) {
+        this();
+        parent = p;
+        idUser = id;
+        RefreshTable();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +48,7 @@ public class ClaimTicket extends javax.swing.JPanel {
         jTextFieldNama = new javax.swing.JTextField();
         jTextFieldTanggal = new javax.swing.JTextField();
         jTextFieldLokasi = new javax.swing.JTextField();
-        jButtonReservasi = new javax.swing.JButton();
+        jButtonClaim = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldHarga = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -112,8 +124,13 @@ public class ClaimTicket extends javax.swing.JPanel {
         jTextFieldLokasi.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jTextFieldLokasi.setEnabled(false);
 
-        jButtonReservasi.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        jButtonReservasi.setText("CLAIM");
+        jButtonClaim.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jButtonClaim.setText("CLAIM");
+        jButtonClaim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClaimActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel5.setText("Harga :");
@@ -152,7 +169,7 @@ public class ClaimTicket extends javax.swing.JPanel {
                             .addComponent(jLabel6)
                             .addGap(17, 17, 17)
                             .addComponent(jTextFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButtonReservasi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonClaim, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(112, 112, 112)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -181,19 +198,64 @@ public class ClaimTicket extends javax.swing.JPanel {
                             .addComponent(jLabel6)
                             .addComponent(jTextFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(67, 67, 67)
-                        .addComponent(jButtonReservasi))
+                        .addComponent(jButtonClaim))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabelHasilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelHasilMouseClicked
-
+        JTable klik = (JTable) evt.getSource();
+        int row = klik.getSelectedRow();
+        
+        jTextFieldNama.setText(klik.getValueAt(row, 0).toString());
+        jTextFieldLokasi.setText(klik.getValueAt(row, 1).toString());
+        jTextFieldTanggal.setText(klik.getValueAt(row, 2).toString());
+        jTextFieldHarga.setText(klik.getValueAt(row, 3).toString());
+        
+        acaraPilih = getAcaraByNama(jTextFieldNama.getText());
     }//GEN-LAST:event_jTabelHasilMouseClicked
 
+    private void jButtonClaimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClaimActionPerformed
+        // TODO add your handling code here:
+        if(claimTicket(idUser) == true){
+            JOptionPane.showMessageDialog(parent, "TIKET BERHASIL DI CLAIM!");
+        }
+        else{
+            JOptionPane.showMessageDialog(parent, "TANGGAL ACARA BELUM DIMULAI");
+        }
+    }//GEN-LAST:event_jButtonClaimActionPerformed
+    private void RefreshTable()
+    {
+        jTabelHasil.removeAll();
+        DefaultTableModel model = (DefaultTableModel) jTabelHasil.getModel();
+        model.setRowCount(0);
+        Object[] rowData=new Object[5];
+        java.util.List<ticketing.system.client.Acara> listAcara = getAcara();
+        
+        for ( ticketing.system.client.Acara obj : listAcara)
+        {
+            if (obj instanceof ticketing.system.client.Acara)
+            {
+                ticketing.system.client.Acara tampung = (ticketing.system.client.Acara)obj;
+                rowData[0]=tampung.getNama();                
+                rowData[1]=tampung.getLokasi();
+                rowData[2]=tampung.getTanggalAcara();
+                rowData[3]=tampung.getHarga();
+                model.addRow(rowData);
+            }
+        }
+        resizeColumnWidth(jTabelHasil);
+    }
+    public void resizeColumnWidth(JTable table) {
+        table.getColumnModel().getColumn(0).setMaxWidth(125);
+        table.getColumnModel().getColumn(1).setMaxWidth(125);
+        table.getColumnModel().getColumn(2).setMaxWidth(125);
+        table.getColumnModel().getColumn(3).setMaxWidth(125);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonReservasi;
+    private javax.swing.JButton jButtonClaim;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -208,4 +270,24 @@ public class ClaimTicket extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldTanggal;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private static Acara getAcaraByNama(java.lang.String nama) {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.getAcaraByNama(nama);
+    }
+
+    private static java.util.List<ticketing.system.client.Acara> getAcara() {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.getAcara();
+    }
+
+    private static Boolean claimTicket(int userId) {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.claimTicket(userId);
+    }
+    
+
 }

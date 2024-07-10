@@ -5,8 +5,10 @@
 package Model;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 /**
  *
@@ -143,5 +145,34 @@ public class NotaAcara{
             System.out.println("Failed because : " + ex.getMessage());
         }
         return null;
-    }           
+    }         
+    public static Boolean ClaimTicket(int userId){
+        try {
+            Koneksi a = new Koneksi();
+            if (!Koneksi.getConn().isClosed()) {
+                PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT tanggal_transaksi FROM your_table_name WHERE id = ?");
+                sql.setInt(1, userId);
+                ResultSet rs = sql.executeQuery();
+
+                if (rs.next()) {
+                    Timestamp timestamp = rs.getTimestamp("tanggal_transaksi");
+                    if (timestamp != null) {
+                        LocalDate recordDate = timestamp.toLocalDateTime().toLocalDate();
+                        LocalDate currentDate = LocalDate.now();
+
+                        rs.close();
+                        sql.close();
+                        return recordDate.equals(currentDate);
+                    }
+                }
+
+                rs.close();
+                sql.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println("failed because: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }
