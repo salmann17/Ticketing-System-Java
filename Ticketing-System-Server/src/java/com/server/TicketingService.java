@@ -114,7 +114,8 @@ public class TicketingService {
     @WebMethod(operationName = "TambahNotaParkir")
     public boolean TambahNotaParkir(@WebParam(name = "idUser") int idUser, @WebParam(name = "tanggal_booking") String tanggal_booking, @WebParam(name = "parkir_id") int parkir_id, @WebParam(name = "slot_parkir_kode") String slot_parkir_kode, @WebParam(name = "jam_parkir_id") int jam_parkir_id) {
         //TODO write your implementation code here:
-        return false;
+        NotaParkir np = new NotaParkir(0, "", User.findById(idUser), tanggal_booking, Slot_Parkir.findByKodeIdParkir(parkir_id, slot_parkir_kode), Jam_Parkir.findById(jam_parkir_id),0.0);
+        return np.insertData();
     }
 
     /**
@@ -163,6 +164,11 @@ public class TicketingService {
             return na;
         }
         return new NotaAcara();
+    @WebMethod(operationName = "TopUp")
+    public Boolean TopUp(@WebParam(name = "jumlah") double jumlah, @WebParam(name = "users_id") int users_id, @WebParam(name = "is_topup") boolean is_topup) {
+        //TODO write your implementation code here:
+        History_Transaksi ht = new History_Transaksi(jumlah,User.findById(users_id),is_topup);
+        return ht.topUp();
     }
     
     

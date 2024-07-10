@@ -16,16 +16,7 @@ import java.util.ArrayList;
 public class Parkir{
     private int id;
     private String nama;
-    private String lokasi;
-    private int kuota;    
-    
-    public Parkir(int id, String nama, String lokasi, int kuota) {
-        this.id = id;
-        this.nama = nama;
-        this.lokasi = lokasi;
-        this.kuota = kuota;
-    }
-    
+    private String lokasi;      
     
     public Parkir(int id, String nama, String lokasi ) {
         this.id = id;
@@ -66,7 +57,7 @@ public class Parkir{
     public static Parkir findById(int id) {
         Koneksi a = new Koneksi();
         try {
-            String query = "SELECT id, nama, lokasi, kuota FROM parkir WHERE id = ?";
+            String query = "SELECT id, nama, lokasi FROM parkir WHERE id = ?";
             a.setStatement(Koneksi.getConn().prepareStatement(query));
             PreparedStatement sql = (PreparedStatement) a.getStatement();
             sql.setInt(1, id);
@@ -75,8 +66,7 @@ public class Parkir{
                 Parkir parkir = new Parkir(
                     a.getResult().getInt("id"),
                     a.getResult().getString("nama"),
-                    a.getResult().getString("lokasi"),
-                    a.getResult().getInt("kuota")
+                    a.getResult().getString("lokasi")                    
                 );
                 return parkir;
             }

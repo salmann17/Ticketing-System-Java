@@ -198,7 +198,6 @@ public class User {
     ArrayList<History_Transaksi> collections = new ArrayList<>();
     Koneksi k = new Koneksi();
     try {
-        // Memastikan koneksi database telah diinisialisasi dengan benar
         if (Koneksi.getConn() == null) {
             System.out.println("Koneksi ke database gagal.");
             return null;
