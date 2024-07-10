@@ -24,6 +24,18 @@ public class NotaAcara{
     private int jumlah;
     private double harga;    
     private String tanggal_Transaksi;
+    private Boolean status;
+
+    public NotaAcara(int id, User user, Acara acara, int jumlah, double harga, String tanggal_Transaksi, Boolean status) {
+        this.id = id;
+        this.user = user;
+        this.acara = acara;
+        this.jumlah = jumlah;
+        this.harga = harga;
+        this.tanggal_Transaksi = tanggal_Transaksi;
+        this.status = status;
+    }
+    
     
     public NotaAcara(int id, User user, Acara acara, int jumlah, double harga, Timestamp tanggal_transaksi) {
         this.id = id;
@@ -43,6 +55,14 @@ public class NotaAcara{
         this.tanggal_Transaksi = "";
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+    
     public int getId() {
         return id;
     }
@@ -205,6 +225,31 @@ public class NotaAcara{
         }
         return false;
     }
+    public static ArrayList<NotaAcara> viewListNotaAcara() {
+        ArrayList<NotaAcara> collections = new ArrayList<NotaAcara>();
+        Koneksi k = new Koneksi();
+        try {
+            k.setStatement(Koneksi.getConn().createStatement());
+            k.setResult(k.getStatement().executeQuery("SELECT * FROM nota_acara"));
+            while (k.getResult().next()) {
+                int id = k.getResult().getInt("id");
+                int userId = k.getResult().getInt("users_id");
+                int acaraId = k.getResult().getInt("Acara_id");
+                int jumlah = k.getResult().getInt("jumlah");
+                double harga = k.getResult().getDouble("harga");
+                Timestamp tgl = k.getResult().getTimestamp("tanggal_transaksi");
+                boolean status = k.getResult().getBoolean("status");
+                Acara a = Acara.findById(acaraId);
+                User u = User.findById(userId);
+                NotaAcara tampung = new NotaAcara(id, u,a,jumlah,harga,tgl.toString(),status);
+                collections.add(tampung);
+            }
+            return collections;
+        } catch (SQLException ex) {
+            System.out.println("Failed because : " + ex.getSQLState());
+        }
+        return null;
+    }
     
 //    public static ArrayList<Acara> viewListData() {
 //        ArrayList<NotaAcara> collections = new ArrayList<NotaAcara>();
@@ -226,5 +271,5 @@ public class NotaAcara{
 //            System.out.println("Failed because : " + ex.getSQLState());
 //        }
 //        return null;
-    }
+//    }
 }

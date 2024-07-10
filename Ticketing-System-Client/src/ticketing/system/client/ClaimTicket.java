@@ -17,7 +17,7 @@ public class ClaimTicket extends javax.swing.JPanel {
     /**
      * Creates new form ClaimTicket
      */
-    Acara acaraPilih = new Acara();
+    NotaAcara notaPilih = new NotaAcara();
     DashBoard parent;
     int idUser;
     public ClaimTicket() {
@@ -45,9 +45,9 @@ public class ClaimTicket extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldNama = new javax.swing.JTextField();
+        jTextFieldId = new javax.swing.JTextField();
         jTextFieldTanggal = new javax.swing.JTextField();
-        jTextFieldLokasi = new javax.swing.JTextField();
+        jTextFieldJumlah = new javax.swing.JTextField();
         jButtonClaim = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldHarga = new javax.swing.JTextField();
@@ -64,17 +64,17 @@ public class ClaimTicket extends javax.swing.JPanel {
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(341, 341, 341)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(427, 427, 427))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel2)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jTabelHasil.setModel(new javax.swing.table.DefaultTableModel(
@@ -85,7 +85,7 @@ public class ClaimTicket extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Nama", "Lokasi", "Tanggal Acara", "Harga (Rp)"
+                "Id", "Jumlah", "Harga", "Tanggal Transaksi"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -104,25 +104,25 @@ public class ClaimTicket extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTabelHasil);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        jLabel1.setText("Nama :");
+        jLabel1.setText("Id :");
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        jLabel3.setText("Lokasi :");
+        jLabel3.setText("Jumlah :");
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        jLabel4.setText("Tanggal Acara :");
+        jLabel4.setText("Tanggal :");
 
-        jTextFieldNama.setEditable(false);
-        jTextFieldNama.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jTextFieldNama.setEnabled(false);
+        jTextFieldId.setEditable(false);
+        jTextFieldId.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextFieldId.setEnabled(false);
 
         jTextFieldTanggal.setEditable(false);
         jTextFieldTanggal.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jTextFieldTanggal.setEnabled(false);
 
-        jTextFieldLokasi.setEditable(false);
-        jTextFieldLokasi.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jTextFieldLokasi.setEnabled(false);
+        jTextFieldJumlah.setEditable(false);
+        jTextFieldJumlah.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextFieldJumlah.setEnabled(false);
 
         jButtonClaim.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         jButtonClaim.setText("CLAIM");
@@ -148,59 +148,56 @@ public class ClaimTicket extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(113, 113, 113)
-                            .addComponent(jTextFieldNama, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(108, 108, 108)
-                            .addComponent(jTextFieldLokasi, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(43, 43, 43)
-                            .addComponent(jTextFieldTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(71, 71, 71)
-                            .addComponent(jLabel6)
-                            .addGap(17, 17, 17)
-                            .addComponent(jTextFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButtonClaim, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel6)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonClaim, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(112, 112, 112)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextFieldNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1)
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel3)
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel4)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(211, 211, 211)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextFieldLokasi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextFieldTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(67, 67, 67)
+                        .addComponent(jTextFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
                         .addComponent(jButtonClaim))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 16, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -208,12 +205,12 @@ public class ClaimTicket extends javax.swing.JPanel {
         JTable klik = (JTable) evt.getSource();
         int row = klik.getSelectedRow();
         
-        jTextFieldNama.setText(klik.getValueAt(row, 0).toString());
-        jTextFieldLokasi.setText(klik.getValueAt(row, 1).toString());
+        jTextFieldId.setText(klik.getValueAt(row, 0).toString());
+        jTextFieldJumlah.setText(klik.getValueAt(row, 1).toString());
         jTextFieldTanggal.setText(klik.getValueAt(row, 2).toString());
         jTextFieldHarga.setText(klik.getValueAt(row, 3).toString());
         
-        acaraPilih = getAcaraByNama(jTextFieldNama.getText());
+        notaPilih = getAcaraByNama(jTextFieldId.getText());
     }//GEN-LAST:event_jTabelHasilMouseClicked
 
     private void jButtonClaimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClaimActionPerformed
@@ -231,13 +228,13 @@ public class ClaimTicket extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTabelHasil.getModel();
         model.setRowCount(0);
         Object[] rowData=new Object[5];
-        java.util.List<ticketing.system.client.Acara> listAcara = getAcara();
+        java.util.List<ticketing.system.client.NotaAcara> listNotaAcaras = bacaDataNotaAcara();
         
-        for ( ticketing.system.client.Acara obj : listAcara)
+        for ( ticketing.system.client.NotaAcara obj : listNotaAcara)
         {
-            if (obj instanceof ticketing.system.client.Acara)
+            if (obj instanceof ticketing.system.client.NotaAcara)
             {
-                ticketing.system.client.Acara tampung = (ticketing.system.client.Acara)obj;
+                ticketing.system.client.NotaAcara tampung = (ticketing.system.client.NotaAcara)obj;
                 rowData[0]=tampung.getNama();                
                 rowData[1]=tampung.getLokasi();
                 rowData[2]=tampung.getTanggalAcara();
@@ -265,8 +262,8 @@ public class ClaimTicket extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelHasil;
     private javax.swing.JTextField jTextFieldHarga;
-    private javax.swing.JTextField jTextFieldLokasi;
-    private javax.swing.JTextField jTextFieldNama;
+    private javax.swing.JTextField jTextFieldId;
+    private javax.swing.JTextField jTextFieldJumlah;
     private javax.swing.JTextField jTextFieldTanggal;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
@@ -287,6 +284,12 @@ public class ClaimTicket extends javax.swing.JPanel {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
         return port.claimTicketAcara(userId);
+    }
+
+    private static java.util.List<ticketing.system.client.NotaAcara> bacaDataNotaAcara() {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.bacaDataNotaAcara();
     }
 
     

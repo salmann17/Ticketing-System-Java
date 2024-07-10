@@ -189,6 +189,22 @@ public class TicketingService {
     public Boolean CekKetersediaanSlotParkir(@WebParam(name = "parkir_id") int parkir_id, @WebParam(name = "kode") String kode, @WebParam(name = "jam_parkir_id") int jam_parkir_id) {        
         return Slot_Parkir.CekKetersediaan(Slot_Parkir.findByKodeIdParkir(parkir_id, kode), Jam_Parkir.findById(jam_parkir_id));
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "BacaDataNotaAcara")
+    public NotaAcara[] BacaDataNotaAcara() {
+        //TODO write your implementation code here:
+        ArrayList<NotaAcara> listNotaAcara = NotaAcara.viewListNotaAcara();
+        
+        
+        NotaAcara[] arrNotaAcara = new NotaAcara[listNotaAcara.size()];
+        
+        listNotaAcara.toArray(arrNotaAcara);        
+        
+        return arrNotaAcara;
+    }
     
     
 }
