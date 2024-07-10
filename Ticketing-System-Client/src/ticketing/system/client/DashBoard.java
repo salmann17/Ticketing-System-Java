@@ -586,7 +586,7 @@ public class DashBoard extends javax.swing.JFrame {
         btnAcara.setForeground(new Color(255,255,255));
         
         panelMain.removeAll();
-        panelMain.add(new FormAcara());        
+        panelMain.add(new FormAcara(this, idUserLogin));        
         panelMain.revalidate();
     }//GEN-LAST:event_btnAcaraMouseClicked
 

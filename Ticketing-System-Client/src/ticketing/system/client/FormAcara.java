@@ -4,8 +4,11 @@
  */
 package ticketing.system.client;
     
+import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -64,21 +67,35 @@ public class FormAcara extends javax.swing.JPanel {
 
         jTabelHasil.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nama", "Kuota", "Lokasi", "Tanggal Acara", "Harga"
+                "Nama", "Lokasi", "Tanggal Acara", "Harga (Rp)"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelHasil.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelHasilMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTabelHasil);
+        if (jTabelHasil.getColumnModel().getColumnCount() > 0) {
+            jTabelHasil.getColumnModel().getColumn(0).setResizable(false);
+            jTabelHasil.getColumnModel().getColumn(1).setResizable(false);
+            jTabelHasil.getColumnModel().getColumn(2).setResizable(false);
+            jTabelHasil.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setText("Nama :");
@@ -90,10 +107,15 @@ public class FormAcara extends javax.swing.JPanel {
         jLabel4.setText("Tanggal Acara :");
 
         jTextFieldNama.setEditable(false);
+        jTextFieldNama.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jTextFieldNama.setEnabled(false);
 
+        jTextFieldTanggal.setEditable(false);
+        jTextFieldTanggal.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jTextFieldTanggal.setEnabled(false);
 
+        jTextFieldLokasi.setEditable(false);
+        jTextFieldLokasi.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jTextFieldLokasi.setEnabled(false);
 
         jButtonReservasi.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
@@ -102,6 +124,8 @@ public class FormAcara extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel5.setText("Harga :");
 
+        jTextFieldHarga.setEditable(false);
+        jTextFieldHarga.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jTextFieldHarga.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
@@ -109,6 +133,11 @@ public class FormAcara extends javax.swing.JPanel {
 
         jButtonDeskripsi.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         jButtonDeskripsi.setText("Lihat Deskripsi");
+        jButtonDeskripsi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonDeskripsiMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -149,7 +178,7 @@ public class FormAcara extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnAcara1))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +204,7 @@ public class FormAcara extends javax.swing.JPanel {
                             .addComponent(jLabel5)
                             .addComponent(jTextFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
-                        .addGap(70, 70, 70)
+                        .addGap(64, 64, 64)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonReservasi)
                             .addComponent(jButtonDeskripsi)))
@@ -198,6 +227,12 @@ public class FormAcara extends javax.swing.JPanel {
         acaraPilih = getAcaraByNama(jTextFieldNama.getText());
     }//GEN-LAST:event_jTabelHasilMouseClicked
 
+    private void jButtonDeskripsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDeskripsiMouseClicked
+        FormDeskripsiAcara form = new FormDeskripsiAcara(this, acaraPilih);
+        form.show();
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonDeskripsiMouseClicked
+
     private void RefreshTable()
     {
         jTabelHasil.removeAll();
@@ -212,12 +247,21 @@ public class FormAcara extends javax.swing.JPanel {
             {
                 ticketing.system.client.Acara tampung = (ticketing.system.client.Acara)obj;
                 rowData[0]=tampung.getNama();                
-                rowData[2]=tampung.getLokasi();
-                rowData[3]=tampung.getTanggalAcara();
+                rowData[1]=tampung.getLokasi();
+                rowData[2]=tampung.getTanggalAcara();
+                rowData[3]=tampung.getHarga();
                 model.addRow(rowData);
             }
         }
+        resizeColumnWidth(jTabelHasil);
     }
+    
+    public void resizeColumnWidth(JTable table) {
+        table.getColumnModel().getColumn(0).setMaxWidth(125);
+        table.getColumnModel().getColumn(1).setMaxWidth(125);
+        table.getColumnModel().getColumn(2).setMaxWidth(125);
+        table.getColumnModel().getColumn(3).setMaxWidth(125);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAcara1;
@@ -237,16 +281,18 @@ public class FormAcara extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldTanggal;
     // End of variables declaration//GEN-END:variables
 
-    private static java.util.List<ticketing.system.client.Acara> getAcara() {
-        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
-        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-        return port.getAcara();
-    }
+    
 
     private static Acara getAcaraByNama(java.lang.String nama) {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
         return port.getAcaraByNama(nama);
+    }
+
+    private static java.util.List<ticketing.system.client.Acara> getAcara() {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.getAcara();
     }
 
 }

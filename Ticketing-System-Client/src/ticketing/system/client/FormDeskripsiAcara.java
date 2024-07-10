@@ -4,6 +4,8 @@
  */
 package ticketing.system.client;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ferdi
@@ -23,7 +25,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         parent = p;
         
         jLabelNama.setText(a.getNama());
-        jLabelDeskripsi.setText(a.getDeskripsi());
+        jTextFieldDeskripsi.setText(a.getDeskripsi());
     }
     Acara acaraPilih;
     FormAcara parent;
@@ -37,20 +39,17 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabelNama = new javax.swing.JLabel();
-        jLabelDeskripsi = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabelNama2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jSpinnerJumlah = new javax.swing.JSpinner();
         jLabelNama3 = new javax.swing.JLabel();
+        jTextFieldDeskripsi = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabelNama.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabelNama.setText("Nama Acara");
-
-        jLabelDeskripsi.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabelDeskripsi.setText("Nama Acara");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
@@ -59,6 +58,11 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         jButton1.setText("Reservasi");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jSpinnerJumlah.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
 
@@ -70,17 +74,18 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(162, 162, 162)
-                .addComponent(jLabelNama2)
-                .addGap(18, 18, 18)
-                .addComponent(jSpinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelNama3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(211, 211, 211))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addComponent(jLabelNama2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSpinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelNama3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(218, 218, 218)
+                        .addComponent(jButton1)))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,10 +95,19 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
                     .addComponent(jLabelNama2)
                     .addComponent(jSpinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNama3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(16, 16, 16))
+                .addGap(14, 14, 14))
         );
+
+        jTextFieldDeskripsi.setEditable(false);
+        jTextFieldDeskripsi.setText("DESKRIPSI");
+        jTextFieldDeskripsi.setMaximumSize(new java.awt.Dimension(132, 574));
+        jTextFieldDeskripsi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDeskripsiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,9 +120,10 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
                         .addComponent(jLabelNama))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(jLabelDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldDeskripsi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(30, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,14 +131,44 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jLabelNama)
                 .addGap(18, 18, 18)
-                .addComponent(jLabelDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextFieldDeskripsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDeskripsiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDeskripsiActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try
+        {
+            int jumlahTiket = (int) jSpinnerJumlah.getValue();
+            NotaAcara na = tambahNotaAcara(parent.idUser, acaraPilih.getId(), jumlahTiket);
+            if(na.getHarga()!=0){
+                JOptionPane.showMessageDialog(this, "   BERHASIL    "
+                    + "\n No. Transaksi:            "+na.getId()
+                    + "\n Username:                 "+na.getUser().getUsername()
+                    + "\n Nama Acara:               "+na.getAcara().getNama()
+                    + "\n Tanggal Acara:            "+na.getAcara().getTanggalAcara()
+                    + "\n Lokasi:                   "+na.getAcara().getLokasi()
+                    + "\n Jumlah Tiket:             "+na.getJumlah()
+                    + "\n Total Harga:              "+na.getHarga()
+                    + "\n Tanggal Transaksi:        "+na.getTanggalTransaksi());
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "GAGAL. SALDO TIDAK MEMENUHI");
+            }
+        }
+        catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(this, "GAGAL. ERROR: "+ex);
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -162,11 +207,17 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabelDeskripsi;
     private javax.swing.JLabel jLabelNama;
     private javax.swing.JLabel jLabelNama2;
     private javax.swing.JLabel jLabelNama3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinnerJumlah;
+    private javax.swing.JTextField jTextFieldDeskripsi;
     // End of variables declaration//GEN-END:variables
+
+    private static NotaAcara tambahNotaAcara(int idUser, int idAcara, int jumlah) {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.tambahNotaAcara(idUser, idAcara, jumlah);
+    }
 }

@@ -6,6 +6,7 @@ package Model;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 /**
  *
@@ -19,13 +20,13 @@ public class NotaAcara{
     private double harga;    
     private String tanggal_Transaksi;
     
-    public NotaAcara(int id, User user, Acara acara, int jumlah, double harga, String tanggal_transaksi) {
+    public NotaAcara(int id, User user, Acara acara, int jumlah, double harga, Timestamp tanggal_transaksi) {
         this.id = id;
         this.user = user;
         this.acara = acara;
         this.jumlah = jumlah;
         this.harga = harga;    
-        this.tanggal_Transaksi = tanggal_transaksi;
+        setTanggal_Transaksi(tanggal_transaksi.toString());
     }
     
     public NotaAcara() {
@@ -86,30 +87,37 @@ public class NotaAcara{
     }
         
     
-    public void insertData(int identitasId) {
+    public boolean insertData() {
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO nota_acara(users_id, Acara_id, jumlah, harga,tanggal_transaksi) VALUES (?, ?, ?, ?,now())"));
-                PreparedStatement sql = (PreparedStatement)a.getStatement();
-                sql.setInt(1, user.getId());
-                sql.setInt(2, acara.getId());
-                sql.setInt(3, jumlah);
-                sql.setDouble(4, harga);
-                sql.executeUpdate();
-                sql.close();
-                
-                a.setStatement(Koneksi.getConn().prepareStatement("UPDATE users SET saldo = saldo - ? WHERE id = ?"));
-                PreparedStatement sqlUpdateSaldo = (PreparedStatement)a.getStatement();
-                sqlUpdateSaldo.setDouble(1, harga);
-                sqlUpdateSaldo.setInt(2, user.getId());
-                sqlUpdateSaldo.executeUpdate();
-                sqlUpdateSaldo.close();
-               
+                User u = User.findById(user.getId());
+                if(u.getSaldo()>=harga)
+                {
+                    a.setStatement(Koneksi.getConn().prepareStatement("UPDATE users SET saldo = saldo - ? WHERE id = ?"));
+                    PreparedStatement sqlUpdateSaldo = (PreparedStatement)a.getStatement();
+                    sqlUpdateSaldo.setDouble(1, harga);
+                    sqlUpdateSaldo.setInt(2, user.getId());
+                    int rowAffected = sqlUpdateSaldo.executeUpdate();
+                    sqlUpdateSaldo.close();
+
+                    a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO nota_acara(users_id, Acara_id, jumlah, harga,tanggal_transaksi) VALUES (?, ?, ?, ?,now())"));
+                    PreparedStatement sql = (PreparedStatement)a.getStatement();
+                    sql.setInt(1, user.getId());
+                    sql.setInt(2, acara.getId());
+                    sql.setInt(3, jumlah);
+                    sql.setDouble(4, harga);
+                    sql.executeUpdate();
+                    sql.close();
+
+                    return rowAffected != 0;
+                }
+                return false;
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+        return false;
     }
 
     public static NotaAcara findById(int id) {
