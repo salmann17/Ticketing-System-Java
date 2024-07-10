@@ -24,7 +24,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         acaraPilih = a;
         parent = p;
         
-        jLabelNama.setText(a.getNama());
+        jLabelNamaAcara.setText(a.getNama());
         jTextFieldDeskripsi.setText(a.getDeskripsi());
     }
     Acara acaraPilih;
@@ -46,9 +46,10 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         jButtonBack = new javax.swing.JButton();
         jTextFieldDeskripsi = new javax.swing.JTextField();
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelNamaAcara = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1067, 592));
         getContentPane().setLayout(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -65,7 +66,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         });
 
         jSpinnerJumlah.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        jSpinnerJumlah.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
+        jSpinnerJumlah.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jLabelNama3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabelNama3.setText("Pax");
@@ -83,20 +84,20 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jButtonBack)
+                .addGap(99, 99, 99)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
                         .addComponent(jLabelNama2)
                         .addGap(18, 18, 18)
                         .addComponent(jSpinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelNama3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jButtonBack)
-                        .addGap(127, 127, 127)
+                        .addGap(51, 51, 51)
                         .addComponent(jButton1)))
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +115,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(210, 310, 598, 184);
+        jPanel1.setBounds(210, 310, 600, 181);
 
         jTextFieldDeskripsi.setEditable(false);
         jTextFieldDeskripsi.setText("DESKRIPSI");
@@ -130,9 +131,9 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         kGradientPanel1.setkEndColor(new java.awt.Color(0, 255, 204));
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 102, 153));
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("DESKRIPSI ACARA");
+        jLabelNamaAcara.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
+        jLabelNamaAcara.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNamaAcara.setText("DESKRIPSI ACARA");
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -140,14 +141,14 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(297, 297, 297)
-                .addComponent(jLabel2)
+                .addComponent(jLabelNamaAcara)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel2)
+                .addComponent(jLabelNamaAcara)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -230,10 +231,9 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBack;
-    private javax.swing.JLabel jLabelNama;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelNama2;
     private javax.swing.JLabel jLabelNama3;
+    private javax.swing.JLabel jLabelNamaAcara;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinnerJumlah;
     private javax.swing.JTextField jTextFieldDeskripsi;

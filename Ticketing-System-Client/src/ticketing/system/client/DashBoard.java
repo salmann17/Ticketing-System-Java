@@ -53,7 +53,7 @@ public class DashBoard extends javax.swing.JFrame {
         panelAcaraLine = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnAcara = new javax.swing.JLabel();
-        jPanelClainTicket = new javax.swing.JPanel();
+        panelClaimTicket = new javax.swing.JPanel();
         btnClaimTicket = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         panelKanan = new javax.swing.JPanel();
@@ -519,7 +519,12 @@ public class DashBoard extends javax.swing.JFrame {
         menu.add(panelAcaraMain);
         panelAcaraMain.setBounds(21, 127, 252, 61);
 
-        jPanelClainTicket.setBackground(new java.awt.Color(255, 255, 255));
+        panelClaimTicket.setBackground(new java.awt.Color(255, 255, 255));
+        panelClaimTicket.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelClaimTicketMouseClicked(evt);
+            }
+        });
 
         btnClaimTicket.setBackground(new java.awt.Color(0, 0, 0));
         btnClaimTicket.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
@@ -539,29 +544,29 @@ public class DashBoard extends javax.swing.JFrame {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ClaimTicket.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanelClainTicketLayout = new javax.swing.GroupLayout(jPanelClainTicket);
-        jPanelClainTicket.setLayout(jPanelClainTicketLayout);
-        jPanelClainTicketLayout.setHorizontalGroup(
-            jPanelClainTicketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelClainTicketLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelClaimTicketLayout = new javax.swing.GroupLayout(panelClaimTicket);
+        panelClaimTicket.setLayout(panelClaimTicketLayout);
+        panelClaimTicketLayout.setHorizontalGroup(
+            panelClaimTicketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelClaimTicketLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnClaimTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanelClainTicketLayout.setVerticalGroup(
-            jPanelClainTicketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelClainTicketLayout.createSequentialGroup()
+        panelClaimTicketLayout.setVerticalGroup(
+            panelClaimTicketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelClaimTicketLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelClainTicketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelClaimTicketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClaimTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        menu.add(jPanelClainTicket);
-        jPanelClainTicket.setBounds(20, 510, 180, 60);
+        menu.add(panelClaimTicket);
+        panelClaimTicket.setBounds(20, 510, 180, 60);
 
         getContentPane().add(menu, java.awt.BorderLayout.LINE_START);
 
@@ -616,7 +621,7 @@ public class DashBoard extends javax.swing.JFrame {
             panelDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDasarLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(panelMain, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
+                .addComponent(panelMain, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -764,7 +769,13 @@ public class DashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIdentitasMouseExited
 
     private void btnClaimTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClaimTicketMouseClicked
-        // TODO add your handling code here:
+        panelClaimTicket.setBackground(new Color(0,102,153));
+        panelClaimTicket.setBackground(new Color(255,255,255));
+        btnClaimTicket.setForeground(new Color(255,255,255));
+        
+        panelMain.removeAll();
+        panelMain.add(new ClaimTicket(this, idUserLogin));        
+        panelMain.revalidate();
     }//GEN-LAST:event_btnClaimTicketMouseClicked
 
     private void btnClaimTicketMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClaimTicketMouseEntered
@@ -774,6 +785,10 @@ public class DashBoard extends javax.swing.JFrame {
     private void btnClaimTicketMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClaimTicketMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_btnClaimTicketMouseExited
+
+    private void panelClaimTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelClaimTicketMouseClicked
+        
+    }//GEN-LAST:event_panelClaimTicketMouseClicked
 
     /**
      * @param args the command line arguments
@@ -827,12 +842,12 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanelClainTicket;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JPanel kananAtas;
     private keeptoo.KGradientPanel menu;
     private javax.swing.JPanel panelAcaraLine;
     private javax.swing.JPanel panelAcaraMain;
+    private javax.swing.JPanel panelClaimTicket;
     private javax.swing.JPanel panelDasar;
     private javax.swing.JPanel panelIdentitas;
     private javax.swing.JPanel panelIdentitasLine;

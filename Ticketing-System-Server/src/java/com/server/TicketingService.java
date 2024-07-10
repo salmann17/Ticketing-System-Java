@@ -175,10 +175,10 @@ public class TicketingService {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "ClaimTicket")
-    public Boolean ClaimTicket(@WebParam(name = "userId") int userId) {
+    @WebMethod(operationName = "ClaimTicketAcara")
+    public Boolean ClaimTicketAcara(@WebParam(name = "userId") int userId) {
         //TODO write your implementation code here:
-        boolean isClaim = NotaAcara.ClaimTicket(userId);
+        boolean isClaim = NotaAcara.ClaimTicketAcara(userId);
         return isClaim;
     }
     

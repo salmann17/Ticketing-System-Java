@@ -218,7 +218,7 @@ public class ClaimTicket extends javax.swing.JPanel {
 
     private void jButtonClaimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClaimActionPerformed
         // TODO add your handling code here:
-        if(claimTicket(idUser) == true){
+        if(claimTicketAcara(idUser) == true){
             JOptionPane.showMessageDialog(parent, "TIKET BERHASIL DI CLAIM!");
         }
         else{
@@ -283,11 +283,13 @@ public class ClaimTicket extends javax.swing.JPanel {
         return port.getAcara();
     }
 
-    private static Boolean claimTicket(int userId) {
+    private static Boolean claimTicketAcara(int userId) {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-        return port.claimTicket(userId);
+        return port.claimTicketAcara(userId);
     }
+
+    
     
 
 }

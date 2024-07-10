@@ -4,6 +4,7 @@
  */
 package Model;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -162,7 +163,7 @@ public class NotaAcara{
         }
         return null;
     }         
-    public static Boolean ClaimTicket(int userId){
+    public static Boolean ClaimTicketAcara(int userId){
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
@@ -173,10 +174,10 @@ public class NotaAcara{
                 if (rs.next()) {
                     Timestamp timestamp = rs.getTimestamp("tanggal_transaksi");
                     if (timestamp != null) {
-                        LocalDate recordDate = timestamp.toLocalDateTime().toLocalDate();
+                        LocalDate transactionDate = timestamp.toLocalDateTime().toLocalDate();
                         LocalDate currentDate = LocalDate.now();
 
-                        if (recordDate.equals(currentDate)) {
+                        if (transactionDate.equals(currentDate)) {
                             rs.close();
                             sql.close();
 

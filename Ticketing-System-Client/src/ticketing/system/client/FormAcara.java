@@ -30,7 +30,6 @@ public class FormAcara extends javax.swing.JPanel {
     }
     DashBoard parent;
     int idUser;
-    Acara acaraPilih = new Acara();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,7 +48,6 @@ public class FormAcara extends javax.swing.JPanel {
         jTextFieldNama = new javax.swing.JTextField();
         jTextFieldTanggal = new javax.swing.JTextField();
         jTextFieldLokasi = new javax.swing.JTextField();
-        jButtonReservasi = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldHarga = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -113,27 +111,20 @@ public class FormAcara extends javax.swing.JPanel {
         jLabel4.setBounds(20, 290, 127, 24);
 
         jTextFieldNama.setEditable(false);
-        jTextFieldNama.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jTextFieldNama.setEnabled(false);
+        jTextFieldNama.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jPanel1.add(jTextFieldNama);
-        jTextFieldNama.setBounds(190, 140, 158, 27);
+        jTextFieldNama.setBounds(190, 140, 158, 25);
 
         jTextFieldTanggal.setEditable(false);
-        jTextFieldTanggal.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jTextFieldTanggal.setEnabled(false);
+        jTextFieldTanggal.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jPanel1.add(jTextFieldTanggal);
-        jTextFieldTanggal.setBounds(190, 290, 158, 27);
+        jTextFieldTanggal.setBounds(190, 290, 158, 25);
 
         jTextFieldLokasi.setEditable(false);
-        jTextFieldLokasi.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jTextFieldLokasi.setEnabled(false);
+        jTextFieldLokasi.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jTextFieldLokasi.setSelectionColor(new java.awt.Color(0, 0, 0));
         jPanel1.add(jTextFieldLokasi);
-        jTextFieldLokasi.setBounds(190, 210, 158, 27);
-
-        jButtonReservasi.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        jButtonReservasi.setText("Reservasi");
-        jPanel1.add(jButtonReservasi);
-        jButtonReservasi.setBounds(250, 440, 200, 40);
+        jTextFieldLokasi.setBounds(190, 210, 158, 25);
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel5.setText("Harga :");
@@ -141,10 +132,9 @@ public class FormAcara extends javax.swing.JPanel {
         jLabel5.setBounds(20, 350, 59, 24);
 
         jTextFieldHarga.setEditable(false);
-        jTextFieldHarga.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jTextFieldHarga.setEnabled(false);
+        jTextFieldHarga.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jPanel1.add(jTextFieldHarga);
-        jTextFieldHarga.setBounds(190, 350, 158, 27);
+        jTextFieldHarga.setBounds(190, 350, 158, 25);
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel6.setText("Rp");
@@ -159,7 +149,7 @@ public class FormAcara extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButtonDeskripsi);
-        jButtonDeskripsi.setBounds(20, 440, 195, 40);
+        jButtonDeskripsi.setBounds(140, 440, 187, 38);
 
         kGradientPanel3.setkEndColor(new java.awt.Color(0, 255, 204));
         kGradientPanel3.setkStartColor(new java.awt.Color(0, 102, 153));
@@ -200,10 +190,10 @@ public class FormAcara extends javax.swing.JPanel {
         jTextFieldTanggal.setText(klik.getValueAt(row, 2).toString());
         jTextFieldHarga.setText(klik.getValueAt(row, 3).toString());
         
-        acaraPilih = getAcaraByNama(jTextFieldNama.getText());
     }//GEN-LAST:event_jTabelHasilMouseClicked
 
     private void jButtonDeskripsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDeskripsiMouseClicked
+        Acara acaraPilih = getAcaraByNama(jTextFieldNama.getText());
         FormDeskripsiAcara form = new FormDeskripsiAcara(this, acaraPilih);
         form.show();
     }//GEN-LAST:event_jButtonDeskripsiMouseClicked
@@ -240,14 +230,11 @@ public class FormAcara extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDeskripsi;
-    private javax.swing.JButton jButtonReservasi;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -256,12 +243,14 @@ public class FormAcara extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldLokasi;
     private javax.swing.JTextField jTextFieldNama;
     private javax.swing.JTextField jTextFieldTanggal;
-    private keeptoo.KGradientPanel kGradientPanel1;
-    private keeptoo.KGradientPanel kGradientPanel2;
     private keeptoo.KGradientPanel kGradientPanel3;
     // End of variables declaration//GEN-END:variables
 
-    
+    private static java.util.List<ticketing.system.client.Acara> getAcara() {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.getAcara();
+    }
 
     private static Acara getAcaraByNama(java.lang.String nama) {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
@@ -269,10 +258,8 @@ public class FormAcara extends javax.swing.JPanel {
         return port.getAcaraByNama(nama);
     }
 
-    private static java.util.List<ticketing.system.client.Acara> getAcara() {
-        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
-        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-        return port.getAcara();
-    }
+    
+
+    
 
 }
