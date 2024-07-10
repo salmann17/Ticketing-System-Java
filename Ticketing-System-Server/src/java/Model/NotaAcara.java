@@ -101,7 +101,7 @@ public class NotaAcara{
                     int rowAffected = sqlUpdateSaldo.executeUpdate();
                     sqlUpdateSaldo.close();
 
-                    a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO nota_acara(users_id, Acara_id, jumlah, harga,tanggal_transaksi) VALUES (?, ?, ?, ?,now())"));
+                    a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO nota_acara(users_id, Acara_id, jumlah, harga,tanggal_transaksi,status) VALUES (?, ?, ?, ?,now(),0)"));
                     PreparedStatement sql = (PreparedStatement)a.getStatement();
                     sql.setInt(1, user.getId());
                     sql.setInt(2, acara.getId());
@@ -109,6 +109,22 @@ public class NotaAcara{
                     sql.setDouble(4, harga);
                     sql.executeUpdate();
                     sql.close();
+                    
+                    String query = "SELECT * FROM nota_acara where id=(select last_insert_id())";
+                    a.setStatement(Koneksi.getConn().prepareStatement(query));
+                    PreparedStatement idNota = (PreparedStatement)a.getStatement();
+                    a.setResult(idNota.executeQuery());
+                    if (a.getResult().next()) {
+                        this.setId(a.getResult().getInt("id"));
+                    }
+                    
+                    a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO history_transaksi(jumlah, users_id, is_topup, nota_acara_id) VALUES (?, ?, 0, ?)"));
+                    PreparedStatement tambahNota = (PreparedStatement)a.getStatement();
+                    tambahNota.setInt(1, jumlah);
+                    tambahNota.setInt(2, user.getId());
+                    tambahNota.setInt(3, id);
+                    tambahNota.executeUpdate();
+                    tambahNota.close();
 
                     return rowAffected != 0;
                 }
@@ -134,9 +150,9 @@ public class NotaAcara{
             sql.setInt(1, id);
             a.setResult(sql.executeQuery());
             if (a.getResult().next()) {
-                User user = new User(a.getResult().getInt("userId"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
+                User user = new User(a.getResult().getInt("user_id"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
                 Acara acara = new Acara(a.getResult().getInt("acaraId"), a.getResult().getString("nama"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("acaraHarga"));
-                NotaAcara notaAcara = new NotaAcara(a.getResult().getInt("id"), user, acara, a.getResult().getInt("jumlah"), a.getResult().getDouble("harga"),a.getResult().getTimestamp("tanggal_transaksi").toString());
+                NotaAcara notaAcara = new NotaAcara(a.getResult().getInt("id"), user, acara, a.getResult().getInt("jumlah"), a.getResult().getDouble("harga"),a.getResult().getTimestamp("tanggal_transaksi"));
                 return notaAcara;
             }
         } catch (SQLException ex) {

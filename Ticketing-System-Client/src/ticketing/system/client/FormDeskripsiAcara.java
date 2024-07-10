@@ -44,6 +44,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jSpinnerJumlah = new javax.swing.JSpinner();
         jLabelNama3 = new javax.swing.JLabel();
+        jButtonBack = new javax.swing.JButton();
         jTextFieldDeskripsi = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,9 +66,18 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         });
 
         jSpinnerJumlah.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        jSpinnerJumlah.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
 
         jLabelNama3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabelNama3.setText("Pax");
+
+        jButtonBack.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        jButtonBack.setText("BACK");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,7 +93,9 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelNama3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(218, 218, 218)
+                        .addGap(14, 14, 14)
+                        .addComponent(jButtonBack)
+                        .addGap(127, 127, 127)
                         .addComponent(jButton1)))
                 .addContainerGap(196, Short.MAX_VALUE))
         );
@@ -96,7 +108,9 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
                     .addComponent(jSpinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNama3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButtonBack))
                 .addGap(14, 14, 14))
         );
 
@@ -170,6 +184,11 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonBackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -207,6 +226,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonBack;
     private javax.swing.JLabel jLabelNama;
     private javax.swing.JLabel jLabelNama2;
     private javax.swing.JLabel jLabelNama3;

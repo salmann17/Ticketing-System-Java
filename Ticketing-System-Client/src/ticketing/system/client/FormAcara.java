@@ -107,16 +107,14 @@ public class FormAcara extends javax.swing.JPanel {
         jLabel4.setText("Tanggal Acara :");
 
         jTextFieldNama.setEditable(false);
-        jTextFieldNama.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jTextFieldNama.setEnabled(false);
+        jTextFieldNama.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
         jTextFieldTanggal.setEditable(false);
-        jTextFieldTanggal.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jTextFieldTanggal.setEnabled(false);
+        jTextFieldTanggal.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
         jTextFieldLokasi.setEditable(false);
-        jTextFieldLokasi.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jTextFieldLokasi.setEnabled(false);
+        jTextFieldLokasi.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jTextFieldLokasi.setSelectionColor(new java.awt.Color(0, 0, 0));
 
         jButtonReservasi.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         jButtonReservasi.setText("Reservasi");
@@ -125,8 +123,7 @@ public class FormAcara extends javax.swing.JPanel {
         jLabel5.setText("Harga :");
 
         jTextFieldHarga.setEditable(false);
-        jTextFieldHarga.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jTextFieldHarga.setEnabled(false);
+        jTextFieldHarga.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel6.setText("Rp");
@@ -230,7 +227,6 @@ public class FormAcara extends javax.swing.JPanel {
     private void jButtonDeskripsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDeskripsiMouseClicked
         FormDeskripsiAcara form = new FormDeskripsiAcara(this, acaraPilih);
         form.show();
-        this.setVisible(false);
     }//GEN-LAST:event_jButtonDeskripsiMouseClicked
 
     private void RefreshTable()
@@ -238,7 +234,7 @@ public class FormAcara extends javax.swing.JPanel {
         jTabelHasil.removeAll();
         DefaultTableModel model = (DefaultTableModel) jTabelHasil.getModel();
         model.setRowCount(0);
-        Object[] rowData=new Object[5];
+        Object[] rowData=new Object[4];
         java.util.List<ticketing.system.client.Acara> listAcara = getAcara();
         
         for ( ticketing.system.client.Acara obj : listAcara)
