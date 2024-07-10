@@ -103,7 +103,9 @@
 </xs:complexType>
 
 <xs:complexType name="BacaDataNotaAcara">
-<xs:sequence/>
+<xs:sequence>
+<xs:element name="userId" type="xs:int"/>
+</xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="BacaDataNotaAcaraResponse">
@@ -184,18 +186,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="ClaimTicketAcara">
-<xs:sequence>
-<xs:element name="userId" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="ClaimTicketAcaraResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="CekKetersediaanSlotParkir">
 <xs:sequence>
 <xs:element name="parkir_id" type="xs:int"/>
@@ -205,6 +195,18 @@
 </xs:complexType>
 
 <xs:complexType name="CekKetersediaanSlotParkirResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ClaimTicketAcara">
+<xs:sequence>
+<xs:element name="userId" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ClaimTicketAcaraResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" minOccurs="0"/>
 </xs:sequence>

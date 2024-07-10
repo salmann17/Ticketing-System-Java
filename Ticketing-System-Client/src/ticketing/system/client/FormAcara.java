@@ -95,53 +95,68 @@ public class FormAcara extends javax.swing.JPanel {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(460, 140, 760, 505);
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Nama :");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 140, 57, 24);
+        jLabel1.setBounds(40, 160, 80, 24);
 
-        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("Lokasi :");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(20, 210, 62, 24);
+        jLabel3.setBounds(40, 220, 90, 24);
 
-        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Tanggal Acara :");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(20, 290, 127, 24);
+        jLabel4.setBounds(40, 280, 150, 24);
 
         jTextFieldNama.setEditable(false);
+        jTextFieldNama.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldNama.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jTextFieldNama.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         jPanel1.add(jTextFieldNama);
-        jTextFieldNama.setBounds(190, 140, 158, 25);
+        jTextFieldNama.setBounds(210, 160, 220, 21);
 
         jTextFieldTanggal.setEditable(false);
+        jTextFieldTanggal.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldTanggal.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jTextFieldTanggal.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         jPanel1.add(jTextFieldTanggal);
-        jTextFieldTanggal.setBounds(190, 290, 158, 25);
+        jTextFieldTanggal.setBounds(210, 280, 220, 21);
 
         jTextFieldLokasi.setEditable(false);
+        jTextFieldLokasi.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldLokasi.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jTextFieldLokasi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         jTextFieldLokasi.setSelectionColor(new java.awt.Color(0, 0, 0));
         jPanel1.add(jTextFieldLokasi);
-        jTextFieldLokasi.setBounds(190, 210, 158, 25);
+        jTextFieldLokasi.setBounds(210, 220, 220, 21);
 
-        jLabel5.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Harga :");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(20, 350, 59, 24);
+        jLabel5.setBounds(40, 350, 80, 24);
 
         jTextFieldHarga.setEditable(false);
+        jTextFieldHarga.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldHarga.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jTextFieldHarga.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         jPanel1.add(jTextFieldHarga);
-        jTextFieldHarga.setBounds(190, 350, 158, 25);
+        jTextFieldHarga.setBounds(210, 350, 220, 21);
 
-        jLabel6.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("Rp");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(150, 350, 23, 24);
+        jLabel6.setBounds(180, 350, 40, 24);
 
-        jButtonDeskripsi.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jButtonDeskripsi.setBackground(new java.awt.Color(0, 51, 51));
+        jButtonDeskripsi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonDeskripsi.setForeground(new java.awt.Color(255, 255, 255));
         jButtonDeskripsi.setText("Lihat Deskripsi");
         jButtonDeskripsi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -149,10 +164,11 @@ public class FormAcara extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButtonDeskripsi);
-        jButtonDeskripsi.setBounds(140, 440, 187, 38);
+        jButtonDeskripsi.setBounds(40, 530, 390, 80);
 
-        kGradientPanel3.setkEndColor(new java.awt.Color(0, 255, 204));
+        kGradientPanel3.setkEndColor(new java.awt.Color(0, 51, 51));
         kGradientPanel3.setkStartColor(new java.awt.Color(0, 102, 153));
+        kGradientPanel3.setkTransparentControls(false);
 
         jLabel8.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
