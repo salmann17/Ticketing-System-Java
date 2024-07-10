@@ -24,7 +24,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         acaraPilih = a;
         parent = p;
         
-        //jLabelNama.setText(a.getNama());
+        jLabelNamaAcara.setText(a.getNama());
         jTextFieldDeskripsi.setText(a.getDeskripsi());
     }
     Acara acaraPilih;
@@ -43,21 +43,25 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jSpinnerJumlah = new javax.swing.JSpinner();
         jLabelNama3 = new javax.swing.JLabel();
-        jButtonBack = new javax.swing.JButton();
         jTextFieldDeskripsi = new javax.swing.JTextField();
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelNamaAcara = new javax.swing.JLabel();
+        jButtonBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1067, 592));
         getContentPane().setLayout(null);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 51), 2));
+        jPanel1.setForeground(new java.awt.Color(0, 51, 51));
 
         jLabelNama2.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabelNama2.setText("Pesan :");
 
-        jButton1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jButton1.setBackground(new java.awt.Color(0, 51, 51));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Reservasi");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -66,38 +70,27 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         });
 
         jSpinnerJumlah.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        jSpinnerJumlah.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
+        jSpinnerJumlah.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jLabelNama3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabelNama3.setText("Pax");
-
-        jButtonBack.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
-        jButtonBack.setText("BACK");
-        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBackActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(jLabelNama2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSpinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelNama3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jButtonBack)
-                        .addGap(127, 127, 127)
-                        .addComponent(jButton1)))
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addGap(127, 127, 127)
+                .addComponent(jLabelNama2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSpinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jLabelNama3)
+                .addContainerGap(105, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,18 +100,18 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
                     .addComponent(jLabelNama2)
                     .addComponent(jSpinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNama3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButtonBack))
-                .addGap(14, 14, 14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(210, 310, 598, 184);
+        jPanel1.setBounds(210, 310, 600, 184);
 
         jTextFieldDeskripsi.setEditable(false);
+        jTextFieldDeskripsi.setForeground(new java.awt.Color(102, 102, 102));
         jTextFieldDeskripsi.setText("DESKRIPSI");
+        jTextFieldDeskripsi.setCaretColor(new java.awt.Color(0, 51, 51));
         jTextFieldDeskripsi.setMaximumSize(new java.awt.Dimension(132, 574));
         jTextFieldDeskripsi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,12 +121,12 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         getContentPane().add(jTextFieldDeskripsi);
         jTextFieldDeskripsi.setBounds(210, 170, 598, 132);
 
-        kGradientPanel1.setkEndColor(new java.awt.Color(0, 255, 204));
+        kGradientPanel1.setkEndColor(new java.awt.Color(0, 51, 51));
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 102, 153));
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("DESKRIPSI ACARA");
+        jLabelNamaAcara.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
+        jLabelNamaAcara.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNamaAcara.setText("DESKRIPSI ACARA");
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -141,19 +134,31 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(297, 297, 297)
-                .addComponent(jLabel2)
+                .addComponent(jLabelNamaAcara)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel2)
+                .addComponent(jLabelNamaAcara)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
         getContentPane().add(kGradientPanel1);
         kGradientPanel1.setBounds(0, 0, 1070, 127);
+
+        jButtonBack.setBackground(new java.awt.Color(0, 51, 51));
+        jButtonBack.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jButtonBack.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonBack.setText("BACK");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonBack);
+        jButtonBack.setBounds(30, 520, 120, 50);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -231,9 +236,9 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBack;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelNama2;
     private javax.swing.JLabel jLabelNama3;
+    private javax.swing.JLabel jLabelNamaAcara;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinnerJumlah;
     private javax.swing.JTextField jTextFieldDeskripsi;

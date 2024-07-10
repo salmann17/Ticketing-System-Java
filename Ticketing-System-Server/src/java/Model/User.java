@@ -207,7 +207,7 @@ public class User {
 
         k.setStatement(Koneksi.getConn().prepareStatement("SELECT id, jumlah FROM history_transaksi WHERE users_id = ?"));
         PreparedStatement sql = (PreparedStatement) k.getStatement();
-        sql.setInt(1, userId); // Menggunakan index parameter yang benar
+        sql.setInt(1, userId); 
         k.setResult(sql.executeQuery());
 
         System.out.println("Query dieksekusi. Memproses hasil...");

@@ -176,10 +176,10 @@ public class TicketingService {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "ClaimTicket")
-    public Boolean ClaimTicket(@WebParam(name = "userId") int userId) {
+    @WebMethod(operationName = "ClaimTicketAcara")
+    public Boolean ClaimTicketAcara(@WebParam(name = "userId") int userId) {
         //TODO write your implementation code here:
-        boolean isClaim = NotaAcara.ClaimTicket(userId);
+        boolean isClaim = NotaAcara.ClaimTicketAcara(userId);
         return isClaim;
     }
 
@@ -192,6 +192,22 @@ public class TicketingService {
             return Slot_Parkir.CekKetersediaan(Slot_Parkir.findByKodeIdParkir(parkir_id, kode), Jam_Parkir.findById(jam_parkir_id), Date.valueOf(tanggal_booking));
         }
         return false;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "BacaDataNotaAcara")
+    public NotaAcara[] BacaDataNotaAcara(@WebParam(name = "userId") int userId) {
+        //TODO write your implementation code here:
+        ArrayList<NotaAcara> listNotaAcara = NotaAcara.viewListNotaAcara(userId);
+        
+        
+        NotaAcara[] arrNotaAcara = new NotaAcara[listNotaAcara.size()];
+        
+        listNotaAcara.toArray(arrNotaAcara);        
+        
+        return arrNotaAcara;
     }
     
     

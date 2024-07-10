@@ -4,11 +4,14 @@
  */
 package Model;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +24,18 @@ public class NotaAcara{
     private int jumlah;
     private double harga;    
     private String tanggal_Transaksi;
+    private Boolean status;
+
+    public NotaAcara(int id, User user, Acara acara, int jumlah, double harga, String tanggal_Transaksi, Boolean status) {
+        this.id = id;
+        this.user = user;
+        this.acara = acara;
+        this.jumlah = jumlah;
+        this.harga = harga;
+        this.tanggal_Transaksi = tanggal_Transaksi;
+        this.status = status;
+    }
+    
     
     public NotaAcara(int id, User user, Acara acara, int jumlah, double harga, Timestamp tanggal_transaksi) {
         this.id = id;
@@ -40,6 +55,14 @@ public class NotaAcara{
         this.tanggal_Transaksi = "";
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+    
     public int getId() {
         return id;
     }
@@ -162,7 +185,7 @@ public class NotaAcara{
         }
         return null;
     }         
-    public static Boolean ClaimTicket(int userId){
+    public static Boolean ClaimTicketAcara(int userId){
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
@@ -173,10 +196,10 @@ public class NotaAcara{
                 if (rs.next()) {
                     Timestamp timestamp = rs.getTimestamp("tanggal_transaksi");
                     if (timestamp != null) {
-                        LocalDate recordDate = timestamp.toLocalDateTime().toLocalDate();
+                        LocalDate transactionDate = timestamp.toLocalDateTime().toLocalDate();
                         LocalDate currentDate = LocalDate.now();
 
-                        if (recordDate.equals(currentDate)) {
+                        if (transactionDate.equals(currentDate)) {
                             rs.close();
                             sql.close();
 
@@ -202,4 +225,56 @@ public class NotaAcara{
         }
         return false;
     }
+    public static ArrayList<NotaAcara> viewListNotaAcara(int idUser) {
+        ArrayList<NotaAcara> collections = new ArrayList<NotaAcara>();
+        Koneksi k = new Koneksi();
+        try {
+            k.setStatement(Koneksi.getConn().createStatement());
+            k.setResult(k.getStatement().executeQuery("SELECT * FROM nota_acara where users_id = ?"));
+            PreparedStatement sql = (PreparedStatement) k.getStatement();
+            sql.setInt(1, idUser); 
+            k.setResult(sql.executeQuery());
+            while (k.getResult().next()) {
+                int id = k.getResult().getInt("id");
+                int userId = k.getResult().getInt("users_id");
+                int acaraId = k.getResult().getInt("Acara_id");
+                int jumlah = k.getResult().getInt("jumlah");
+                double harga = k.getResult().getDouble("harga");
+                Timestamp tgl = k.getResult().getTimestamp("tanggal_transaksi");
+                boolean status = k.getResult().getBoolean("status");
+                
+                Acara a = Acara.findById(acaraId);
+                User u = User.findById(userId);
+                
+                NotaAcara tampung = new NotaAcara(id, u,a,jumlah,harga,tgl.toString(),status);
+                collections.add(tampung);
+            }
+            return collections;
+        } catch (SQLException ex) {
+            System.out.println("Failed because : " + ex.getSQLState());
+        }
+        return null;
+    }
+    
+//    public static ArrayList<Acara> viewListData() {
+//        ArrayList<NotaAcara> collections = new ArrayList<NotaAcara>();
+//        Koneksi k = new Koneksi();
+//        try {
+//            k.setStatement((Statement)Koneksi.getConn().createStatement());
+//            k.setResult(k.getStatement().executeQuery("SELECT * FROM Acara"));
+//            while (k.getResult().next()) {
+//                Acara tampung = new Acara(k.getResult().getInt("id"),
+//                        k.getResult().getString("nama"),                        
+//                        k.getResult().getString("lokasi"),
+//                        k.getResult().getTimestamp("tanggal_acara"),
+//                        k.getResult().getString("deskripsi"),
+//                        k.getResult().getDouble("harga"));
+//                collections.add(tampung);
+//            }
+//            return collections;            
+//        } catch (SQLException ex) {
+//            System.out.println("Failed because : " + ex.getSQLState());
+//        }
+//        return null;
+//    }
 }
