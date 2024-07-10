@@ -5,8 +5,10 @@
 package Model;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 /**
  *
@@ -159,5 +161,45 @@ public class NotaAcara{
             System.out.println("Failed because : " + ex.getMessage());
         }
         return null;
-    }           
+    }         
+    public static Boolean ClaimTicket(int userId){
+        try {
+            Koneksi a = new Koneksi();
+            if (!Koneksi.getConn().isClosed()) {
+                PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT tanggal_transaksi FROM nota_acara WHERE id = ?");
+                sql.setInt(1, userId);
+                ResultSet rs = sql.executeQuery();
+
+                if (rs.next()) {
+                    Timestamp timestamp = rs.getTimestamp("tanggal_transaksi");
+                    if (timestamp != null) {
+                        LocalDate recordDate = timestamp.toLocalDateTime().toLocalDate();
+                        LocalDate currentDate = LocalDate.now();
+
+                        if (recordDate.equals(currentDate)) {
+                            rs.close();
+                            sql.close();
+
+                            PreparedStatement updateStatus = Koneksi.getConn().prepareStatement(
+                                "UPDATE nota_acara SET status = ? WHERE id = ?"
+                            );
+                            updateStatus.setBoolean(1, true);
+                            updateStatus.setInt(2, userId);
+                            updateStatus.executeUpdate();
+                            updateStatus.close();
+
+                            return true;
+                        }
+                    }
+                }
+
+                rs.close();
+                sql.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println("failed because: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }

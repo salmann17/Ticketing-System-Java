@@ -171,6 +171,16 @@ public class TicketingService {
         History_Transaksi ht = new History_Transaksi(jumlah,User.findById(users_id),is_topup);
         return ht.topUpSaldo();
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "ClaimTicket")
+    public Boolean ClaimTicket(@WebParam(name = "userId") int userId) {
+        //TODO write your implementation code here:
+        boolean isClaim = NotaAcara.ClaimTicket(userId);
+        return isClaim;
+    }
     
     
 }
