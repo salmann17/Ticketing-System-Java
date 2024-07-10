@@ -24,7 +24,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         acaraPilih = a;
         parent = p;
         
-        jLabelNama.setText(a.getNama());
+        //jLabelNama.setText(a.getNama());
         jTextFieldDeskripsi.setText(a.getDeskripsi());
     }
     Acara acaraPilih;
@@ -49,6 +49,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1067, 592));
         getContentPane().setLayout(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -230,7 +231,6 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBack;
-    private javax.swing.JLabel jLabelNama;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelNama2;
     private javax.swing.JLabel jLabelNama3;

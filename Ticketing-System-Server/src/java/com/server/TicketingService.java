@@ -12,7 +12,8 @@ import Model.NotaParkir;
 import Model.Parkir;
 import Model.Slot_Parkir;
 import Model.User;
-import java.lang.reflect.Array;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -186,8 +187,11 @@ public class TicketingService {
      * Web service operation
      */
     @WebMethod(operationName = "CekKetersediaanSlotParkir")
-    public Boolean CekKetersediaanSlotParkir(@WebParam(name = "parkir_id") int parkir_id, @WebParam(name = "kode") String kode, @WebParam(name = "jam_parkir_id") int jam_parkir_id) {        
-        return Slot_Parkir.CekKetersediaan(Slot_Parkir.findByKodeIdParkir(parkir_id, kode), Jam_Parkir.findById(jam_parkir_id));
+    public Boolean CekKetersediaanSlotParkir(@WebParam(name = "parkir_id") int parkir_id, @WebParam(name = "kode") String kode, @WebParam(name = "jam_parkir_id") int jam_parkir_id,@WebParam(name = "tanggal_booking") String tanggal_booking) {        
+        if(Date.valueOf(tanggal_booking) == Date.valueOf(LocalDate.now()) || Date.valueOf(tanggal_booking).after(Date.valueOf(LocalDate.now()))){
+            return Slot_Parkir.CekKetersediaan(Slot_Parkir.findByKodeIdParkir(parkir_id, kode), Jam_Parkir.findById(jam_parkir_id), Date.valueOf(tanggal_booking));
+        }
+        return false;
     }
     
     

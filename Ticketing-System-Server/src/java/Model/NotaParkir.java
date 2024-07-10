@@ -6,6 +6,8 @@ package Model;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -146,20 +148,45 @@ public class NotaParkir{
 //    
     public boolean insertData() {
         try{
+            Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()){
-                Koneksi a = new Koneksi();
-                a.setStatement(Koneksi.getConn().prepareStatement(
-                "Insert ignore into nota_parkir(tanggal_transaksi,users_id,tanggal_booking,slot_parkir_parkir_id,slot_parkir_kode,jam_parkir_id,harga) values (now(),?,?,?,?,?,?)"));
-                PreparedStatement sql = (PreparedStatement)a.getStatement() ;
-                sql.setInt(1, this.user.getId());
-                sql.setDate(2, Date.valueOf(this.tanggal_booking));
-                sql.setInt(3, this.slot_parkir.getParkir().getId());
-                sql.setString(4, this.slot_parkir.getKode());
-                sql.setInt(5, this.jam_parkir.getId());
-                sql.setDouble(6, this.slot_parkir.getHarga());
-                int rowAffected = sql.executeUpdate();
-                sql.close();
-                return rowAffected != 0;
+                if(this.user.getSaldo() >= this.slot_parkir.getHarga()){
+                    a.setStatement(Koneksi.getConn().prepareStatement("UPDATE users SET saldo = saldo - ? WHERE id = ?"));
+                    PreparedStatement sqlUpdateSaldo = (PreparedStatement)a.getStatement();
+                    sqlUpdateSaldo.setDouble(1, this.slot_parkir.getHarga());
+                    sqlUpdateSaldo.setInt(2, this.user.getId());
+                    if(sqlUpdateSaldo.executeUpdate() != 0){
+                        sqlUpdateSaldo.close();
+                        
+                        a.setStatement(Koneksi.getConn().prepareStatement(
+                        "Insert ignore into nota_parkir(tanggal_transaksi,users_id,tanggal_booking,slot_parkir_parkir_id,slot_parkir_kode,jam_parkir_id,harga) values (now(),?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS));
+                        PreparedStatement sql = (PreparedStatement)a.getStatement() ;
+                        sql.setInt(1, this.user.getId());
+                        sql.setDate(2, Date.valueOf(this.tanggal_booking));
+                        sql.setInt(3, this.slot_parkir.getParkir().getId());
+                        sql.setString(4, this.slot_parkir.getKode());
+                        sql.setInt(5, this.jam_parkir.getId());
+                        sql.setDouble(6, this.slot_parkir.getHarga());
+                        if(sql.executeUpdate() != 0){
+                            ResultSet rs = sql.getGeneratedKeys();
+                            if(rs.next()){                                                                                                                                
+                                this.id = rs.getInt(1);        
+                                
+                                a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO history_transaksi(jumlah, users_id, is_topup, nota_parkir_id) VALUES (?, ?, 0, ?)"));
+                                PreparedStatement tambahNota = (PreparedStatement)a.getStatement();
+                                tambahNota.setDouble(1, this.harga);
+                                tambahNota.setInt(2, this.user.getId());
+                                tambahNota.setInt(3, this.id);
+                                int rowAffected = tambahNota.executeUpdate();
+                                tambahNota.close();
+
+                                return rowAffected != 0;
+                            }
+                        }
+                        
+                    }
+                    
+                }
             }
         }
         catch (Exception ex){
