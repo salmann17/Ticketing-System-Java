@@ -725,7 +725,7 @@ public class DashBoard extends javax.swing.JFrame {
         btnClaimTicket.setForeground(new Color(255,255,255));
         
         panelMain.removeAll();
-        panelMain.add(new ClaimTicket(this, idUserLogin));        
+        panelMain.add(new FormClaimTicket(this, idUserLogin));        
         panelMain.revalidate();
     }//GEN-LAST:event_panelClaimTicketMouseClicked
 

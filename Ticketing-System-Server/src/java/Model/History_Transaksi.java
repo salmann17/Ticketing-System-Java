@@ -123,6 +123,14 @@ public class History_Transaksi {
             
                 int rowAffected = sql.executeUpdate();                
                 sql.close();
+                
+                PreparedStatement updateSaldo = Koneksi.getConn().prepareStatement("UPDATE users SET saldo = saldo + ? WHERE (id = ?);");
+                updateSaldo.setDouble(1, this.jumlah);
+                updateSaldo.setInt(2, this.user.getId()); 
+            
+                rowAffected = updateSaldo.executeUpdate();                
+                updateSaldo.close();
+                
                 return rowAffected > 0;
             }
         } catch (Exception ex) {

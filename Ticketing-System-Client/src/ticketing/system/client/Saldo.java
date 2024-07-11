@@ -20,13 +20,15 @@ public class Saldo extends javax.swing.JPanel {
     public Saldo() {
         initComponents();
     }
-     public Saldo(DashBoard p,int id) {
+    public Saldo(DashBoard p,int id) {
         this();
         parent = p;
         idUser = id;
         RefreshTabel(idUser);
     }
-    private void RefreshTabel(int idUser){
+    public void RefreshTabel(int idUser){
+        jTextFieldUsername.setText(getUserById(idUser).getUsername());
+        jTextFieldSaldo.setText(String.valueOf(getUserById(idUser).getSaldo()));
         DefaultTableModel dtm = (DefaultTableModel) tableSaldo.getModel();
         dtm.setRowCount(0);
         Object[] rowData = new Object[2];
@@ -238,4 +240,11 @@ public class Saldo extends javax.swing.JPanel {
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
         return port.dataHistoryTransaksi(id);
     }
+
+    private static User getUserById(int id) {
+        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
+        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
+        return port.getUserById(id);
+    }
+    
 }
