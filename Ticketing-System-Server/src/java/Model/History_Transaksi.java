@@ -6,6 +6,7 @@ package Model;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -129,6 +130,13 @@ public class History_Transaksi {
     public void setTanggal_topup(String tanggal_topup) {
         this.tanggal_topup = tanggal_topup;
     }
+    public Boolean getIs_topup() {
+        return is_topup;
+    }
+
+    public void setIs_topup(Boolean is_topup) {
+        this.is_topup = is_topup;
+    }
     
     
     public boolean topUpSaldo() {
@@ -175,17 +183,19 @@ public class History_Transaksi {
                     tampung.setUser(User.findById(k.getResult().getInt("users_id")));
                     tampung.set_topup(k.getResult().getInt("is_topup") == 1);
                     tampung.getNotaAcara().setId(k.getResult().getInt("nota_acara_id"));
-                    if(tampung.getNotaAcara().getId() == 0){
-                        
-                    }
                     tampung.getNotaParkir().setId(k.getResult().getInt("nota_parkir_id"));
-                    tampung.setTanggal_topup(k.getResult().getTimestamp("topup_date").toString());
+                    Timestamp tm = k.getResult().getTimestamp("topup_date");
+                    if(tm != null){
+                        tampung.setTanggal_topup(tm.toString());                        
+                    }
+                    else{
+                        tampung.setTanggal_topup(null);                        
+                        tampung.setNotaAcara(NotaAcara.findById(tampung.getNotaAcara().getId()));                        
+                        tampung.setNotaParkir(NotaParkir.findById(tampung.getNotaParkir().getId()));                                        
+                    }                                                            
                     collections.add(tampung);
-                }
-                
-                
-                return collections;
-            
+                }                
+                return collections;            
             }
         } catch (SQLException ex) {
             System.out.println("Failed because: " + ex.getMessage());
@@ -193,5 +203,7 @@ public class History_Transaksi {
         }
         return null;
 }
+
+
 
 }
