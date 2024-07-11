@@ -19,6 +19,9 @@ public class FormClaimTicket extends javax.swing.JPanel {
      */
     DashBoard parent;
     int idUser;
+    java.util.List<ticketing.system.client.NotaAcara> listNotaAcara;
+    ticketing.system.client.NotaAcara selectedAcara;
+    
     public FormClaimTicket() {
         initComponents();
     }
@@ -51,6 +54,8 @@ public class FormClaimTicket extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jTextFieldHarga = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jTextFieldNamaEvent = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -80,17 +85,17 @@ public class FormClaimTicket extends javax.swing.JPanel {
 
         jTabelHasil.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Id", "Jumlah", "Harga", "Tanggal Transaksi"
+                "id", "Nama Event", "Tanggal Event", "Jumlah", "Harga"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -160,41 +165,50 @@ public class FormClaimTicket extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("Rp");
 
+        jTextFieldNamaEvent.setEditable(false);
+        jTextFieldNamaEvent.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldNamaEvent.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextFieldNamaEvent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        jTextFieldNamaEvent.setEnabled(false);
+
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel7.setText("Nama Event:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(34, 34, 34)
-                                    .addComponent(jLabel1)
-                                    .addGap(92, 92, 92))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(jLabel5)
-                                    .addGap(30, 30, 30)
-                                    .addComponent(jLabel6)
-                                    .addGap(5, 5, 5)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3))
-                                .addGap(40, 40, 40)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldHarga)
-                            .addComponent(jTextFieldTanggal)
-                            .addComponent(jTextFieldJumlah)
-                            .addComponent(jTextFieldId)))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(jButtonClaim, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42)
+                        .addComponent(jButtonClaim, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextFieldHarga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                                .addComponent(jTextFieldJumlah, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jTextFieldTanggal, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jTextFieldNamaEvent, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -203,46 +217,46 @@ public class FormClaimTicket extends javax.swing.JPanel {
                 .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(223, 223, 223)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jTextFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(83, 83, 83)
-                                        .addComponent(jTextFieldJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(29, 29, 29)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(26, 26, 26)
-                                        .addComponent(jLabel3)))
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jTextFieldTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(132, 132, 132)
-                        .addComponent(jButtonClaim, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jTextFieldNamaEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
+                        .addGap(159, 159, 159)
+                        .addComponent(jButtonClaim, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(218, 218, 218))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabelHasilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelHasilMouseClicked
         JTable klik = (JTable) evt.getSource();
-        int row = klik.getSelectedRow();
+        selectedAcara = listNotaAcara.get(klik.getSelectedRow());
         
-        jTextFieldId.setText(klik.getValueAt(row, 0).toString());
-        jTextFieldJumlah.setText(klik.getValueAt(row, 1).toString());
-        jTextFieldTanggal.setText(klik.getValueAt(row, 2).toString());
-        jTextFieldHarga.setText(klik.getValueAt(row, 3).toString());
+        jTextFieldId.setText(String.valueOf(selectedAcara.getId()));
+        jTextFieldNamaEvent.setText(selectedAcara.getAcara().getNama());
+        jTextFieldJumlah.setText(String.valueOf(selectedAcara.getJumlah()));
+        jTextFieldTanggal.setText(selectedAcara.getAcara().getTanggalAcara());
+        jTextFieldHarga.setText(String.valueOf(selectedAcara.getHarga()));
         
     }//GEN-LAST:event_jTabelHasilMouseClicked
 
@@ -261,27 +275,27 @@ public class FormClaimTicket extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTabelHasil.getModel();
         model.setRowCount(0);
         Object[] rowData=new Object[5];
-        java.util.List<ticketing.system.client.NotaAcara> listNotaAcara = bacaDataNotaAcara(idUser);
+        listNotaAcara = bacaDataNotaAcaraBelumKlaim(idUser);
         
         for ( ticketing.system.client.NotaAcara obj : listNotaAcara)
         {
-            if (obj instanceof ticketing.system.client.NotaAcara)
-            {
-                ticketing.system.client.NotaAcara tampung = (ticketing.system.client.NotaAcara)obj;
-                rowData[0]=tampung.getId();                
-                rowData[1]=tampung.getJumlah();
-                rowData[2]=tampung.getHarga();
-                rowData[3]=tampung.getTanggalTransaksi();
-                model.addRow(rowData);
-            }
+            ticketing.system.client.NotaAcara tampung = (ticketing.system.client.NotaAcara)obj;
+            rowData[0]=tampung.getId();                
+            rowData[1]=tampung.getAcara().getNama();
+            rowData[2]=tampung.getAcara().getTanggalAcara();
+            rowData[3]=tampung.getJumlah();
+            rowData[4]=tampung.getHarga();
+            model.addRow(rowData);
+
         }
         resizeColumnWidth(jTabelHasil);
     }
     public void resizeColumnWidth(JTable table) {
-        table.getColumnModel().getColumn(0).setMaxWidth(125);
-        table.getColumnModel().getColumn(1).setMaxWidth(125);
-        table.getColumnModel().getColumn(2).setMaxWidth(125);
-        table.getColumnModel().getColumn(3).setMaxWidth(125);
+        table.getColumnModel().getColumn(0).setMaxWidth(50);
+//        table.getColumnModel().getColumn(1).setMaxWidth(300);
+//        table.getColumnModel().getColumn(2).setMaxWidth(300);
+        table.getColumnModel().getColumn(3).setMaxWidth(50);
+        table.getColumnModel().getColumn(3).setMaxWidth(150);
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -292,26 +306,17 @@ public class FormClaimTicket extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelHasil;
     private javax.swing.JTextField jTextFieldHarga;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldJumlah;
+    private javax.swing.JTextField jTextFieldNamaEvent;
     private javax.swing.JTextField jTextFieldTanggal;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 
-    private static Acara getAcaraByNama(java.lang.String nama) {
-        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
-        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-        return port.getAcaraByNama(nama);
-    }
-
-    private static java.util.List<ticketing.system.client.Acara> getAcara() {
-        ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
-        ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-        return port.getAcara();
-    }
 
     private static Boolean claimTicketAcara(int userId) {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
@@ -319,11 +324,13 @@ public class FormClaimTicket extends javax.swing.JPanel {
         return port.claimTicketAcara(userId);
     }
 
-    private static java.util.List<ticketing.system.client.NotaAcara> bacaDataNotaAcara(int userId) {
+    private static java.util.List<ticketing.system.client.NotaAcara> bacaDataNotaAcaraBelumKlaim(int userId) {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-        return port.bacaDataNotaAcara(userId);
+        return port.bacaDataNotaAcaraBelumKlaim(userId);
     }
+
+
 
 
 

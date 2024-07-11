@@ -607,6 +607,7 @@ public class DashBoard extends javax.swing.JFrame {
         panelSaldo.setBackground(new Color(0,102,153));
         panelSaldoLine.setBackground(new Color(255,255,255));
         btnSaldo.setForeground(new Color(255,255,255));
+        
         panelMain.removeAll();
         panelMain.add(new Saldo(this,idUserLogin));        
         panelMain.revalidate();
@@ -650,6 +651,11 @@ public class DashBoard extends javax.swing.JFrame {
         panelNota.setBackground(new Color(0,102,153));
         panelNotaLine.setBackground(new Color(255,255,255));
         btnNota.setForeground(new Color(255,255,255));
+        
+//        panelMain.removeAll();
+//             
+//        panelMain.revalidate();
+        
     }//GEN-LAST:event_btnNotaMouseClicked
 
     private void btnNotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotaMouseEntered
@@ -665,12 +671,13 @@ public class DashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNotaMouseExited
 
     private void btnProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileMouseClicked
-        ProfileUser form = new ProfileUser(this,idUserLogin);
-        form.show();
-        this.setVisible(false);
         panelProfile.setBackground(new Color(0,102,153));
         panelProfileLine.setBackground(new Color(255,255,255));
         btnProfile.setForeground(new Color(255,255,255));
+        
+        panelMain.removeAll();
+        panelMain.add(new FormProfileUser(this,idUserLogin));        
+        panelMain.revalidate();
     }//GEN-LAST:event_btnProfileMouseClicked
 
     private void btnProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileMouseEntered
@@ -703,10 +710,6 @@ public class DashBoard extends javax.swing.JFrame {
         btnLogOut.setForeground(new Color(102,102,102));
     }//GEN-LAST:event_btnLogOutMouseExited
 
-    private void btnClaimTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClaimTicketMouseClicked
-        
-    }//GEN-LAST:event_btnClaimTicketMouseClicked
-
     private void btnClaimTicketMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClaimTicketMouseEntered
         panelClaimTicket.setBackground(new Color(0,102,153));
         panelClaimTicketLine.setBackground(new Color(255,255,255));
@@ -720,6 +723,17 @@ public class DashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClaimTicketMouseExited
 
     private void panelClaimTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelClaimTicketMouseClicked
+//        panelClaimTicket.setBackground(new Color(0,102,153));
+//        panelClaimTicket.setBackground(new Color(255,255,255));
+//        btnClaimTicket.setForeground(new Color(255,255,255));
+//        
+//        panelMain.removeAll();
+//        panelMain.add(new FormClaimTicket(this, idUserLogin));        
+//        panelMain.revalidate();
+    }//GEN-LAST:event_panelClaimTicketMouseClicked
+
+    private void btnClaimTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClaimTicketMouseClicked
+        // TODO add your handling code here:
         panelClaimTicket.setBackground(new Color(0,102,153));
         panelClaimTicket.setBackground(new Color(255,255,255));
         btnClaimTicket.setForeground(new Color(255,255,255));
@@ -727,7 +741,7 @@ public class DashBoard extends javax.swing.JFrame {
         panelMain.removeAll();
         panelMain.add(new FormClaimTicket(this, idUserLogin));        
         panelMain.revalidate();
-    }//GEN-LAST:event_panelClaimTicketMouseClicked
+    }//GEN-LAST:event_btnClaimTicketMouseClicked
 
     /**
      * @param args the command line arguments

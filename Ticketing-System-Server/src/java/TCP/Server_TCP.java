@@ -4,15 +4,9 @@
  */
 package TCP;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,12 +26,6 @@ public class Server_TCP extends Thread{
             this.start();
         } catch (IOException ex) {
             Logger.getLogger(Server_TCP.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void Broadcast(String tmp){
-        for (HandleSocket hs : HandleSocket.clients){
-             hs.SendChat(tmp);
         }
     }
     

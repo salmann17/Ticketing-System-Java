@@ -26,6 +26,8 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         
         jLabelNamaAcara.setText(a.getNama());
         jTextFieldDeskripsi.setText(a.getDeskripsi());
+        jumlahTiket = (int) jSpinnerJumlah.getValue();
+        jLabelHarga.setText(String.valueOf(jumlahTiket*acaraPilih.getHarga()));
     }
     Acara acaraPilih;
     FormAcara parent;
@@ -52,7 +54,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         jLabelNamaAcara = new javax.swing.JLabel();
         jButtonBack = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1067, 592));
         getContentPane().setLayout(null);
@@ -149,7 +151,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(210, 310, 600, 183);
+        jPanel1.setBounds(210, 280, 600, 184);
 
         jTextFieldDeskripsi.setEditable(false);
         jTextFieldDeskripsi.setForeground(new java.awt.Color(102, 102, 102));
@@ -162,7 +164,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextFieldDeskripsi);
-        jTextFieldDeskripsi.setBounds(210, 170, 598, 132);
+        jTextFieldDeskripsi.setBounds(210, 140, 598, 132);
 
         kGradientPanel1.setkEndColor(new java.awt.Color(0, 51, 51));
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 102, 153));
@@ -201,7 +203,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonBack);
-        jButtonBack.setBounds(30, 520, 120, 50);
+        jButtonBack.setBounds(30, 440, 120, 50);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -6,15 +6,7 @@ package ticketing.system.client;
 
 
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,32 +16,17 @@ import javax.swing.JOptionPane;
  *
  * @author Luky
  */
-public class FormRegister extends javax.swing.JFrame implements Runnable{
-    Socket s;
-    DataOutputStream out;
-    BufferedReader in;
-    Thread t;
+public class FormRegister extends javax.swing.JFrame{
+    FormLogin parent;
 
     public FormRegister() {
-        try {
-            initComponents();
-            s = new Socket("localhost", 6969);
-            this.in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            this.out = new DataOutputStream(s.getOutputStream());
-            start();
-        } catch (IOException ex) {
-            Logger.getLogger(FormRegister.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        initComponents();
     }
-    public void start(){
-        if(t == null){
-            t = new Thread(this, "client");
-            t.start();
-        }
+    public FormRegister(FormLogin p) {
+        this();        
+        this.parent = p;        
     }
     
-
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -69,13 +46,13 @@ public class FormRegister extends javax.swing.JFrame implements Runnable{
         txtFieldNoHP = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtFieldUsername = new javax.swing.JTextField();
-        txtFieldPassword = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jPasswordFieldPwd = new javax.swing.JPasswordField();
 
         jLabel10.setText("jLabel10");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SIGN UP");
         setPreferredSize(new java.awt.Dimension(1012, 759));
 
@@ -168,9 +145,6 @@ public class FormRegister extends javax.swing.JFrame implements Runnable{
         txtFieldUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtFieldUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
-        txtFieldPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtFieldPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
@@ -181,6 +155,8 @@ public class FormRegister extends javax.swing.JFrame implements Runnable{
         jLabel9.setForeground(new java.awt.Color(153, 153, 153));
         jLabel9.setText("Username");
 
+        jPasswordFieldPwd.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -188,24 +164,23 @@ public class FormRegister extends javax.swing.JFrame implements Runnable{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(127, 127, 127)
                         .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel9)
-                        .addComponent(txtFieldNoHP)
-                        .addComponent(txtFieldEmail)
-                        .addComponent(txtFieldUsername)
-                        .addComponent(txtFieldPassword)
-                        .addComponent(btnSignUp, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9)
+                    .addComponent(txtFieldNoHP)
+                    .addComponent(txtFieldEmail)
+                    .addComponent(txtFieldUsername)
+                    .addComponent(btnSignUp, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblSignIn)))
+                        .addComponent(lblSignIn))
+                    .addComponent(jPasswordFieldPwd))
                 .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
@@ -220,17 +195,17 @@ public class FormRegister extends javax.swing.JFrame implements Runnable{
                 .addComponent(txtFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPasswordFieldPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFieldNoHP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(75, 75, 75)
                 .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -265,16 +240,13 @@ public class FormRegister extends javax.swing.JFrame implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
     
     private void lblSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSignInMouseClicked
-        FormLogin form = new FormLogin();
-        form.setVisible(true);
-        form.pack();
-        form.setLocationRelativeTo(null);
+        parent.setVisible(true);
         this.dispose();   
     }//GEN-LAST:event_lblSignInMouseClicked
     
     public void SendChat(String msg){
         try {
-            out.writeBytes(msg + "\n");
+            parent.out.writeBytes(msg + "\n");
         } catch (IOException ex) {
             Logger.getLogger(FormRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -282,14 +254,25 @@ public class FormRegister extends javax.swing.JFrame implements Runnable{
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
         String username, password, no_telp, email;
         username = txtFieldUsername.getText();
-        password = txtFieldPassword.getText();
+        password = String.valueOf(jPasswordFieldPwd.getPassword());
         no_telp = txtFieldNoHP.getText();
         email = txtFieldEmail.getText();
         SendChat("REGIST" + "~"+ username + "~" + password + "~" + no_telp + "~" + email);
+        try {
+            String tmp = parent.in.readLine();
+            if(tmp.equals("200")){
+                JOptionPane.showMessageDialog(this, "Register Berhasil");
+                parent.setVisible(true);
+                this.dispose();                
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Proses penambahan user gagal, silahkan coba lagi!");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FormRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }                    
     }//GEN-LAST:event_btnSignUpActionPerformed
-    
-    
-    
+            
     public static void main(String args[]) {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -313,28 +296,10 @@ public class FormRegister extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPasswordField jPasswordFieldPwd;
     private javax.swing.JLabel lblSignIn;
     private javax.swing.JTextField txtFieldEmail;
     private javax.swing.JTextField txtFieldNoHP;
-    private javax.swing.JTextField txtFieldPassword;
     private javax.swing.JTextField txtFieldUsername;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void run() {
-        while(true){
-            try {
-                String tmp = in.readLine();
-                if(tmp.equals("200")){
-                    JOptionPane.showMessageDialog(this, "Register Berhasil");
-                    //menampilkan form dashboard
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "Proses penambahan user gagal, silahkan coba lagi!");
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
 }

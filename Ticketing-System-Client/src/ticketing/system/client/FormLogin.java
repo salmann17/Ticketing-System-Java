@@ -14,28 +14,20 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
-public class FormLogin extends javax.swing.JFrame implements Runnable{
-    Socket s;
-    DataOutputStream out;
-    BufferedReader in;
-    Thread t;
+public class FormLogin extends javax.swing.JFrame{
+    public Socket s;
+    public DataOutputStream out;
+    public BufferedReader in;    
     
     public FormLogin() {
         try {
             initComponents();
             this.setLocationRelativeTo(null);
-            s = new Socket("localhost", 6969);
+            s = new Socket("192.168.3.198", 6969);
             this.in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            this.out = new DataOutputStream(s.getOutputStream());
-            start();
+            this.out = new DataOutputStream(s.getOutputStream());            
         } catch (IOException ex) {
             Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void start(){
-        if(t == null){
-            t = new Thread(this, "client");
-            t.start();
         }
     }
    
@@ -43,7 +35,6 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imageOptions = new com.squareup.gifencoder.ImageOptions();
         jPanel1 = new javax.swing.JPanel();
         Right = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -52,12 +43,12 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtFieldUsername = new javax.swing.JTextField();
-        txtFieldPassword = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnSignIn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         lblSignUp = new javax.swing.JLabel();
+        jPasswordFieldPwd = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SIGN IN");
@@ -118,9 +109,6 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
         txtFieldUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtFieldUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
-        txtFieldPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtFieldPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(153, 153, 153));
@@ -155,28 +143,28 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
             }
         });
 
+        jPasswordFieldPwd.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
                 .addContainerGap(67, Short.MAX_VALUE)
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
                     .addComponent(jLabel3)
-                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(170, 170, 170))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
-                            .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(44, 44, 44)))
+                    .addGroup(LeftLayout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addComponent(jLabel2))
                     .addComponent(jLabel5)
                     .addGroup(LeftLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
                         .addComponent(lblSignUp))
-                    .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnSignIn, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                    .addComponent(jPasswordFieldPwd))
+                .addGap(44, 44, 44))
             .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(LeftLayout.createSequentialGroup()
                     .addGap(77, 77, 77)
@@ -195,14 +183,14 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
                 .addGap(61, 61, 61)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
+                .addComponent(jPasswordFieldPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
                 .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(lblSignUp))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
             .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(LeftLayout.createSequentialGroup()
                     .addGap(206, 206, 206)
@@ -236,11 +224,11 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSignUpMouseClicked
-        FormRegister form = new FormRegister();
+        FormRegister form = new FormRegister(this);
         form.setVisible(true);
         form.pack();
         form.setLocationRelativeTo(null);
-        this.dispose();       
+        this.setVisible(false);
     }//GEN-LAST:event_lblSignUpMouseClicked
     public void SendChat(String msg){
         try {
@@ -252,8 +240,23 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         String username, password;
         username = txtFieldUsername.getText();
-        password = txtFieldPassword.getText();
+        password = String.valueOf(jPasswordFieldPwd.getPassword());
         SendChat("LOG" + "~" + username + "~" + password);
+        
+        try {
+            String tmp = in.readLine();                
+            String[] splittedMessage = tmp.split("~");
+            if(splittedMessage[0].equals("200")){
+                JOptionPane.showMessageDialog(this, "Login Berhasil");
+                new DashBoard(Integer.parseInt(splittedMessage[1])).show();
+                this.dispose();                   
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Username atau Password salah!");
+            }
+            } catch (IOException ex) {
+                Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }//GEN-LAST:event_btnSignInActionPerformed
     public static void main(String args[]) {
         
@@ -268,7 +271,6 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
     private javax.swing.JButton btnSignIn;
-    private com.squareup.gifencoder.ImageOptions imageOptions;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -277,30 +279,9 @@ public class FormLogin extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordFieldPwd;
     private javax.swing.JLabel lblSignUp;
-    private javax.swing.JTextField txtFieldPassword;
     private javax.swing.JTextField txtFieldUsername;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void run() {
-        while(true){
-            try {
-                String tmp = in.readLine();
-                System.out.println(tmp);
-                String[] splittedMessage = tmp.split("~");
-                if(splittedMessage[0].equals("200")){
-                    JOptionPane.showMessageDialog(this, "Login Berhasil");
-                    new DashBoard(Integer.parseInt(splittedMessage[1])).show();
-                    this.dispose();
-                   
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "Username atau Password salah!");
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
 }

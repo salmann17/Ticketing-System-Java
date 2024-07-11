@@ -30,9 +30,9 @@ public class TicketingService {
      * Web service operation
      */
     @WebMethod(operationName = "updateUser")
-    public Boolean updateUser(@WebParam(name = "id") int id, @WebParam(name = "username") String username, @WebParam(name = "password") String password, @WebParam(name = "noKtp") String noTelp, @WebParam(name = "email") String email) {
+    public Boolean updateUser(@WebParam(name = "id") int id, @WebParam(name = "username") String username, @WebParam(name = "noKtp") String noTelp, @WebParam(name = "email") String email) {
         //TODO write your implementation code here:
-        User u =  new User(id, username, password, noTelp, email);
+        User u =  new User(id, username, "", noTelp, email);
         return u.updateData();        
     }
 
@@ -177,10 +177,9 @@ public class TicketingService {
      * Web service operation
      */
     @WebMethod(operationName = "ClaimTicketAcara")
-    public Boolean ClaimTicketAcara(@WebParam(name = "userId") int userId) {
+    public Boolean ClaimTicketAcara(@WebParam(name = "userId") int acaraId) {
         //TODO write your implementation code here:
-        boolean isClaim = NotaAcara.ClaimTicketAcara(userId);
-        return isClaim;
+        return NotaAcara.ClaimTicketAcara(acaraId);        
     }
 
     /**
@@ -188,7 +187,7 @@ public class TicketingService {
      */
     @WebMethod(operationName = "CekKetersediaanSlotParkir")
     public Boolean CekKetersediaanSlotParkir(@WebParam(name = "parkir_id") int parkir_id, @WebParam(name = "kode") String kode, @WebParam(name = "jam_parkir_id") int jam_parkir_id,@WebParam(name = "tanggal_booking") String tanggal_booking) {        
-        if(Date.valueOf(tanggal_booking) == Date.valueOf(LocalDate.now()) || Date.valueOf(tanggal_booking).after(Date.valueOf(LocalDate.now()))){
+        if(Date.valueOf(tanggal_booking).toString().equals(Date.valueOf(LocalDate.now()).toString()) || Date.valueOf(tanggal_booking).after(Date.valueOf(LocalDate.now()))){
             return Slot_Parkir.CekKetersediaan(Slot_Parkir.findByKodeIdParkir(parkir_id, kode), Jam_Parkir.findById(jam_parkir_id), Date.valueOf(tanggal_booking));
         }
         return false;
@@ -203,10 +202,30 @@ public class TicketingService {
         ArrayList<NotaAcara> listNotaAcara = NotaAcara.viewListNotaAcara(userId);
         
         
-        NotaAcara[] arrNotaAcara = new NotaAcara[listNotaAcara.size()];
-        
-        listNotaAcara.toArray(arrNotaAcara);        
-        
+        NotaAcara[] arrNotaAcara;
+        if(listNotaAcara == null){
+            arrNotaAcara = new NotaAcara[1];
+        }
+        else
+        {
+            arrNotaAcara = new NotaAcara[listNotaAcara.size()];
+            listNotaAcara.toArray(arrNotaAcara);        
+        }               
+        return arrNotaAcara;
+    }
+    @WebMethod(operationName = "BacaDataNotaAcaraBelumKlaim")
+    public NotaAcara[] BacaDataNotaAcaraBelumKlaim(@WebParam(name = "userId") int userId) {
+        //TODO write your implementation code here:
+        ArrayList<NotaAcara> listNotaAcara = NotaAcara.BacaDataNotaAcaraBelumClaim(userId);                
+        NotaAcara[] arrNotaAcara;
+        if(listNotaAcara == null){
+            arrNotaAcara = new NotaAcara[1];
+        }
+        else
+        {
+            arrNotaAcara = new NotaAcara[listNotaAcara.size()];
+            listNotaAcara.toArray(arrNotaAcara);        
+        }               
         return arrNotaAcara;
     }
     

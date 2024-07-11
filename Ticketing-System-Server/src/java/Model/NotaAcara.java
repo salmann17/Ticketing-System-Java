@@ -4,11 +4,9 @@
  */
 package Model;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -176,7 +174,7 @@ public class NotaAcara{
             a.setResult(sql.executeQuery());
             if (a.getResult().next()) {
                 User user = new User(a.getResult().getInt("user_id"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
-                Acara acara = new Acara(a.getResult().getInt("acaraId"), a.getResult().getString("nama"), a.getResult().getString("lokasi"), a.getResult().getTimestamp("tanggal_acara"), a.getResult().getString("deskripsi"), a.getResult().getDouble("acaraHarga"));
+                Acara acara = new Acara(a.getResult().getInt("acaraId"), a.getResult().getString("nama"), a.getResult().getString("lokasi"), a.getResult().getDate("tanggal_acara").toString(), a.getResult().getString("deskripsi"), a.getResult().getDouble("acaraHarga"));
                 NotaAcara notaAcara = new NotaAcara(a.getResult().getInt("id"), user, acara, a.getResult().getInt("jumlah"), a.getResult().getDouble("harga"),a.getResult().getTimestamp("tanggal_transaksi"));
                 return notaAcara;
             }
@@ -185,12 +183,12 @@ public class NotaAcara{
         }
         return null;
     }         
-    public static Boolean ClaimTicketAcara(int userId){
+    public static Boolean ClaimTicketAcara(int acaraId){
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT tanggal_transaksi FROM nota_acara WHERE id = ?");
-                sql.setInt(1, userId);
+                PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT tanggal_transaksi FROM nota_acara WHERE id = ? and status ='0'");
+                sql.setInt(1, acaraId);
                 ResultSet rs = sql.executeQuery();
 
                 if (rs.next()) {
@@ -204,10 +202,9 @@ public class NotaAcara{
                             sql.close();
 
                             PreparedStatement updateStatus = Koneksi.getConn().prepareStatement(
-                                "UPDATE nota_acara SET status = ? WHERE id = ?"
-                            );
-                            updateStatus.setBoolean(1, true);
-                            updateStatus.setInt(2, userId);
+                                "UPDATE nota_acara SET status = '1' WHERE id = ?"
+                            );                            
+                            updateStatus.setInt(1, acaraId);
                             updateStatus.executeUpdate();
                             updateStatus.close();
 
@@ -229,8 +226,7 @@ public class NotaAcara{
         ArrayList<NotaAcara> collections = new ArrayList<NotaAcara>();
         Koneksi k = new Koneksi();
         try {
-            k.setStatement(Koneksi.getConn().createStatement());
-            k.setResult(k.getStatement().executeQuery("SELECT * FROM nota_acara where users_id = ?"));
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM nota_acara where users_id = ? "));            
             PreparedStatement sql = (PreparedStatement) k.getStatement();
             sql.setInt(1, idUser); 
             k.setResult(sql.executeQuery());
@@ -255,26 +251,34 @@ public class NotaAcara{
         }
         return null;
     }
-    
-//    public static ArrayList<Acara> viewListData() {
-//        ArrayList<NotaAcara> collections = new ArrayList<NotaAcara>();
-//        Koneksi k = new Koneksi();
-//        try {
-//            k.setStatement((Statement)Koneksi.getConn().createStatement());
-//            k.setResult(k.getStatement().executeQuery("SELECT * FROM Acara"));
-//            while (k.getResult().next()) {
-//                Acara tampung = new Acara(k.getResult().getInt("id"),
-//                        k.getResult().getString("nama"),                        
-//                        k.getResult().getString("lokasi"),
-//                        k.getResult().getTimestamp("tanggal_acara"),
-//                        k.getResult().getString("deskripsi"),
-//                        k.getResult().getDouble("harga"));
-//                collections.add(tampung);
-//            }
-//            return collections;            
-//        } catch (SQLException ex) {
-//            System.out.println("Failed because : " + ex.getSQLState());
-//        }
-//        return null;
-//    }
+     public static ArrayList<NotaAcara> BacaDataNotaAcaraBelumClaim(int idUser) {
+        ArrayList<NotaAcara> collections = new ArrayList<NotaAcara>();
+        Koneksi k = new Koneksi();
+        try {
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM nota_acara where users_id = ? and status = '0'"));            
+            PreparedStatement sql = (PreparedStatement) k.getStatement();
+            sql.setInt(1, idUser); 
+            k.setResult(sql.executeQuery());
+            while (k.getResult().next()) {
+                int id = k.getResult().getInt("id");
+                int userId = k.getResult().getInt("users_id");
+                int acaraId = k.getResult().getInt("Acara_id");
+                int jumlah = k.getResult().getInt("jumlah");
+                double harga = k.getResult().getDouble("harga");
+                Timestamp tgl = k.getResult().getTimestamp("tanggal_transaksi");
+                boolean status = k.getResult().getBoolean("status");
+                
+                Acara a = Acara.findById(acaraId);
+                User u = User.findById(userId);
+                
+                NotaAcara tampung = new NotaAcara(id, u,a,jumlah,harga,tgl.toString(),status);
+                collections.add(tampung);
+            }
+            return collections;
+        } catch (SQLException ex) {
+            System.out.println("Failed because : " + ex.getSQLState());
+        }
+        return null;
+    }
+
 }

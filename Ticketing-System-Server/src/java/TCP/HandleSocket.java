@@ -41,7 +41,7 @@ public class HandleSocket extends Thread{
             Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        public void Aksi(String msg){
+    public void Aksi(String msg){
         String msgSplit[] = msg.split("~");
         if(msgSplit[0].contains("LOG")){
             user = User.CekLogin(msgSplit[1], msgSplit[2]);

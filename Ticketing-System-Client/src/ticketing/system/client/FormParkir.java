@@ -76,7 +76,6 @@ public class FormParkir extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("Lokasi :");
 
-        jTextFieldNama.setEditable(false);
         jTextFieldNama.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldNama.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         jTextFieldNama.setEnabled(false);

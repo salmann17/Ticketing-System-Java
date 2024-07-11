@@ -142,6 +142,8 @@ public class Topup extends javax.swing.JFrame {
         Boolean is_topup = true;
         if(tambahTopUp(jumlah, userId, true) == true){
             JOptionPane.showMessageDialog(parent, "topup berhasil");
+            parent.RefreshTabel(idUser);
+            this.dispose();
         } else{
             JOptionPane.showMessageDialog(parent, "topup gagal");
         }

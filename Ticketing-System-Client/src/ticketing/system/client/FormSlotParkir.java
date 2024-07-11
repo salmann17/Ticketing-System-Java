@@ -46,10 +46,10 @@ public class FormSlotParkir extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelParkir = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldNama = new javax.swing.JTextField();
-        jTextFieldLokasi = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldKode = new javax.swing.JTextField();
+        jTextFieldHarga = new javax.swing.JTextField();
         jButtonBook = new javax.swing.JButton();
         jComboBoxJamParkir = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
@@ -57,9 +57,11 @@ public class FormSlotParkir extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.CardLayout());
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(966, 469));
+        jPanel1.setLayout(null);
 
         jTabelParkir.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,22 +83,26 @@ public class FormSlotParkir extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTabelParkir);
 
         jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(18, 5, 452, 402);
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel3.setText("Tanggal:");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(510, 140, 76, 24);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Kode :");
         jPanel1.add(jLabel1);
+        jLabel1.setBounds(530, 60, 58, 24);
 
-        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        jLabel3.setText("Tanggal:");
-        jPanel1.add(jLabel3);
+        jTextFieldKode.setEnabled(false);
+        jPanel1.add(jTextFieldKode);
+        jTextFieldKode.setBounds(620, 60, 150, 29);
 
-        jTextFieldNama.setEditable(false);
-        jTextFieldNama.setEnabled(false);
-        jPanel1.add(jTextFieldNama);
-
-        jTextFieldLokasi.setEnabled(false);
-        jPanel1.add(jTextFieldLokasi);
+        jTextFieldHarga.setEnabled(false);
+        jPanel1.add(jTextFieldHarga);
+        jTextFieldHarga.setBounds(620, 100, 150, 29);
 
         jButtonBook.setBackground(new java.awt.Color(0, 51, 51));
         jButtonBook.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -109,6 +115,7 @@ public class FormSlotParkir extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButtonBook);
+        jButtonBook.setBounds(580, 260, 90, 33);
 
         jComboBoxJamParkir.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -116,11 +123,13 @@ public class FormSlotParkir extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jComboBoxJamParkir);
+        jComboBoxJamParkir.setBounds(620, 180, 150, 29);
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Jam Parkir :");
         jPanel1.add(jLabel4);
+        jLabel4.setBounds(480, 180, 105, 24);
 
         jDateChooser1.setDate(new java.util.Date());
         jDateChooser1.setMinSelectableDate(new java.util.Date());
@@ -130,12 +139,14 @@ public class FormSlotParkir extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jDateChooser1);
+        jDateChooser1.setBounds(620, 140, 150, 29);
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel5.setText("Harga:");
         jPanel1.add(jLabel5);
+        jLabel5.setBounds(530, 100, 54, 24);
 
-        getContentPane().add(jPanel1, "card2");
+        getContentPane().add(jPanel1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -144,8 +155,8 @@ public class FormSlotParkir extends javax.swing.JFrame {
         JTable klik = (JTable) evt.getSource();
         int row = klik.getSelectedRow();
 
-        jTextFieldNama.setText(klik.getValueAt(row, 0).toString());
-        jTextFieldLokasi.setText(klik.getValueAt(row, 1).toString());
+        jTextFieldKode.setText(klik.getValueAt(row, 0).toString());
+        jTextFieldHarga.setText(klik.getValueAt(row, 1).toString());
 
         selectedSlotParkir = listSlotParkir.get(row);
         refreshButtonBook();
@@ -260,8 +271,8 @@ public class FormSlotParkir extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelParkir;
-    private javax.swing.JTextField jTextFieldLokasi;
-    private javax.swing.JTextField jTextFieldNama;
+    private javax.swing.JTextField jTextFieldHarga;
+    private javax.swing.JTextField jTextFieldKode;
     // End of variables declaration//GEN-END:variables
 
     private static java.util.List<ticketing.system.client.SlotParkir> getSlotParkir(int idParkir) {

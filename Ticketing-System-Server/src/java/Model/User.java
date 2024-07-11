@@ -161,13 +161,12 @@ public class User {
         try{
             Koneksi k = new Koneksi();
             if (!Koneksi.getConn().isClosed()){ 
-                k.setStatement(Koneksi.getConn().prepareStatement("UPDATE users SET username = ?, password = md5(?), no_telp = ?, email = ? WHERE id = ?;"));
+                k.setStatement(Koneksi.getConn().prepareStatement("UPDATE users SET username = ?, no_telp = ?, email = ? WHERE id = ?;"));
                 PreparedStatement sql = (PreparedStatement) k.getStatement();
-                sql.setString(1, getUsername());
-                sql.setString(2, getPassword());
-                sql.setString(3, getNoTelp());
-                sql.setString(4, getEmail());
-                sql.setInt(5, getId());
+                sql.setString(1, getUsername());                
+                sql.setString(2, getNoTelp());
+                sql.setString(3, getEmail());
+                sql.setInt(4, getId());
                 int rowAffacted = sql.executeUpdate();
                 return rowAffacted > 0;
             }
