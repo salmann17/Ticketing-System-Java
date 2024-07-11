@@ -124,18 +124,13 @@ public class TicketingService {
      */
     @WebMethod(operationName = "dataHistoryTransaksi")
     public History_Transaksi[] dataHistoryTransaksi(@WebParam(name = "id") int id) {
-        //TODO write your implementation code here:
-        System.out.println("Menerima permintaan untuk user ID: " + id);
-
+        //TODO write your implementation code here:        
         ArrayList<History_Transaksi> listTransaksi = History_Transaksi.DataHistoryTransaksi(id);
 
-        if (listTransaksi == null) {
-            System.out.println("Tidak ada transaksi ditemukan untuk user ID: " + id);
+        if (listTransaksi == null) {            
             return new History_Transaksi[0]; // Kembalikan array kosong jika tidak ada transaksi
         }
-
-        System.out.println("Menemukan " + listTransaksi.size() + " transaksi untuk user ID: " + id);
-
+  
         History_Transaksi[] arrTransaksi = new History_Transaksi[listTransaksi.size()];
         listTransaksi.toArray(arrTransaksi);
 

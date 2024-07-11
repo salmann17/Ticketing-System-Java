@@ -12,12 +12,12 @@ import javax.swing.JOptionPane;
  */
 public class Topup extends javax.swing.JFrame {
 
-    private Saldo parent;
+    private FormSaldo parent;
     int idUser;
     public Topup() {
         initComponents();
     }
-    public Topup(Saldo p, int id) {
+    public Topup(FormSaldo p, int id) {
         initComponents();
         parent=p;
         idUser=id;

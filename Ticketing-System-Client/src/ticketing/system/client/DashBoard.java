@@ -33,10 +33,6 @@ public class DashBoard extends javax.swing.JFrame {
         panelProfileLine = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         btnProfile = new javax.swing.JLabel();
-        panelNota = new javax.swing.JPanel();
-        panelNotaLine = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        btnNota = new javax.swing.JLabel();
         panelSaldo = new javax.swing.JPanel();
         panelSaldoLine = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -194,72 +190,7 @@ public class DashBoard extends javax.swing.JFrame {
         );
 
         menu.add(panelProfile);
-        panelProfile.setBounds(20, 410, 252, 61);
-
-        panelNota.setBackground(new java.awt.Color(255, 255, 255));
-        panelNota.setPreferredSize(new java.awt.Dimension(252, 61));
-
-        panelNotaLine.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panelNotaLineLayout = new javax.swing.GroupLayout(panelNotaLine);
-        panelNotaLine.setLayout(panelNotaLineLayout);
-        panelNotaLineLayout.setHorizontalGroup(
-            panelNotaLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 8, Short.MAX_VALUE)
-        );
-        panelNotaLineLayout.setVerticalGroup(
-            panelNotaLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 49, Short.MAX_VALUE)
-        );
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bill.png"))); // NOI18N
-
-        btnNota.setBackground(new java.awt.Color(0, 0, 0));
-        btnNota.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        btnNota.setForeground(new java.awt.Color(102, 102, 102));
-        btnNota.setText("Nota Transaksi");
-        btnNota.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnNotaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnNotaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnNotaMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelNotaLayout = new javax.swing.GroupLayout(panelNota);
-        panelNota.setLayout(panelNotaLayout);
-        panelNotaLayout.setHorizontalGroup(
-            panelNotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelNotaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelNotaLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnNota, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelNotaLayout.setVerticalGroup(
-            panelNotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNotaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelNotaLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(panelNotaLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNotaLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnNota, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        menu.add(panelNota);
-        panelNota.setBounds(20, 340, 252, 61);
+        panelProfile.setBounds(20, 340, 252, 61);
 
         panelSaldo.setBackground(new java.awt.Color(255, 255, 255));
         panelSaldo.setPreferredSize(new java.awt.Dimension(252, 61));
@@ -515,7 +446,7 @@ public class DashBoard extends javax.swing.JFrame {
         );
 
         menu.add(panelClaimTicket);
-        panelClaimTicket.setBounds(10, 480, 260, 60);
+        panelClaimTicket.setBounds(10, 410, 260, 60);
 
         getContentPane().add(menu, java.awt.BorderLayout.LINE_START);
 
@@ -609,7 +540,7 @@ public class DashBoard extends javax.swing.JFrame {
         btnSaldo.setForeground(new Color(255,255,255));
         
         panelMain.removeAll();
-        panelMain.add(new Saldo(this,idUserLogin));        
+        panelMain.add(new FormSaldo(this,idUserLogin));        
         panelMain.revalidate();
     }//GEN-LAST:event_btnSaldoMouseClicked
 
@@ -646,29 +577,6 @@ public class DashBoard extends javax.swing.JFrame {
         panelParkirLine.setBackground(new Color(255,255,255));
         btnParkir.setForeground(new Color(102,102,102));
     }//GEN-LAST:event_btnParkirMouseExited
-
-    private void btnNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotaMouseClicked
-        panelNota.setBackground(new Color(0,102,153));
-        panelNotaLine.setBackground(new Color(255,255,255));
-        btnNota.setForeground(new Color(255,255,255));
-        
-//        panelMain.removeAll();
-//             
-//        panelMain.revalidate();
-        
-    }//GEN-LAST:event_btnNotaMouseClicked
-
-    private void btnNotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotaMouseEntered
-        panelNota.setBackground(new Color(0,102,153));
-        panelNotaLine.setBackground(new Color(255,255,255));
-        btnNota.setForeground(new Color(255,255,255));
-    }//GEN-LAST:event_btnNotaMouseEntered
-
-    private void btnNotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotaMouseExited
-        panelNota.setBackground(new Color(255,255,255));
-        panelNotaLine.setBackground(new Color(255,255,255));
-        btnNota.setForeground(new Color(102,102,102));
-    }//GEN-LAST:event_btnNotaMouseExited
 
     private void btnProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileMouseClicked
         panelProfile.setBackground(new Color(0,102,153));
@@ -782,7 +690,6 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel btnAcara;
     private javax.swing.JLabel btnClaimTicket;
     private javax.swing.JLabel btnLogOut;
-    private javax.swing.JLabel btnNota;
     private javax.swing.JLabel btnParkir;
     private javax.swing.JLabel btnProfile;
     private javax.swing.JLabel btnSaldo;
@@ -790,7 +697,6 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private keeptoo.KGradientPanel kGradientPanel1;
@@ -805,8 +711,6 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JPanel panelLogOut;
     private javax.swing.JPanel panelLogOutLine;
     private javax.swing.JPanel panelMain;
-    private javax.swing.JPanel panelNota;
-    private javax.swing.JPanel panelNotaLine;
     private javax.swing.JPanel panelParkir;
     private javax.swing.JPanel panelParkirLine;
     private javax.swing.JPanel panelProfile;

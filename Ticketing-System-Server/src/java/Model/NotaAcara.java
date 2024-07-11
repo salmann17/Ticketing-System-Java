@@ -143,7 +143,7 @@ public class NotaAcara{
                     
                     a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO history_transaksi(jumlah, users_id, is_topup, nota_acara_id) VALUES (?, ?, 0, ?)"));
                     PreparedStatement tambahNota = (PreparedStatement)a.getStatement();
-                    tambahNota.setInt(1, jumlah);
+                    tambahNota.setDouble(1, harga);
                     tambahNota.setInt(2, user.getId());
                     tambahNota.setInt(3, id);
                     tambahNota.executeUpdate();

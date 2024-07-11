@@ -7,7 +7,10 @@ package Model;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -174,7 +177,7 @@ public class NotaParkir{
                                 
                                 a.setStatement(Koneksi.getConn().prepareStatement("INSERT INTO history_transaksi(jumlah, users_id, is_topup, nota_parkir_id) VALUES (?, ?, 0, ?)"));
                                 PreparedStatement tambahNota = (PreparedStatement)a.getStatement();
-                                tambahNota.setDouble(1, this.harga);
+                                tambahNota.setDouble(1, this.slot_parkir.getHarga());
                                 tambahNota.setInt(2, this.user.getId());
                                 tambahNota.setInt(3, this.id);
                                 int rowAffected = tambahNota.executeUpdate();
@@ -194,31 +197,30 @@ public class NotaParkir{
         }
         return false;
     }
-//    public static NotaParkir findById(int id) {
-//        Koneksi a = new Koneksi();
-//        try {
-//            String query = "SELECT nota_parkir.id, nota_parkir.tgl_reservasi, nota_parkir.tgl_finish, nota_parkir.harga, " +
-//                           "posisi.id AS posisiId, posisi.nomor, posisi.harga AS posisiHarga, " +
-//                           "users.id AS userId, users.username, users.password, users.saldo, users.no_telp, users.email " +
-//                           "FROM nota_parkir " +
-//                           "INNER JOIN posisi ON nota_parkir.posisi_id = posisi.id " +
-//                           "INNER JOIN users ON nota_parkir.users_id = users.id " +
-//                           "WHERE nota_parkir.id = ?";
-//            a.setStatement(Koneksi.getConn().prepareStatement(query));
-//            PreparedStatement sql = (PreparedStatement)a.getStatement();
-//            sql.setInt(1, id);
-//            a.setResult(sql.executeQuery());
-//            if (a.getResult().next()) {
-//                Slot_Parkir posisi = new Slot_Parkir(a.getResult().getInt("posisiId"), a.getResult().getString("nomor"), a.getResult().getDouble("posisiHarga"));
-//                User user = new User(a.getResult().getInt("userId"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
-//                NotaParkir notaParkir = new NotaParkir(a.getResult().getInt("id"), posisi, user, a.getResult().getTimestamp("tgl_reservasi"), a.getResult().getTimestamp("tgl_finish"), a.getResult().getDouble("harga"));
-//                return notaParkir;
-//            }
-//        } catch (Exception ex) {
-//            System.out.println("failed because : " + ex.getMessage());
-//        }
-//        return null;
-//    }
+    public static NotaParkir findById(int id) {
+        Koneksi k = new Koneksi();
+        try {
+            k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM nota_parkir WHERE id = ?"));
+            PreparedStatement sql = (PreparedStatement)k.getStatement();
+            sql.setInt(1, id);
+            k.setResult(sql.executeQuery());
+            if (k.getResult().next()) {
+                NotaParkir np = new NotaParkir();
+                np.setId(k.getResult().getInt("id"));
+                np.setTanggal_transaksi(k.getResult().getTimestamp("tanggal_transaksi").toString());
+                np.setUser(User.findById(k.getResult().getInt("users_id")));
+                np.setTanggal_booking(k.getResult().getDate("tanggal_booking").toString());
+                np.setSlot_parkir(Slot_Parkir.findByKodeIdParkir(k.getResult().getInt("slot_parkir_parkir_id"), k.getResult().getString("slot_parkir_kode")));
+                np.setJam_parkir(Jam_Parkir.findById(k.getResult().getInt("jam_parkir_id")));
+                np.setHarga(k.getResult().getDouble("harga"));
+                
+                return np;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
 
         

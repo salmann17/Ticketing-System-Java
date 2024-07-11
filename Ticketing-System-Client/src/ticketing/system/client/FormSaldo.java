@@ -10,17 +10,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Salman Alfarizi
  */
-public class Saldo extends javax.swing.JPanel {
+public class FormSaldo extends javax.swing.JPanel {
 
     /**
-     * Creates new form Saldo
+     * Creates new form FormSaldo
      */
     private DashBoard parent;
     int idUser;
-    public Saldo() {
+    public FormSaldo() {
         initComponents();
     }
-    public Saldo(DashBoard p,int id) {
+    public FormSaldo(DashBoard p,int id) {
         this();
         parent = p;
         idUser = id;
@@ -31,7 +31,7 @@ public class Saldo extends javax.swing.JPanel {
         jTextFieldSaldo.setText(String.valueOf(getUserById(idUser).getSaldo()));
         DefaultTableModel dtm = (DefaultTableModel) tableSaldo.getModel();
         dtm.setRowCount(0);
-        Object[] rowData = new Object[2];
+        Object[] rowData = new Object[3];
         java.util.List<ticketing.system.client.HistoryTransaksi> listTransaksi = dataHistoryTransaksi(idUser);
         
         for (ticketing.system.client.HistoryTransaksi obj : listTransaksi)
@@ -40,9 +40,21 @@ public class Saldo extends javax.swing.JPanel {
             {
                 ticketing.system.client.HistoryTransaksi tampung = (ticketing.system.client.HistoryTransaksi)obj;
                 rowData[0]=tampung.getId();
-                rowData[1]=tampung.getJumlah();
+                if(tampung.isTopup){
+                    rowData[1] = tampung.getJumlah();  
+                    rowData[2] = "TopUp";
+                }
+                else{
+                    rowData[1] = "-" + tampung.getJumlah();
+                    if(tampung.notaParkir == null ){                        
+                        rowData[2] = "Booking Acara";
+                    }
+                    else{                        
+                        rowData[2] = "Booking Parkir";
+                    }
+                }
                 dtm.addRow(rowData);
-            }
+            }                                
         }
     }
     /**
@@ -58,7 +70,6 @@ public class Saldo extends javax.swing.JPanel {
         jTextFieldSaldo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButtonDetail = new javax.swing.JButton();
         jButtonTopup = new javax.swing.JButton();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -82,11 +93,6 @@ public class Saldo extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("CURRENT SALDO :");
-
-        jButtonDetail.setBackground(new java.awt.Color(0, 51, 51));
-        jButtonDetail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButtonDetail.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonDetail.setText("Detail");
 
         jButtonTopup.setBackground(new java.awt.Color(0, 51, 51));
         jButtonTopup.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -133,11 +139,6 @@ public class Saldo extends javax.swing.JPanel {
                 "ID", "Jumlah", "Keterangan"
             }
         ));
-        tableSaldo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableSaldoMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tableSaldo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -153,14 +154,9 @@ public class Saldo extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(jButtonDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel3)
-                                .addGap(63, 63, 63)))
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addGap(63, 63, 63)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonTopup, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -186,18 +182,11 @@ public class Saldo extends javax.swing.JPanel {
                             .addComponent(jTextFieldSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonTopup, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonTopup, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tableSaldoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSaldoMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_tableSaldoMouseClicked
 
     private void jButtonTopupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonTopupMouseClicked
         Topup form = new Topup(this, idUser);
@@ -206,7 +195,6 @@ public class Saldo extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonDetail;
     private javax.swing.JButton jButtonTopup;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
