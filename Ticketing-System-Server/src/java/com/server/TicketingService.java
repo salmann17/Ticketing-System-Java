@@ -52,8 +52,7 @@ public class TicketingService {
     @WebMethod(operationName = "getAcara")
     public Acara[] getAcara() {
         //TODO write your implementation code here:
-        ArrayList<Acara> listAcara = Acara.viewListData();
-        
+        ArrayList<Acara> listAcara = Acara.viewListData();        
         
         Acara[] arrAcara = new Acara[listAcara.size()];
         
@@ -172,9 +171,9 @@ public class TicketingService {
      * Web service operation
      */
     @WebMethod(operationName = "ClaimTicketAcara")
-    public Boolean ClaimTicketAcara(@WebParam(name = "userId") int acaraId) {
+    public Boolean ClaimTicketAcara(@WebParam(name = "NotaAcaraId") int NotaAcaraId) {
         //TODO write your implementation code here:
-        return NotaAcara.ClaimTicketAcara(acaraId);        
+        return NotaAcara.ClaimTicketAcara(NotaAcaraId);        
     }
 
     /**
@@ -222,7 +221,5 @@ public class TicketingService {
             listNotaAcara.toArray(arrNotaAcara);        
         }               
         return arrNotaAcara;
-    }
-    
-    
+    }    
 }

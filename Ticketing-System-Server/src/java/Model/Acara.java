@@ -91,7 +91,7 @@ public class Acara{
         Koneksi k = new Koneksi();
         try {
             k.setStatement((Statement)Koneksi.getConn().createStatement());
-            k.setResult(k.getStatement().executeQuery("SELECT * FROM Acara"));
+            k.setResult(k.getStatement().executeQuery("SELECT * FROM Acara where tanggal_acara > now()"));
             while (k.getResult().next()) {
                 Acara tampung = new Acara(k.getResult().getInt("id"),
                         k.getResult().getString("nama"),                        
@@ -150,7 +150,7 @@ public class Acara{
      public static Acara findByName(String nama) {
         Koneksi a = new Koneksi();
         try {
-            a.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM Acara WHERE nama = ?;"));
+            a.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM Acara WHERE nama = ? and tanggal_acara > now();"));
             PreparedStatement sql = (PreparedStatement)a.getStatement();
             sql.setString(1, nama);
             a.setResult(sql.executeQuery());
