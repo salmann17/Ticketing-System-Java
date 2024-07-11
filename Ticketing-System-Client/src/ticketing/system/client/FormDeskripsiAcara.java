@@ -29,6 +29,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
     }
     Acara acaraPilih;
     FormAcara parent;
+    int jumlahTiket;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,6 +44,9 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jSpinnerJumlah = new javax.swing.JSpinner();
         jLabelNama3 = new javax.swing.JLabel();
+        jLabelNama4 = new javax.swing.JLabel();
+        jLabelNama5 = new javax.swing.JLabel();
+        jLabelHarga = new javax.swing.JLabel();
         jTextFieldDeskripsi = new javax.swing.JTextField();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabelNamaAcara = new javax.swing.JLabel();
@@ -71,26 +75,56 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
 
         jSpinnerJumlah.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jSpinnerJumlah.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSpinnerJumlah.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinnerJumlahStateChanged(evt);
+            }
+        });
+        jSpinnerJumlah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jSpinnerJumlahMouseClicked(evt);
+            }
+        });
 
         jLabelNama3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabelNama3.setText("Pax");
+
+        jLabelNama4.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabelNama4.setText("Rp");
+
+        jLabelNama5.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabelNama5.setText("Total :");
+
+        jLabelHarga.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabelHarga.setText("Rp");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(jLabelNama2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSpinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(jLabelNama3)
-                .addContainerGap(105, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(127, 127, 127)
+                .addComponent(jLabelNama2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSpinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabelNama3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelNama4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(90, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(137, 137, 137)
+                    .addComponent(jLabelNama5, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(332, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,13 +134,22 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
                     .addComponent(jLabelNama2)
                     .addComponent(jSpinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNama3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNama4)
+                    .addComponent(jLabelHarga))
+                .addGap(16, 16, 16)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(83, Short.MAX_VALUE)
+                    .addComponent(jLabelNama5)
+                    .addGap(64, 64, 64)))
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(210, 310, 600, 184);
+        jPanel1.setBounds(210, 310, 600, 183);
 
         jTextFieldDeskripsi.setEditable(false);
         jTextFieldDeskripsi.setForeground(new java.awt.Color(102, 102, 102));
@@ -170,7 +213,7 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         try
         {
-            int jumlahTiket = (int) jSpinnerJumlah.getValue();
+            jumlahTiket = (int) jSpinnerJumlah.getValue();
             NotaAcara na = tambahNotaAcara(parent.idUser, acaraPilih.getId(), jumlahTiket);
             if(na.getHarga()!=0){
                 JOptionPane.showMessageDialog(this, "   BERHASIL    "
@@ -194,9 +237,18 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonBackActionPerformed
+
+    private void jSpinnerJumlahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSpinnerJumlahMouseClicked
+        jumlahTiket = (int) jSpinnerJumlah.getValue();
+        jLabelHarga.setText(String.valueOf(jumlahTiket*acaraPilih.getHarga()));
+    }//GEN-LAST:event_jSpinnerJumlahMouseClicked
+
+    private void jSpinnerJumlahStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerJumlahStateChanged
+        jumlahTiket = (int) jSpinnerJumlah.getValue();
+        jLabelHarga.setText(String.valueOf(jumlahTiket*acaraPilih.getHarga()));
+    }//GEN-LAST:event_jSpinnerJumlahStateChanged
 
     /**
      * @param args the command line arguments
@@ -236,8 +288,11 @@ public class FormDeskripsiAcara extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBack;
+    private javax.swing.JLabel jLabelHarga;
     private javax.swing.JLabel jLabelNama2;
     private javax.swing.JLabel jLabelNama3;
+    private javax.swing.JLabel jLabelNama4;
+    private javax.swing.JLabel jLabelNama5;
     private javax.swing.JLabel jLabelNamaAcara;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinnerJumlah;
