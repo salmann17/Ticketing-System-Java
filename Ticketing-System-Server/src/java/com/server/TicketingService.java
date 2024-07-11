@@ -127,7 +127,7 @@ public class TicketingService {
         //TODO write your implementation code here:
         System.out.println("Menerima permintaan untuk user ID: " + id);
 
-        ArrayList<History_Transaksi> listTransaksi = User.DataHistoryTransaksi(id);
+        ArrayList<History_Transaksi> listTransaksi = History_Transaksi.DataHistoryTransaksi(id);
 
         if (listTransaksi == null) {
             System.out.println("Tidak ada transaksi ditemukan untuk user ID: " + id);
@@ -167,9 +167,9 @@ public class TicketingService {
         return new NotaAcara();
     }
     @WebMethod(operationName = "TambahTopUp")
-    public Boolean TambahTopUp(@WebParam(name = "jumlah") double jumlah, @WebParam(name = "users_id") int users_id, @WebParam(name = "is_topup") boolean is_topup) {
+    public Boolean TambahTopUp(@WebParam(name = "jumlah") double jumlah, @WebParam(name = "users_id") int users_id) {
         //TODO write your implementation code here:
-        History_Transaksi ht = new History_Transaksi(jumlah,User.findById(users_id),is_topup);
+        History_Transaksi ht = new History_Transaksi(jumlah,User.findById(users_id));
         return ht.topUpSaldo();
     }
 

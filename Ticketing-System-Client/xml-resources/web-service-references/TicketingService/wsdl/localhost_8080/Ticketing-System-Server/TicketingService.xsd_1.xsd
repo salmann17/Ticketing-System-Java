@@ -272,7 +272,6 @@
 <xs:sequence>
 <xs:element name="jumlah" type="xs:double"/>
 <xs:element name="users_id" type="xs:int"/>
-<xs:element name="is_topup" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -312,6 +311,7 @@
 <xs:element name="jumlah" type="xs:double"/>
 <xs:element name="notaAcara" type="tns:notaAcara" minOccurs="0"/>
 <xs:element name="notaParkir" type="tns:notaParkir" minOccurs="0"/>
+<xs:element name="tanggal_topup" type="xs:string" minOccurs="0"/>
 <xs:element name="user" type="tns:user" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>

@@ -140,7 +140,7 @@ public class Topup extends javax.swing.JFrame {
         double jumlah = Double.parseDouble(jTextFieldNominal.getText()) ;
         int userId = idUser;
         Boolean is_topup = true;
-        if(tambahTopUp(jumlah, userId, true) == true){
+        if(tambahTopUp(jumlah, userId) == true){
             JOptionPane.showMessageDialog(parent, "topup berhasil");
             parent.RefreshTabel(idUser);
             this.dispose();
@@ -202,10 +202,10 @@ public class Topup extends javax.swing.JFrame {
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 
-    private static Boolean tambahTopUp(double jumlah, int usersId, boolean isTopup) {
+    private static Boolean tambahTopUp(double jumlah, int usersId) {
         ticketing.system.client.TicketingService_Service service = new ticketing.system.client.TicketingService_Service();
         ticketing.system.client.TicketingService port = service.getTicketingServicePort();
-        return port.tambahTopUp(jumlah, usersId, isTopup);
+        return port.tambahTopUp(jumlah, usersId);
     }
     
 }

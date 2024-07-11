@@ -23,7 +23,7 @@ public class FormLogin extends javax.swing.JFrame{
         try {
             initComponents();
             this.setLocationRelativeTo(null);
-            s = new Socket("192.168.3.198", 6969);
+            s = new Socket("localhost", 6969);
             this.in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             this.out = new DataOutputStream(s.getOutputStream());            
         } catch (IOException ex) {

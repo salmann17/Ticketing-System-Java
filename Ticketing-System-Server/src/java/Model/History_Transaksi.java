@@ -5,6 +5,8 @@
 package Model;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,10 +19,13 @@ public class History_Transaksi {
     private Boolean is_topup;
     private NotaAcara notaAcara;
     private NotaParkir notaParkir;
+    private String tanggal_topup;
+    
 
     public History_Transaksi(int id, double jumlah) {
         this.id = id;
         this.jumlah = jumlah;
+        this.tanggal_topup = "";
     }
     
     public History_Transaksi(int id, double jumlah, User user, Boolean is_topup, NotaAcara notaAcara, NotaParkir notaParkir) {
@@ -30,12 +35,14 @@ public class History_Transaksi {
         this.is_topup = is_topup;
         this.notaAcara = notaAcara;
         this.notaParkir = notaParkir;
+        this.tanggal_topup = "";
     }
     
-    public History_Transaksi(double jumlah, User user, Boolean is_topup) {
+    public History_Transaksi(double jumlah, User user) {
         this.jumlah = jumlah;
         this.user = user;        
         this.is_topup = true;
+        this.tanggal_topup = "";
     }
 
     public History_Transaksi(int id,double jumlah, User user, String keterangan, NotaAcara notaAcara) {
@@ -45,6 +52,7 @@ public class History_Transaksi {
         this.is_topup = false;
         this.notaAcara = notaAcara;     
         this.notaParkir = null;  
+        this.tanggal_topup = "";
     }
     
     public History_Transaksi(int id,double jumlah, User user, String keterangan, NotaParkir notaParkir) {
@@ -63,7 +71,9 @@ public class History_Transaksi {
         this.is_topup = false;
         this.notaAcara = new NotaAcara();
         this.notaParkir = new NotaParkir(); 
+        this.tanggal_topup = "";
     }
+     
 
     public int getId() {
         return id;
@@ -112,11 +122,20 @@ public class History_Transaksi {
     public void setNotaParkir(NotaParkir notaParkir) {
         this.notaParkir = notaParkir;
     }
+    public String getTanggal_topup() {
+        return tanggal_topup;
+    }
+
+    public void setTanggal_topup(String tanggal_topup) {
+        this.tanggal_topup = tanggal_topup;
+    }
+    
+    
     public boolean topUpSaldo() {
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("INSERT INTO history_transaksi(jumlah, users_id, is_topup) VALUES (?, ?, ?)");
+                PreparedStatement sql = Koneksi.getConn().prepareStatement("INSERT INTO history_transaksi(jumlah, users_id, is_topup, topup_date) VALUES (?, ?, ?,now())");
                 sql.setDouble(1, this.jumlah);
                 sql.setInt(2, this.user.getId());          
                 sql.setBoolean(3, this.is_topup);
@@ -139,40 +158,40 @@ public class History_Transaksi {
         return false;
     }
     
-//    public static ArrayList<History_Transaksi> viewListData() {
-//        ArrayList<History_Transaksi> collections = new ArrayList<>();
-//        Koneksi a = new Koneksi();
-//        try {
-//            String query = "SELECT saldo.id, saldo.jumlah, saldo.keterangan, users.id AS userId, users.username, users.password, users.saldo, users.no_telp, users.email, " +
-//                           "nota_acara.id AS notaAcaraId, nota_acara.users_id AS notaAcaraUserId, nota_acara.Acara_id AS notaAcaraAcaraId, nota_acara.jumlah AS notaAcaraJumlah, nota_acara.harga AS notaAcaraHarga, " +
-//                           "nota_parkir.id AS notaParkirId, nota_parkir.posisi_id AS notaParkirPosisiId, nota_parkir.users_id AS notaParkirUserId, nota_parkir.tgl_reservasi, nota_parkir.tgl_finish, nota_parkir.harga AS notaParkirHarga " +
-//                           "FROM saldo " +
-//                           "INNER JOIN users ON saldo.users_id = users.id " +
-//                           "LEFT JOIN nota_acara ON saldo.nota_acara_id = nota_acara.id " +
-//                           "LEFT JOIN nota_parkir ON saldo.nota_parkir_id = nota_parkir.id";
-//            a.setStatement(Koneksi.getConn().prepareStatement(query));
-//            PreparedStatement sql = (PreparedStatement)a.getStatement();
-//            a.setResult(sql.executeQuery());
-//            while (a.getResult().next()) {
-//                User user = new User(a.getResult().getInt("userId"), a.getResult().getString("username"), a.getResult().getString("password"), a.getResult().getDouble("saldo"), a.getResult().getString("no_telp"), a.getResult().getString("email"));
-//                
-//                NotaAcara notaAcara = null;
-//                if (a.getResult().getInt("notaAcaraId") != 0) {
-//                    notaAcara = new NotaAcara(a.getResult().getInt("notaAcaraId"), User.findById(a.getResult().getInt("notaAcaraUserId")), Acara.findById(a.getResult().getInt("notaAcaraAcaraId")), a.getResult().getInt("notaAcaraJumlah"), a.getResult().getDouble("notaAcaraHarga"));
-//                }
-//
-//                NotaParkir notaParkir = null;
-//                if (a.getResult().getInt("notaParkirId") != 0) {
-//                    notaParkir = new NotaParkir(a.getResult().getInt("notaParkirId"), Slot_Parkir.findById(a.getResult().getInt("notaParkirPosisiId")), User.findById(a.getResult().getInt("notaParkirUserId")), a.getResult().getTimestamp("tgl_reservasi"), a.getResult().getTimestamp("tgl_finish"), a.getResult().getDouble("notaParkirHarga"));
-//                }
-//
-//                History_Transaksi saldo = new History_Transaksi(a.getResult().getInt("id"), a.getResult().getDouble("jumlah"), user, a.getResult().getString("keterangan"), notaAcara, notaParkir);
-//                collections.add(saldo);
-//            }
-//            return collections;
-//        } catch (Exception ex) {
-//            System.out.println("failed because : " + ex.getMessage());
-//        }
-//        return null;
-//    }          
+    public static ArrayList<History_Transaksi> DataHistoryTransaksi(int userId) {
+        ArrayList<History_Transaksi> collections = new ArrayList<>();
+        Koneksi k = new Koneksi();
+        try {       
+            if (!Koneksi.getConn().isClosed()) {
+                k.setStatement(Koneksi.getConn().prepareStatement("SELECT * FROM history_transaksi WHERE users_id = ?"));
+                PreparedStatement sql = (PreparedStatement) k.getStatement();
+                sql.setInt(1, userId); 
+                k.setResult(sql.executeQuery());            
+
+                while (k.getResult().next()) {                                        
+                    History_Transaksi tampung = new History_Transaksi();
+                    tampung.setId(k.getResult().getInt("id"));
+                    tampung.setJumlah(k.getResult().getDouble("jumlah"));
+                    tampung.setUser(User.findById(k.getResult().getInt("users_id")));
+                    tampung.set_topup(k.getResult().getInt("is_topup") == 1);
+                    tampung.getNotaAcara().setId(k.getResult().getInt("nota_acara_id"));
+                    if(tampung.getNotaAcara().getId() == 0){
+                        
+                    }
+                    tampung.getNotaParkir().setId(k.getResult().getInt("nota_parkir_id"));
+                    tampung.setTanggal_topup(k.getResult().getTimestamp("topup_date").toString());
+                    collections.add(tampung);
+                }
+                
+                
+                return collections;
+            
+            }
+        } catch (SQLException ex) {
+            System.out.println("Failed because: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return null;
+}
+
 }

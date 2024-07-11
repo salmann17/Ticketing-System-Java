@@ -193,40 +193,7 @@ public class User {
         }
         return null;
     }
-    public static ArrayList<History_Transaksi> DataHistoryTransaksi(int userId) {
-    ArrayList<History_Transaksi> collections = new ArrayList<>();
-    Koneksi k = new Koneksi();
-    try {
-        if (Koneksi.getConn() == null) {
-            System.out.println("Koneksi ke database gagal.");
-            return null;
-        }
-        
-        System.out.println("Koneksi berhasil. Memulai query...");
-
-        k.setStatement(Koneksi.getConn().prepareStatement("SELECT id, jumlah FROM history_transaksi WHERE users_id = ?"));
-        PreparedStatement sql = (PreparedStatement) k.getStatement();
-        sql.setInt(1, userId); 
-        k.setResult(sql.executeQuery());
-
-        System.out.println("Query dieksekusi. Memproses hasil...");
-
-        while (k.getResult().next()) {
-            int id = k.getResult().getInt("id");
-            double jumlah = k.getResult().getDouble("jumlah");
-
-            System.out.println("Mendapatkan hasil: id = " + id + ", jumlah = " + jumlah);
-
-            History_Transaksi tampung = new History_Transaksi(id, jumlah);
-            collections.add(tampung);
-        }
-        return collections;
-    } catch (SQLException ex) {
-        System.out.println("Failed because: " + ex.getMessage());
-        ex.printStackTrace();
-    }
-    return null;
-}
+   
 
 //    public static ArrayList<History_Transaksi> DataHistoryTransaksi(int userId) {
 //    ArrayList<History_Transaksi> collections = new ArrayList<>();
