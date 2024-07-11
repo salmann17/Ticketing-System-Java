@@ -187,12 +187,12 @@ public class NotaAcara{
         try {
             Koneksi a = new Koneksi();
             if (!Koneksi.getConn().isClosed()) {
-                PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT tanggal_transaksi FROM nota_acara WHERE id = ? and status ='0'");
+                PreparedStatement sql = Koneksi.getConn().prepareStatement("SELECT a.tanggal_acara FROM nota_acara as na inner join acara as a on na.acara_id = a.id WHERE na.id = ? and na.status ='0'");
                 sql.setInt(1, acaraId);
                 ResultSet rs = sql.executeQuery();
 
                 if (rs.next()) {
-                    Timestamp timestamp = rs.getTimestamp("tanggal_transaksi");
+                    Timestamp timestamp = rs.getTimestamp("tanggal_acara");
                     if (timestamp != null) {
                         LocalDate transactionDate = timestamp.toLocalDateTime().toLocalDate();
                         LocalDate currentDate = LocalDate.now();
